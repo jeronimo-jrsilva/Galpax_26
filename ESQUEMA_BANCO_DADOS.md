@@ -1,33 +1,10 @@
----
-tipo: documentação
-projeto: Galpax
-titulo: "🗄️ Esquema do Banco de Dados (MySQL)"
-data: 2026-06-13
----
-
 # 🗄️ Esquema do Banco de Dados: Galpax
 
-Este documento contém o script necessário para criar o banco de dados local. Caso o sistema esteja em `isMock = false`, estas tabelas devem existir no MySQL.
+Este documento contém o script necessário para criar o banco de dados local. Estas tabelas devem existir no MySQL para o funcionamento pleno do sistema.
 
 ## 📊 Estrutura de Dados
 
-```mermaid
-erDiagram
-    LOJAS ||--o{ MENSALIDADE : "possui"
-    LOJAS {
-        int id_loja PK
-        string nome_loja
-        string email_loja
-        decimal aluguel_loja
-        string senha
-    }
-    MENSALIDADE {
-        int id_mensalidade PK
-        int id_loja FK
-        decimal mensalidade
-        string status
-    }
-```
+O sistema foca no relacionamento entre Lojas e suas respectivas Mensalidades.
 
 ## 📜 Script de Instalação (Master)
 
@@ -39,4 +16,4 @@ Utilize o arquivo **`GALPAX_MASTER_INSTALL.sql`** localizado na raiz deste proje
 3.  Configure seu arquivo `secrets.properties` com as credenciais do seu banco local.
 
 ---
-[[README|🏠 Voltar ao Início]]
+[🏠 Voltar ao Início](README.md)
