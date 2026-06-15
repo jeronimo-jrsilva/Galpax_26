@@ -1,7 +1,8 @@
 -- ======================================================
 -- 🚀 GALPAX_26: MASTER INSTALL SCRIPT
--- Versão: 1.0 (13/06/2026)
+-- Versão: 1.1 (15/06/2026)
 -- Descrição: Cria o banco do zero, tabelas e popula dados.
+-- Ajustes: Corrigido ENUM de status e completadas mensalidades.
 -- ======================================================
 
 -- 1. RESET DO AMBIENTE
@@ -97,23 +98,58 @@ INSERT INTO cad_carro (placa_carro, modelo_carro, cnh_carro) VALUES
 ('CDE3456','Polo','20202020202'), ('FGH7890','Virtus','21212121212');
 
 -- 5. TABELA: MENSALIDADE (Financeiro)
+-- AJUSTE: O status 'Pago' foi adicionado para coincidir com a lógica do código Java (Bancodedados.java -> pagarMensalidade)
 CREATE TABLE `mensalidade` (
   `id_mensalidade` int NOT NULL AUTO_INCREMENT,
   `id_loja` int NOT NULL,
   `mensalidade` decimal(10,2) NOT NULL,
   `vencimento` date NOT NULL,
   `data_pagamento` date DEFAULT NULL,
-  `status` enum('Pendente','Paga','Atrasada','Cancelada') DEFAULT 'Pendente',
+  `status` enum('Pendente','Pago','Atrasada','Cancelada') DEFAULT 'Pendente',
   PRIMARY KEY (`id_mensalidade`),
   KEY `fk_mensalidade_loja` (`id_loja`),
   CONSTRAINT `fk_mensalidade_loja` FOREIGN KEY (`id_loja`) REFERENCES `cad_loja` (`id_loja`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-INSERT INTO mensalidade (id_loja, mensalidade, vencimento, status) VALUES
-(1, 2500.00, '2026-06-10', 'Pendente'), (2, 1800.00, '2026-06-10', 'Pendente'),
-(3, 3200.00, '2026-06-10', 'Pendente'), (4, 2100.00, '2026-06-10', 'Pendente'),
-(5, 1950.00, '2026-06-10', 'Paga'), (6, 4500.00, '2026-06-10', 'Pendente'),
-(7, 2800.00, '2026-06-10', 'Paga'), (8, 1600.00, '2026-06-10', 'Pendente'),
-(9, 5000.00, '2026-06-10', 'Atrasada'), (10, 2200.00, '2026-06-10', 'Pendente'),
-(11, 2700.00, '2026-07-10', 'Pendente'), (12, 1400.00, '2026-07-10', 'Pendente'),
-(13, 3100.00, '2026-07-10', 'Pendente'), (14, 3800.00, '2026-07-10', 'Pendente');
+-- MENSALIDADES COMPLETAS (Pelo menos uma para cada uma das 32 lojas)
+INSERT INTO mensalidade (id_loja, mensalidade, vencimento, status, data_pagamento) VALUES
+-- Maio (Mês Passado - Pagas)
+(1, 2500.00, '2026-05-10', 'Pago', '2026-05-09'),
+(2, 1800.00, '2026-05-10', 'Pago', '2026-05-10'),
+(3, 3200.00, '2026-05-10', 'Pago', '2026-05-05'),
+(4, 2100.00, '2026-05-10', 'Pago', '2026-05-12'),
+(5, 1950.00, '2026-05-10', 'Pago', '2026-05-10'),
+
+-- Junho (Mês Atual - Pendentes/Pagas/Atrasadas)
+(1, 2500.00, '2026-06-10', 'Pendente', NULL),
+(2, 1800.00, '2026-06-10', 'Pendente', NULL),
+(3, 3200.00, '2026-06-10', 'Pendente', NULL),
+(4, 2100.00, '2026-06-10', 'Pendente', NULL),
+(5, 1950.00, '2026-06-10', 'Pago', '2026-06-10'),
+(6, 4500.00, '2026-06-10', 'Pendente', NULL),
+(7, 2800.00, '2026-06-10', 'Pago', '2026-06-08'),
+(8, 1600.00, '2026-06-10', 'Pendente', NULL),
+(9, 5000.00, '2026-06-10', 'Atrasada', NULL),
+(10, 2200.00, '2026-06-10', 'Pendente', NULL),
+(11, 2700.00, '2026-06-10', 'Pendente', NULL),
+(12, 1400.00, '2026-06-10', 'Pendente', NULL),
+(13, 3100.00, '2026-06-10', 'Pendente', NULL),
+(14, 3800.00, '2026-06-10', 'Pendente', NULL),
+(15, 2000.00, '2026-06-10', 'Pendente', NULL),
+(16, 4200.00, '2026-06-10', 'Pendente', NULL),
+(17, 1500.00, '2026-06-10', 'Pago', '2026-06-05'),
+(18, 2400.00, '2026-06-10', 'Pendente', NULL),
+(19, 3500.00, '2026-06-10', 'Pendente', NULL),
+(20, 1700.00, '2026-06-10', 'Pendente', NULL),
+(21, 2900.00, '2026-06-10', 'Pendente', NULL),
+(22, 1200.00, '2026-06-10', 'Pago', '2026-06-10'),
+(23, 1900.00, '2026-06-10', 'Pendente', NULL),
+(24, 2300.00, '2026-06-10', 'Pendente', NULL),
+(25, 4800.00, '2026-06-10', 'Atrasada', NULL),
+(26, 1850.00, '2026-06-10', 'Pendente', NULL),
+(27, 5500.00, '2026-06-10', 'Pendente', NULL),
+(28, 3300.00, '2026-06-10', 'Pendente', NULL),
+(29, 2050.00, '2026-06-10', 'Pendente', NULL),
+(30, 2600.00, '2026-06-10', 'Pendente', NULL),
+(31, 1350.00, '2026-06-10', 'Pendente', NULL),
+(32, 3900.00, '2026-06-10', 'Pendente', NULL);
