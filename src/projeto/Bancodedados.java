@@ -5,13 +5,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.lang.reflect.Proxy;
-import java.lang.reflect.InvocationHandler;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Scanner;
 
 import javax.swing.JComboBox;
@@ -23,16 +18,13 @@ public class Bancodedados {
 	public Connection conexão = null;
 	public Statement consultas = null;
 	public ResultSet resultado = null;
-    
-    // MODO MOCK (OFFLINE)
-    public boolean isMock = false;
-    private int mockIndex = -1;
 	
 	Scanner numero = new Scanner(System.in);
 	Scanner texto = new Scanner(System.in);
 	
 	public void conectar() {
 		java.util.Properties props = new java.util.Properties();
+		// Tenta carregar da raiz do projeto (Diretório de execução do Eclipse)
 		java.io.File configFile = new java.io.File("secrets.properties");
 		
 		try (java.io.FileInputStream fis = new java.io.FileInputStream(configFile)) {
@@ -45,25 +37,26 @@ public class Bancodedados {
 			Class.forName(driver);
 			this.conexão = DriverManager.getConnection(servidor, usuario, senha);
 			this.consultas = this.conexão.createStatement();
-            this.isMock = false;
 			System.out.println("✅ Conectado com sucesso ao MySQL via secrets.properties");
 		} catch (Exception e) {
-			System.err.println("⚠️ Aviso: secrets.properties não encontrado. Usando fallback localhost.");
+			System.err.println("⚠️ Aviso: secrets.properties não encontrado ou erro na leitura. Usando fallback localhost.");
 			try {
 				Class.forName("com.mysql.cj.jdbc.Driver");
 				this.conexão = DriverManager.getConnection("jdbc:mysql://localhost:3306/galpax", "root", "");
 				this.consultas = this.conexão.createStatement();
-                this.isMock = false;
 				System.out.println("✅ Conectado via Fallback (Localhost/Root)");
 			} catch (Exception e2) {
-				System.err.println("🚀 MODO MOCK ATIVADO: Banco de dados offline.");
-                this.isMock = true;
+				System.err.println("❌ Erro Crítico: Falha total na conexão com o banco de dados.");
 			}
 		}
 	}
 	
 	public boolean verificar() {
-		return (this.isMock || this.conexão != null);
+		if(this.conexão!= null) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 	
 	public void desconectar() {
@@ -72,12 +65,8 @@ public class Bancodedados {
 		} catch(Exception e) { }
 	}
 	
+	
 	public String realizarLogin(String email, String senha) {
-        if (isMock) {
-            if (email.equals("admin")) return "admin";
-            return "cliente";
-        }
-
 		// 1º PASSO: Tenta buscar na tabela de LOJAS (Clientes)
 		String queryLoja = "SELECT nivel_loja FROM cad_loja WHERE email_loja = ? AND senha = ?";
 		
@@ -87,12 +76,15 @@ public class Bancodedados {
 			
 			try (ResultSet rsLoja = pstmtLoja.executeQuery()) {
 				if (rsLoja.next()) {
+					// Se achou na tabela de lojas, retorna o nível cadastrado na loja (ex: 'cliente')
 					return rsLoja.getString("nivel_loja"); 
 				}
 			}
-		} catch (Exception e) { }
+		} catch (Exception e) {
+			System.err.println("Erro ao autenticar na tabela cad_loja: " + e.getMessage());
+		}
 		
-		// 2º PASSO: Tenta buscar na tabela de ADMINS
+		// 2º PASSO: Se não achou na cad_loja, tenta buscar na tabela de ADMINS
 		String queryAdmin = "SELECT email_admin FROM cad_admin WHERE email_admin = ? AND senha_admin = ?";
 		
 		try (PreparedStatement pstmtAdmin = this.conexão.prepareStatement(queryAdmin)) {
@@ -101,75 +93,43 @@ public class Bancodedados {
 			
 			try (ResultSet rsAdmin = pstmtAdmin.executeQuery()) {
 				if (rsAdmin.next()) {
+					// Se achou na tabela de admins, retorna a String fixa "admin"
 					return "admin"; 
 				}
 			}
-		} catch (Exception e) { }
+		} catch (Exception e) {
+			System.err.println("Erro ao autenticar na tabela cad_admin: " + e.getMessage());
+		}
 		
+		// Se passou pelas duas tabelas e não encontrou nada, retorna null (usuário/senha inválidos)
 		return null; 
 	}
 
-    // --- SISTEMA DE MOCK (RESULTSET DINÂMICO) ---
-    private ResultSet createMockResultSet(List<Map<String, Object>> data) {
-        mockIndex = -1;
-        return (ResultSet) Proxy.newProxyInstance(
-            ResultSet.class.getClassLoader(),
-            new Class[] { ResultSet.class },
-            new InvocationHandler() {
-                @Override
-                public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-                    String methodName = method.getName();
-                    if (methodName.equals("next")) {
-                        mockIndex++;
-                        return mockIndex < data.size();
-                    }
-                    if (methodName.equals("getString")) {
-                        String col = (String) args[0];
-                        Object val = data.get(mockIndex).get(col);
-                        return (val == null) ? "" : String.valueOf(val);
-                    }
-                    if (methodName.equals("getInt")) {
-                        String col = (String) args[0];
-                        Object val = data.get(mockIndex).get(col);
-                        return (val instanceof Integer) ? (Integer) val : 0;
-                    }
-                    if (methodName.equals("getDouble")) {
-                        String col = (String) args[0];
-                        Object val = data.get(mockIndex).get(col);
-                        return (val instanceof Double) ? (Double) val : 0.0;
-                    }
-                    if (methodName.equals("close")) return null;
-                    return null;
-                }
-            }
-        );
-    }
-
 	public void inseriVeiculo(String placa, String modelo, String CNH) {
-        if (isMock) {
-            JOptionPane.showMessageDialog(null, "[MOCK] Veículo " + placa + " cadastrado com sucesso!");
-            return;
-        }
+	   
 		String query = "INSERT INTO cad_carro (placa_carro, modelo_carro, cnh_carro) VALUES (?, ?, ?)";
+		
 		try (PreparedStatement pstmt = this.conexão.prepareStatement(query)) {
 			pstmt.setString(1, placa);
 			pstmt.setString(2, modelo);
 			pstmt.setString(3, CNH);
+			
 			pstmt.executeUpdate();
 			JOptionPane.showMessageDialog(null, "Veículo cadastrado com sucesso!");
-		} catch (Exception e) { }
+			
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Erro ao cadastrar: " + e.getMessage(), "Aviso", JOptionPane.ERROR_MESSAGE);
+		}
 	}
 	
 	public void inserirLojaCompleta(String nome, String cnpj, String responsavel, String telefone, 
             String email, String endereco, String sala, String tipo, 
             String aluguel, String status, String nivel,String senha) {
-        if (isMock) {
-            JOptionPane.showMessageDialog(null, "[MOCK] Loja " + nome + " cadastrada com sucesso!");
-            return;
-        }
+
 		String query = "INSERT INTO cad_loja (nome_loja, cnpj_loja, responsavel_loja, telefone_loja, "
 		+ "email_loja, endereco_loja, sala_loja, tipo_loja, aluguel_loja, status_loja, nivel_loja,senha) "
 		+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
+		
 		try (java.sql.PreparedStatement stmt = this.conexão.prepareStatement(query)) {
     		stmt.setString(1, nome);
     		stmt.setString(2, cnpj);
@@ -183,123 +143,216 @@ public class Bancodedados {
     		stmt.setString(10, status);
     		stmt.setString(11, nivel);
     		stmt.setString(12, senha);
+    		
     		stmt.executeUpdate();
-		} catch(Exception e) { }
+		} catch(Exception e) {
+		    JOptionPane.showMessageDialog(null, "Erro ao cadastrar loja no banco: " + e.getMessage(), "Aviso", -1);
+		}
 	}
 	
 	public ResultSet listarVeiculos() {
-        if (isMock) {
-            List<Map<String, Object>> data = new ArrayList<>();
-            Map<String, Object> v1 = new HashMap<>();
-            v1.put("placa_carro", "ABC-1234"); v1.put("modelo_carro", "Fiat Uno"); v1.put("cnh_carro", "123456");
-            data.add(v1);
-            return createMockResultSet(data);
-        }
 		try {
 			String query = "select * from cad_carro";
 			this.resultado = this.consultas.executeQuery(query);
 			return this.resultado;
-		} catch(Exception e){ return null; }
+		} catch(Exception e){
+			System.out.println("Erro ao buscar veículos: " + e.getMessage());
+			return null;
+		}
 	}
 
 	public ResultSet buscarVeiculo(String placa) {
-        if (isMock) {
-            List<Map<String, Object>> data = new ArrayList<>();
-            Map<String, Object> v1 = new HashMap<>();
-            v1.put("placa_carro", placa); v1.put("modelo_carro", "Fusca Mock"); v1.put("cnh_carro", "99999");
-            data.add(v1);
-            return createMockResultSet(data);
-        }
 		try {
 			String query = "SELECT * FROM cad_carro WHERE placa_carro = '" + placa + "'";
 			this.resultado = this.consultas.executeQuery(query);
 			return this.resultado;
-		} catch (Exception e) { return null; }
+		} catch (Exception e) {
+			System.out.println("Erro ao buscar veículo: " + e.getMessage());
+			return null;
+		}
 	}
 	
 	public List<Mensalidade> listarMensalidades() {
+
 		List<Mensalidade> lista = new ArrayList<>();
-        if (isMock) {
-            Mensalidade m = new Mensalidade();
-            m.set_nome_loja("Loja Exemplo (Mock)"); m.set_mensalidade(1500.0); m.set_status("Pendente");
-            lista.add(m);
-            return lista;
-        }
+
 		try {
-			String query = "SELECT m.*, l.nome_loja FROM mensalidade m INNER JOIN cad_loja l ON m.id_loja = l.id_loja;";
+
+			String query = "SELECT\r\n"
+					+ "    m.*,\r\n"
+					+ "    l.nome_loja\r\n"
+					+ "FROM mensalidade m\r\n"
+					+ "INNER JOIN cad_loja l\r\n"
+					+ "    ON m.id_loja = l.id_loja;";
+
 			this.resultado = this.consultas.executeQuery(query);
+
 			while(this.resultado.next()) {
+
 				Mensalidade m = new Mensalidade();
+				
+				m.setid_mensalidade(this.resultado.getInt("id_mensalidade"));
+				m.setid_loja(this.resultado.getInt("id_loja"));
+				
 				m.set_nome_loja(this.resultado.getString("nome_loja"));
 				m.set_mensalidade(this.resultado.getDouble("mensalidade"));
+				m.set_vencimento(this.resultado.getString("vencimento"));
+				m.setdata_pagamento(this.resultado.getString("data_pagamento"));
 				m.set_status(this.resultado.getString("status"));
+
 				lista.add(m);
 			}
-		} catch(Exception e) { }
+
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+
 		return lista;
 	}
 
+	// PAGAMENTO FICTÍCIO
 	public void pagarMensalidade(int idMensalidade) {
-        if (isMock) { JOptionPane.showMessageDialog(null, "[MOCK] Mensalidade paga!"); return; }
+
 		try {
-			String query = "UPDATE mensalidade SET status='Pago', data_pagamento=CURDATE() WHERE id_mensalidade=" + idMensalidade;
+
+			String query = "UPDATE mensalidade " +
+					"SET status='Pago', " +
+					"data_pagamento=CURDATE() " +
+					"WHERE id_mensalidade=" + idMensalidade;
+
 			this.consultas.executeUpdate(query);
-		} catch(Exception e) { }
+			System.out.println("Pagamento realizado com sucesso!");
+
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
 	}
 
+	// HISTÓRICO DE PAGAMENTOS
 	public List<Mensalidade> historicoMensalidades() {
+
 		List<Mensalidade> lista = new ArrayList<>();
-        if (isMock) return lista;
+
 		try {
-			String query = "SELECT * FROM mensalidade WHERE status LIKE 'Pago%'";
+
+			String query = "SELECT * FROM mensalidade " +
+					"WHERE status LIKE 'Pago%'";
+
 			this.resultado = this.consultas.executeQuery(query);
+
 			while(this.resultado.next()) {
+
 				Mensalidade m = new Mensalidade();
+
+				m.setid_mensalidade(this.resultado.getInt("id_mensalidade"));
+				m.setid_loja(this.resultado.getInt("id_loja"));
 				m.set_mensalidade(this.resultado.getDouble("mensalidade"));
+				m.set_vencimento(this.resultado.getString("vencimento"));
+				m.setdata_pagamento(this.resultado.getString("data_pagamento"));
 				m.set_status(this.resultado.getString("status"));
+
 				lista.add(m);
 			}
-		} catch(Exception e) { }
+
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+
 		return lista;
 	}
 	
 	public void verificarCliente(int sala) {
-        if (isMock) { JOptionPane.showMessageDialog(null, "[MOCK] Loja da Sala " + sala); return; }
 		String query = "SELECT * FROM cad_loja WHERE sala_loja = ?";
+
 		try (PreparedStatement pstmt = this.conexão.prepareStatement(query)) {
 			pstmt.setString(1, String.valueOf(sala));
+
 			try (ResultSet rs = pstmt.executeQuery()) {
 				if (rs.next()) {
-					JOptionPane.showMessageDialog(null, "Loja: " + rs.getString("nome_loja"));
+					String info = String.format(
+						"Sala: %s\nNome: %s\nCNPJ: %s\nResponsável: %s\nTipo: %s",
+						rs.getString("sala_loja"),
+						rs.getString("nome_loja"),
+						rs.getString("cnpj_loja"),
+						rs.getString("responsavel_loja"),
+						rs.getString("tipo_loja")
+					);
+
+					JOptionPane.showMessageDialog(
+						null,
+						info,
+						"Informações da Loja",
+						JOptionPane.INFORMATION_MESSAGE
+					);
+
+				} else {
+					JOptionPane.showMessageDialog(
+						null,
+						"Nenhuma loja encontrada na sala " + sala
+					);
 				}
 			}
-		} catch (Exception e) { }
+
+		} catch (Exception e) {
+			System.err.println("Erro ao buscar loja: " + e.getMessage());
+		}
 	}
 
 	public boolean isGalpaoOcupado(int sala) {
-        if (isMock) return (sala == 101); // Simula que a 101 está ocupada
+
 		String query = "SELECT 1 FROM cad_loja WHERE sala_loja = ?";
+
 		try (PreparedStatement pstmt = this.conexão.prepareStatement(query)) {
 			pstmt.setString(1, String.valueOf(sala));
-			try (ResultSet rs = pstmt.executeQuery()) { return rs.next(); }
-		} catch (Exception e) { return false; }
+
+			try (ResultSet rs = pstmt.executeQuery()) {
+				return rs.next();
+			}
+
+		} catch (Exception e) {
+			System.err.println("Erro ao verificar ocupação: " + e.getMessage());
+			return false;
+		}
 	}
 	
 	public void popularComboSalasLivres(JComboBox<String> comboBox) {
 		comboBox.removeAllItems();
-        if (isMock) { comboBox.addItem("102"); comboBox.addItem("103"); return; }
-		try {
-			for (int i = 101; i <= 105; i++) comboBox.addItem(String.valueOf(i));
-		} catch (Exception e) { }
+		
+		List<String> salasOcupadas = new ArrayList<>();
+		String query = "SELECT sala_loja FROM cad_loja";
+		
+		try (PreparedStatement pstmt = this.conexão.prepareStatement(query);
+			 ResultSet rs = pstmt.executeQuery()) {
+			
+			while (rs.next()) {
+				salasOcupadas.add(rs.getString("sala_loja"));
+			}
+			
+			for (int i = 101; i <= 132; i++) {
+				String sala = String.valueOf(i);
+				if (!salasOcupadas.contains(sala)) {
+					comboBox.addItem(sala);
+				}
+			}
+		} catch (Exception e) {
+			System.err.println("Erro ao carregar salas disponíveis: " + e.getMessage());
+		}
 	}
 	
 	public void inserirAdmin(String nome, String cpf, String email, String senha) {
-        if (isMock) { JOptionPane.showMessageDialog(null, "[MOCK] Admin " + nome + " criado!"); return; }
 	    String query = "INSERT INTO cad_admin (nome_admin, cpf_admin, email_admin, senha_admin) VALUES (?, ?, ?, ?)";
+	    
 	    try (PreparedStatement pstmt = this.conexão.prepareStatement(query)) {
-	        pstmt.setString(1, nome); pstmt.setString(2, cpf); pstmt.setString(3, email); pstmt.setString(4, senha);
+	        pstmt.setString(1, nome);
+	        pstmt.setString(2, cpf);
+	        pstmt.setString(3, email);
+	        pstmt.setString(4, senha);
+	        
 	        pstmt.executeUpdate();
 	        JOptionPane.showMessageDialog(null, "Administrador cadastrado com sucesso!");
-	    } catch (Exception e) { }
+	        
+	    } catch (Exception e) {
+	        JOptionPane.showMessageDialog(null, "Erro ao cadastrar administrador: " + e.getMessage(), "Aviso", JOptionPane.ERROR_MESSAGE);
+	    }
 	}
 }
