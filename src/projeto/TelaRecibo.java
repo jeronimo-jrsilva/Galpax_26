@@ -53,7 +53,7 @@ public class TelaRecibo {
         lblFundoRecibo.setBounds(0, 0, 500, 400);
         frame.getContentPane().add(lblFundoRecibo);
 
-        // APLICA GERENCIADOR (CTRL+W)
+     // APLICA GERENCIADOR (CTRL+W)
         GerenciadorJanelas.configurarJanela(frame);
         frame.setVisible(true);
     }
