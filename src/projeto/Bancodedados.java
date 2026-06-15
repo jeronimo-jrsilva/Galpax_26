@@ -42,7 +42,7 @@ public class Bancodedados {
 			System.err.println("⚠️ Aviso: secrets.properties não encontrado ou erro na leitura. Usando fallback localhost.");
 			try {
 				Class.forName("com.mysql.cj.jdbc.Driver");
-				this.conexão = DriverManager.getConnection("jdbc:mysql://localhost:3306/galpax", "root", "");
+				this.conexão = DriverManager.getConnection("jdbc:mysql://localhost:3306/galpax", "root", "Aluno");
 				this.consultas = this.conexão.createStatement();
 				System.out.println("✅ Conectado via Fallback (Localhost/Root)");
 			} catch (Exception e2) {
@@ -166,14 +166,24 @@ public class Bancodedados {
 	}
 
 	public ResultSet buscarVeiculo(String placa) {
-		try {
-			String query = "SELECT * FROM cad_carro WHERE placa_carro = '" + placa + "'";
-			this.resultado = this.consultas.executeQuery(query);
-			return this.resultado;
-		} catch (Exception e) {
-			System.out.println("Erro ao buscar veículo: " + e.getMessage());
-			return null;
-		}
+	    try {
+	        String query = "SELECT * FROM cad_carro WHERE placa_carro = '" + placa + "'";
+	        System.out.println(query);
+
+	        this.resultado = this.consultas.executeQuery(query);
+
+	        if (!this.resultado.next()) {
+	            System.out.println("Nenhum veículo encontrado");
+	            return null;
+	        }
+
+	        this.resultado.beforeFirst();
+	        return this.resultado;
+
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        return null;
+	    }
 	}
 	
 	public List<Mensalidade> listarMensalidades() {

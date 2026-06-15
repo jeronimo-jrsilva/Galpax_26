@@ -10,6 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
 import java.awt.event.ActionEvent;
 
 public class telaComum {
@@ -74,7 +75,12 @@ public class telaComum {
 		JButton btnEstacionamento = new JButton("Estacionamento");
 		btnEstacionamento.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				new telaEstacionamento().visivel();
+				try {
+					new telaEstacionamento().visivel();
+				} catch (ParseException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				frame.dispose();
 			}
 		});
