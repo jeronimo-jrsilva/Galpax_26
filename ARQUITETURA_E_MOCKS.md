@@ -44,8 +44,6 @@ Atalhos injetados para agilizar os testes durante a aula:
 
 | Atalho | Ação Executada | Uso Prático |
 | :--- | :--- | :--- |
-| **`Ctrl + A`** | Preenche `admin` / `admin`. | Login rápido no Painel Administrativo. |
-| **`Ctrl + U`** | Preenche `usuario@galpax.com` / `123`. | Login rápido no Painel de Lojista. |
 | **`Ctrl + W`** | Alterna entre Janela e Tela Cheia. | Teste de escala em tempo real. |
 
 ---
