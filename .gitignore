@@ -1,0 +1,23 @@
+# Eclipse / IDE
+.settings/
+.classpath
+.project
+bin/
+*.class
+
+# Logs e Rascunhos Pessoais (Professor)
+DAILY_TRACK_*.md
+logs/
+🤖 *.md
+.zed/
+
+# Segurança e Configurações Locais
+secrets.properties
+*.local.properties
+.env
+
+# Sistema
+Thumbs.db
+.DS_Store
+*.tmp
+*.log
