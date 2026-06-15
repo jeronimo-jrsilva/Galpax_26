@@ -136,6 +136,29 @@ public class Login {
 
         // APLICA GERENCIADOR APÓS A MONTAGEM DOS COMPONENTES
         GerenciadorJanelas.configurarJanela(telalogin);
+        
+        // --- INJEÇÃO DE ATALHOS DE DESENVOLVEDOR (BYPASS) ---
+        telalogin.getRootPane().getInputMap(javax.swing.JComponent.WHEN_IN_FOCUSED_WINDOW).put(
+            javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.CTRL_DOWN_MASK), "adminBypass");
+        telalogin.getRootPane().getActionMap().put("adminBypass", new javax.swing.AbstractAction() {
+            @Override public void actionPerformed(ActionEvent e) {
+                login_txt.setText("admin");
+                senha_txt.setText("admin");
+                btnEntrar.doClick();
+            }
+        });
+
+        telalogin.getRootPane().getInputMap(javax.swing.JComponent.WHEN_IN_FOCUSED_WINDOW).put(
+            javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_U, java.awt.event.InputEvent.CTRL_DOWN_MASK), "userBypass");
+        telalogin.getRootPane().getActionMap().put("userBypass", new javax.swing.AbstractAction() {
+            @Override public void actionPerformed(ActionEvent e) {
+                login_txt.setText("usuario@galpax.com");
+                senha_txt.setText("123");
+                btnEntrar.doClick();
+            }
+        });
+        // ----------------------------------------------------
+
         telalogin.setVisible(true);
 	}
 
