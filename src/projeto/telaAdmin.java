@@ -45,7 +45,7 @@ public class telaAdmin {
 		btnVoltar.setIcon(new ImageIcon(telaAdmin.class.getResource("/imagens/botoes_isaac/_comicLight small Base (4).png")));
 		btnVoltar.setContentAreaFilled(false);
 		btnVoltar.setBorderPainted(false);
-		btnVoltar.setBounds(50, 50, 104, 35);
+		btnVoltar.setBounds(10, 11, 104, 35);
 		btnVoltar.addActionListener(e -> {
 			new Login().visivel();
 			frame.dispose();
