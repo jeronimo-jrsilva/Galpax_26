@@ -10,6 +10,8 @@ import javax.swing.JLabel;
 import javax.swing.ImageIcon;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Rectangle;
+import java.awt.Point;
 
 public class telaEstacionamento {
 
@@ -45,7 +47,7 @@ public class telaEstacionamento {
 		btnVoltar.setIcon(new ImageIcon(telaEstacionamento.class.getResource("/imagens/botoes_isaac/_comicLight small Base (4).png")));
 		btnVoltar.setContentAreaFilled(false);
 		btnVoltar.setBorderPainted(false);
-		btnVoltar.setBounds(50, 50, 104, 35);
+		btnVoltar.setBounds(10, 11, 104, 35);
 		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				new telaComum("loja01@galpax.com").visivel(); // Fallback sessão
