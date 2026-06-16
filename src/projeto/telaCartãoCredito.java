@@ -5,6 +5,7 @@ import javax.swing.JFrame;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.text.MaskFormatter;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -14,13 +15,13 @@ import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import java.awt.Color;
+import javax.swing.JFormattedTextField;
 
 public class telaCartãoCredito extends JDialog {
 
     private JTextField txtTitular;
     private JTextField txtNumeroCartao;
     private JTextField txtValidade;
-    private JTextField txtCVV;
 
     public telaCartãoCredito(JFrame parent) {
         super(parent, "Cartão de Crédito", true);
@@ -37,6 +38,18 @@ public class telaCartãoCredito extends JDialog {
         setUndecorated(true);
         getContentPane().setLayout(null);
         setLocationRelativeTo(null);
+        
+       /* 
+        try {
+			//maskCVV = new MaskFormatter("###"); tentando colocar mascara nos campos
+			//maskbirth = new MaskFormatter("##/##/####");
+			//maskcep = new MaskFormatter("#####-###");
+			//maskphone = new MaskFormatter("(##) #####-####");
+			
+		}catch (Exception e) {
+			JOptionPane.showMessageDialog(null,"Erro","Aviso",-1);
+		}
+		*/
 
         // BOTÃO VOLTAR (ISAAC)
         JButton btnVoltar = new JButton("");
@@ -91,10 +104,6 @@ public class telaCartãoCredito extends JDialog {
         lblCVV.setBounds(1043, 425, 60, 30);
         getContentPane().add(lblCVV);
 
-        txtCVV = new JTextField();
-        txtCVV.setBounds(1103, 425, 150, 30);
-        getContentPane().add(txtCVV);
-
         JComboBox<String> cbParcelas = new JComboBox<>(new String[] {"1x sem juros", "2x sem juros", "3x sem juros", "12x sem juros"});
         cbParcelas.setBounds(743, 536, 250, 35);
         getContentPane().add(cbParcelas);
@@ -103,11 +112,17 @@ public class telaCartãoCredito extends JDialog {
         btnConfirmar.setBounds(626, 796, 220, 50);
         btnConfirmar.addActionListener(e -> JOptionPane.showMessageDialog(null, "Compra Concluída!"));
         getContentPane().add(btnConfirmar);
-
-        JLabel lblFundo = new JLabel("");
-        lblFundo.setIcon(new ImageIcon(telaCartãoCredito.class.getResource("/imagens/fundopagamento.png")));
-        lblFundo.setBounds(0, 0, 1920, 1080);
-        getContentPane().add(lblFundo);
+        
+        /* falhei misseravelmente em colocar uma mascara aqui
+        JFormattedTextField jftCVV = new JFormattedTextField(maskCVV);
+        jftCVV.setBounds(1102, 425, 150, 30);
+        getContentPane().add(maskCVV);
+        */
+        
+        		JLabel lblFundo = new JLabel("");
+                lblFundo.setIcon(new ImageIcon(telaCartãoCredito.class.getResource("/imagens/fundopagamento.png")));
+                lblFundo.setBounds(0, 0, 1920, 1080);
+                getContentPane().add(lblFundo);
 
         GerenciadorJanelas.registrarInstancia(this);
         GerenciadorJanelas.configurarJanela(this);
