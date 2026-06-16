@@ -11,12 +11,17 @@ import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.JButton;
+import javax.swing.ImageIcon;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class VisualizaçãoCarros {
 
 	private JFrame VisualizaçaoFrame;
 	private JTable table;
 	private DefaultTableModel modelo; 
+	private JButton btnVoltar;
 
 	/**
 	 * Launch the application.
@@ -76,6 +81,19 @@ public class VisualizaçãoCarros {
 		modelo.addColumn("Placa");
 		modelo.addColumn("CNH do Dono");
 		table.setModel(modelo);
+		
+		btnVoltar = new JButton("");
+		btnVoltar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new telaAdmin("joao.admin@email.com").visivel();
+				VisualizaçaoFrame.dispose();
+			}
+		});
+		btnVoltar.setIcon(new ImageIcon(VisualizaçãoCarros.class.getResource("/imagens/botoes_isaac/_comicLight small Base (4).png")));
+		btnVoltar.setContentAreaFilled(false);
+		btnVoltar.setBorderPainted(false);
+		btnVoltar.setBounds(920, 1045, 104, 35);
+		VisualizaçaoFrame.getContentPane().add(btnVoltar);
 	}
 
 	

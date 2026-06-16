@@ -185,6 +185,20 @@ public class telaCadAdmin {
 			}
 		});
 		
+
+				JButton btnVoltar = new JButton("");
+				btnVoltar.setIcon(new ImageIcon(telaEstacionamento.class.getResource("/imagens/botoes_isaac/_comicLight small Base (4).png")));
+				btnVoltar.setContentAreaFilled(false);
+				btnVoltar.setBorderPainted(false);
+				btnVoltar.setBounds(50, 50, 104, 35);
+				btnVoltar.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						frame.dispose();
+					}
+				});
+				frame.getContentPane().add(btnVoltar);
+				
+				
 		JLabel lblNewLabel_2 = new JLabel("");
 		lblNewLabel_2.setIcon(new ImageIcon(telaCadAdmin.class.getResource("/imagens/telafundocadadmin.png")));
 		lblNewLabel_2.setBounds(0, 0, 1920, 1080);
