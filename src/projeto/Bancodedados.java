@@ -167,18 +167,14 @@ public class Bancodedados {
 
 	public ResultSet buscarVeiculo(String placa) {
 	    try {
-	        String query = "SELECT * FROM cad_carro WHERE placa_carro = '" + placa + "'";
-	        System.out.println(query);
+	        String sql = "SELECT * FROM cad_carro WHERE placa_carro = ?";
 
-	        this.resultado = this.consultas.executeQuery(query);
+	        PreparedStatement stmt =
+	                conexão.prepareStatement(sql);
 
-	        if (!this.resultado.next()) {
-	            System.out.println("Nenhum veículo encontrado");
-	            return null;
-	        }
+	        stmt.setString(1, placa);
 
-	        this.resultado.beforeFirst();
-	        return this.resultado;
+	        return stmt.executeQuery();
 
 	    } catch (Exception e) {
 	        e.printStackTrace();

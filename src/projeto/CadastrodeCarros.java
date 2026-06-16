@@ -64,6 +64,19 @@ public class CadastrodeCarros {
         CadCarrosFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         CadCarrosFrame.getContentPane().setLayout(null);
         
+        JButton btnVoltar = new JButton("");
+        btnVoltar.setIcon(new ImageIcon(CadastrodeCarros.class.getResource("/imagens/botoes_isaac/_comicLight small Base (4).png")));
+        btnVoltar.setContentAreaFilled(false);
+        btnVoltar.setBorderPainted(false);
+        btnVoltar.setBounds(26, 39, 104, 35);
+        btnVoltar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new telaAdmin("joao.admin@email.com").visivel();
+				CadCarrosFrame.dispose();
+			}
+		});
+        CadCarrosFrame.getContentPane().add(btnVoltar);
+        
         containerTeclado.setBounds(378, 720, 1200, 350);
         CadCarrosFrame.getContentPane().add(containerTeclado);
 

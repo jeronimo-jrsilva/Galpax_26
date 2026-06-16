@@ -32,16 +32,14 @@ import java.awt.event.ActionEvent;
 public class telaEstacionamento {
 
 	private JFrame estacionamento;
-	private JFormattedTextField placa_txt;
-	MaskFormatter maskPlaca;
-	private JTextField modelo_txt;
-	private JTextField CNH_txt;
+	private JTextField placa_txt;
+	private JFrame telaOrigem;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					telaEstacionamento window = new telaEstacionamento();
+					telaEstacionamento window = new telaEstacionamento(null);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -49,12 +47,13 @@ public class telaEstacionamento {
 		});
 	}
 
-	public telaEstacionamento() throws ParseException {
+	public telaEstacionamento(JFrame telaOrigem) throws ParseException {
+		this.telaOrigem = telaOrigem;
 		initialize();
 	}
 	
 	public void visivel() throws ParseException {
-		initialize();
+		estacionamento.setVisible(true);
 	}
 
 	private void initialize() throws ParseException {
@@ -70,37 +69,17 @@ public class telaEstacionamento {
 	    estacionamento.getContentPane().setLayout(null);
         GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
         GraphicsDevice device = env.getDefaultScreenDevice();
-        
-      //CAMPO DE TEXTO DA CNH DO CARRO
-        CNH_txt = new JTextField();
-        CNH_txt.setOpaque(false);
-        CNH_txt.setFont(new Font("Tahoma", Font.PLAIN, 28));
-        CNH_txt.setColumns(10);
-        CNH_txt.setBorder(null);
-        CNH_txt.setBounds(655, 559, 638, 58);
-        estacionamento.getContentPane().add(CNH_txt);
-        
-      //CAMPO DE TEXTO DO MODELO DO CARRO
-        modelo_txt = new JTextField();
-        modelo_txt.setOpaque(false);
-        modelo_txt.setFont(new Font("Tahoma", Font.PLAIN, 28));
-        modelo_txt.setColumns(10);
-        modelo_txt.setBorder(null);
-        modelo_txt.setBounds(655, 449, 638, 58);
-        estacionamento.getContentPane().add(modelo_txt);
 		
         //CAMPO DE TEXTO DA PLACA DO CARRO
-        MaskFormatter mascara = new MaskFormatter("UUU####");
-        placa_txt = new JFormattedTextField(mascara);
-        mascara.setPlaceholderCharacter(' ');
+        placa_txt = new JFormattedTextField();
         placa_txt.setFont(new Font("Tahoma", Font.PLAIN, 28));
-        placa_txt.setBounds(655, 339, 638, 58);
+        placa_txt.setBounds(665, 408, 562, 83);
         placa_txt.setOpaque(false);
         placa_txt.setBorder(null);
         estacionamento.getContentPane().add(placa_txt);
         
-		//BOTÃO DE ENTRADA DO VEÍCULO(CONFIRMAR)
-		JButton btnEntrada = new JButton("ENTRADA DE VEICULO");
+		//BOTÃO PARA VERIFICAR O VEICULO
+		JButton btnEntrada = new JButton("VERIFICAR CARRO");
 		btnEntrada.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String placa = placa_txt.getText().trim().toUpperCase();
@@ -115,7 +94,7 @@ public class telaEstacionamento {
 									String modelo = rs.getString("modelo_carro");
 									String cnh = rs.getString("cnh_carro");
 									LocalDateTime agora = LocalDateTime.now();
-									DateTimeFormatter formatador = DateTimeFormatter.ofPattern("dd/CustomM/yyyy HH:mm:ss");
+									DateTimeFormatter formatador = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
 									String dataHoraStr = agora.format(formatador);
 									String mensagem = "VEÍCULO ENCONTRADO!\n\n" +
 													  "Placa: " + placa + "\n" +
@@ -144,6 +123,7 @@ public class telaEstacionamento {
 				}
 			}
 
+			//MÉTODO PARA IMPRIMIR TICKET
 			private void imprimirTicket(String placa, String modelo, String cnh, String dataHora) {
 				PrinterJob job = PrinterJob.getPrinterJob();
 				job.setPrintable(new Printable() {
@@ -197,26 +177,30 @@ public class telaEstacionamento {
 			}
 		});
 		btnEntrada.setFont(new Font("Tahoma", Font.PLAIN, 22));
-		btnEntrada.setBounds(839, 673, 284, 52);
+		btnEntrada.setBounds(816, 673, 284, 52);
 		estacionamento.getContentPane().add(btnEntrada);
 		
-        // BOTÃO DE SAIDA DO VEÍCULO(VOLTAR)
+        // BOTÃO DE SAIDA(VOLTAR)
 		JButton btnVoltar = new JButton("");
 		btnVoltar.setIcon(new ImageIcon(telaEstacionamento.class.getResource("/imagens/botoes_isaac/_comicLight small Base (4).png")));
 		btnVoltar.setContentAreaFilled(false);
 		btnVoltar.setBorderPainted(false);
 		btnVoltar.setBounds(50, 50, 104, 35);
 		btnVoltar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				new telaComum("loja01@galpax.com").visivel(); // Fallback sessão
-				estacionamento.dispose();
-			}
+		    public void actionPerformed(ActionEvent e) {
+
+		        if (telaOrigem != null) {
+		            telaOrigem.setVisible(true);
+		        }
+
+		        estacionamento.dispose();
+		    }
 		});
 		estacionamento.getContentPane().add(btnVoltar);
 		
 		//FUNDO
 		JLabel lblFundo = new JLabel("");
-		lblFundo.setIcon(new ImageIcon(telaEstacionamento.class.getResource("/imagens/fundo tela cad carro.png")));
+		lblFundo.setIcon(new ImageIcon("D:\\Users\\Aluno\\Downloads\\New Project.png"));
 		lblFundo.setBounds(0, 0, 1920, 1080);
 		estacionamento.getContentPane().add(lblFundo);
 

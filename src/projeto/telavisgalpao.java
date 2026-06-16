@@ -13,6 +13,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.SwingConstants;
@@ -57,6 +60,7 @@ public class telavisgalpao {
 	private JLabel lblNewLabel_1_2;
 	private JLabel lblNewLabel_1_1;
 	private JLabel lblNewLabel_1;
+	private JButton btnVoltar;
 
 	/**
 	 * Launch the application.
@@ -118,6 +122,20 @@ public void visivel() {
 				}
 			}
 		});
+		
+		btnVoltar = new JButton("");
+		btnVoltar.setIcon(new ImageIcon(telavisgalpao.class.getResource("/imagens/botoes_isaac/_comicLight small Base (4).png")));
+		btnVoltar.setContentAreaFilled(false);
+		btnVoltar.setBorderPainted(false);
+		btnVoltar.setBounds(909, 720, 104, 35);
+		btnVoltar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new telaAdmin("joao.admin@email.com").visivel();
+				frame.dispose();
+			}
+		});
+		frame.getContentPane().add(btnVoltar);
+		
 		lblNewLabel_1_13.setIcon(null);
 		lblNewLabel_1_13.setBounds(1718, 780, 197, 300);
 		frame.getContentPane().add(lblNewLabel_1_13);

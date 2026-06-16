@@ -60,6 +60,7 @@ public class CadastroLoja {
 	private JTextField campoAtivo;
 	private JPasswordField senha;
 	private JPasswordField confirmarsenha;
+	private JButton btnVoltar;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -97,6 +98,19 @@ public class CadastroLoja {
       
         GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
         GraphicsDevice device = env.getDefaultScreenDevice();
+		
+		btnVoltar = new JButton("");
+		btnVoltar.setIcon(new ImageIcon(CadastroLoja.class.getResource("/imagens/botoes_isaac/_comicLight small Base (4).png")));
+		btnVoltar.setContentAreaFilled(false);
+		btnVoltar.setBorderPainted(false);
+		btnVoltar.setBounds(10, 27, 104, 35);
+		btnVoltar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new telaAdmin("joao.admin@email.com").visivel();
+				frame.dispose();
+			}
+		});
+		frame.getContentPane().add(btnVoltar);
 		
 		confirmarsenha = new JPasswordField();
 		confirmarsenha.setBounds(1264, 644, 409, 33);

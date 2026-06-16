@@ -76,12 +76,12 @@ public class telaComum {
 		btnEstacionamento.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					new telaEstacionamento().visivel();
+					new telaEstacionamento(frame);
 				} catch (ParseException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-				frame.dispose();
+				frame.setVisible(false);
 			}
 		});
 		btnEstacionamento.setIcon(new ImageIcon(telaComum.class.getResource("/imagens/botao_comun2.png")));
