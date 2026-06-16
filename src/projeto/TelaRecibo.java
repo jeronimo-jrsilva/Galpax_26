@@ -54,7 +54,13 @@ public class TelaRecibo {
         frame.getContentPane().add(lblFundoRecibo);
 
      // APLICA GERENCIADOR (CTRL+W)
-        GerenciadorJanelas.configurarJanela(frame);
+        
+        /*
+        // Comentei essa linha pq está fazendo a tela iniciar em tela cheia gerando bug visual 
+        
+        GerenciadorJanelas.configurarJanela(frame); 
+        
+        */
         frame.setVisible(true);
     }
 }
