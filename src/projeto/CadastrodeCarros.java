@@ -68,7 +68,7 @@ public class CadastrodeCarros {
         btnVoltar.setIcon(new ImageIcon(CadastrodeCarros.class.getResource("/imagens/botoes_isaac/_comicLight small Base (4).png")));
         btnVoltar.setContentAreaFilled(false);
         btnVoltar.setBorderPainted(false);
-        btnVoltar.setBounds(26, 39, 104, 35);
+        btnVoltar.setBounds(50, 50, 104, 35);
         btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				new telaAdmin("joao.admin@email.com").visivel();

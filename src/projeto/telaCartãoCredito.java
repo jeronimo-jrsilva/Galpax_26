@@ -109,7 +109,9 @@ public class telaCartãoCredito extends JDialog {
         getContentPane().add(cbParcelas);
 
         JButton btnConfirmar = new JButton("Confirmar");
-        btnConfirmar.setBounds(626, 796, 220, 50);
+        btnConfirmar.setContentAreaFilled(false);
+        btnConfirmar.setIcon(new ImageIcon(telaCartãoCredito.class.getResource("/imagens/botoes_isaac/_comicLight small Base (7).png")));
+        btnConfirmar.setBounds(610, 796, 230, 50);
         btnConfirmar.addActionListener(e -> JOptionPane.showMessageDialog(null, "Compra Concluída!"));
         getContentPane().add(btnConfirmar);
         

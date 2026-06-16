@@ -93,7 +93,9 @@ public class telaCartãoDébito extends JDialog {
         txtCVV.setBounds(1103, 425, 150, 30);
         getContentPane().add(txtCVV);
 
-        JButton btnConfirmar = new JButton("Confirmar");
+        JButton btnConfirmar = new JButton("");
+        btnConfirmar.setContentAreaFilled(false);
+        btnConfirmar.setIcon(new ImageIcon(telaCartãoDébito.class.getResource("/imagens/botoes_isaac/_comicLight small Base (7).png")));
         btnConfirmar.setBounds(626, 796, 220, 50);
         btnConfirmar.addActionListener(e -> JOptionPane.showMessageDialog(null, "Débito Confirmado!"));
         getContentPane().add(btnConfirmar);

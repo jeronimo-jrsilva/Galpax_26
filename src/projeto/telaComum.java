@@ -51,12 +51,17 @@ public class telaComum {
 		btnSair.setIcon(new ImageIcon(telaComum.class.getResource("/imagens/botoes_isaac/_comicLight small Base (4).png")));
 		btnSair.setContentAreaFilled(false);
 		btnSair.setBorderPainted(false);
-		btnSair.setBounds(1766, 50, 104, 35);
+		btnSair.setBounds(50, 50, 104, 35);
 		btnSair.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					JOptionPane.showMessageDialog(null, "Programa encerrando");
-					System.exit(0);
-			}
+			public void actionPerformed(ActionEvent e) {
+		        JOptionPane.showMessageDialog(null, "Sessão encerrada. Voltando para a tela de login.");
+		        
+		        
+		        Login telaLogin = new Login(); // RETORNO PARA TELA LOGIN
+		        telaLogin.visivel(); 
+		        
+		        frame.dispose(); // FECHA TELA ATUAL
+		    }
 		});
 		frame.getContentPane().add(btnSair);
 		
@@ -91,7 +96,7 @@ public class telaComum {
 		
 		JLabel lblSessao = new JLabel("Lojista: " + emailSessao);
 		lblSessao.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lblSessao.setBounds(50, 50, 500, 30);
+		lblSessao.setBounds(1600, 50, 500, 30);
 		frame.getContentPane().add(lblSessao);
 		
 		JLabel lblNewLabel = new JLabel("");

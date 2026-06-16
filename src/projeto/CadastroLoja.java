@@ -103,7 +103,7 @@ public class CadastroLoja {
 		btnVoltar.setIcon(new ImageIcon(CadastroLoja.class.getResource("/imagens/botoes_isaac/_comicLight small Base (4).png")));
 		btnVoltar.setContentAreaFilled(false);
 		btnVoltar.setBorderPainted(false);
-		btnVoltar.setBounds(10, 27, 104, 35);
+		btnVoltar.setBounds(50, 50, 104, 35);
 		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				new telaAdmin("joao.admin@email.com").visivel();
