@@ -2,6 +2,7 @@ package projeto;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.FlowLayout;
@@ -14,11 +15,13 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JButton;
+import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.text.MaskFormatter;
 import javax.swing.ImageIcon;
 import java.awt.event.ActionListener;
 
@@ -27,7 +30,8 @@ public class CadastrodeCarros {
     private JFrame CadCarrosFrame;
     private JTextField modelo_txt;
     private JTextField CNH_text;
-    private JTextField placa_txt;
+    private JFormattedTextField placa_txt;
+    private MaskFormatter maskPlaca;
     
     private JPanel containerTeclado = new JPanel(new BorderLayout()) {{
         setOpaque(false);
@@ -64,6 +68,12 @@ public class CadastrodeCarros {
         CadCarrosFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         CadCarrosFrame.getContentPane().setLayout(null);
         
+        try{
+        	maskPlaca = new MaskFormatter("UUU####");
+        } catch(Exception e) {
+        	System.out.println(e.getMessage());
+        }
+        
         JButton btnVoltar = new JButton("");
         btnVoltar.setIcon(new ImageIcon(CadastrodeCarros.class.getResource("/imagens/botoes_isaac/_comicLight small Base (4).png")));
         btnVoltar.setContentAreaFilled(false);
@@ -80,7 +90,7 @@ public class CadastrodeCarros {
         containerTeclado.setBounds(378, 720, 1200, 350);
         CadCarrosFrame.getContentPane().add(containerTeclado);
 
-        placa_txt = new JTextField();
+        placa_txt = new JFormattedTextField(maskPlaca);
         placa_txt.setFont(new Font("Tahoma", Font.BOLD, 18));
         placa_txt.setBounds(659, 341, 639, 58);
         placa_txt.setOpaque(false);
