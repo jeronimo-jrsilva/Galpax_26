@@ -236,7 +236,8 @@ public class telaCartãoCredito extends JDialog {
         
         
         
-        jftCVV = new JPasswordField();`n        jftCVV.setBounds(1103, 425, 150, 30);
+        jftCVV = new JPasswordField();
+        jftCVV.setBounds(1103, 425, 150, 30);
 
 
         PlainDocument doc = new PlainDocument() {
