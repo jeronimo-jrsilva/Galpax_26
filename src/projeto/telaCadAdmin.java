@@ -75,7 +75,7 @@ public class telaCadAdmin {
 		
 		txt_nome = new JTextField();
 		txt_nome.setFont(new Font("Tahoma", Font.PLAIN, 25));
-		txt_nome.setBounds(227, 219, 1289, 58);
+		txt_nome.setBounds(1045, 227, 442, 52);
 		frame.getContentPane().add(txt_nome);
 		txt_nome.setColumns(10);
 		txt_nome.setOpaque(false);      
@@ -84,7 +84,7 @@ public class telaCadAdmin {
 		txt_cpf = new JTextField();
 		txt_cpf.setFont(new Font("Tahoma", Font.PLAIN, 25));
 		txt_cpf.setColumns(10);
-		txt_cpf.setBounds(227, 334, 1289, 52);
+		txt_cpf.setBounds(1045, 396, 442, 52);
 		frame.getContentPane().add(txt_cpf);
 		txt_cpf.setOpaque(false);      
 		txt_cpf.setBorder(null);
@@ -92,21 +92,21 @@ public class telaCadAdmin {
 		txt_email = new JTextField();
 		txt_email.setFont(new Font("Tahoma", Font.PLAIN, 25));
 		txt_email.setColumns(10);
-		txt_email.setBounds(226, 442, 1289, 58);
+		txt_email.setBounds(515, 495, 442, 52);
 		frame.getContentPane().add(txt_email);
 		txt_email.setOpaque(false);      
 		txt_email.setBorder(null);
 		
 		txt_senha = new JPasswordField();
 		txt_senha.setFont(new Font("Tahoma", Font.PLAIN, 25));
-		txt_senha.setBounds(227, 565, 1289, 60);
+		txt_senha.setBounds(627, 223, 457, 60);
 		frame.getContentPane().add(txt_senha);
 		txt_senha.setOpaque(false);      
 		txt_senha.setBorder(null);
 		
 		txt_confirmar = new JPasswordField();
 		txt_confirmar.setFont(new Font("Tahoma", Font.PLAIN, 25));
-		txt_confirmar.setBounds(460, 681, 1056, 66);
+		txt_confirmar.setBounds(782, 360, 216, 66);
 		frame.getContentPane().add(txt_confirmar);
 		txt_confirmar.setOpaque(false);      
 		txt_confirmar.setBorder(null);
@@ -114,9 +114,10 @@ public class telaCadAdmin {
 		JButton btnNewButton = new JButton("Cadastrar");
 		btnNewButton.setIcon(new ImageIcon(telaCadAdmin.class.getResource("/imagens/botao_admin_6.png")));
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 31));
-		btnNewButton.setBounds(791, 803, 436, 58);
+		btnNewButton.setBounds(549, 590, 1065, 71);
 		frame.getContentPane().add(btnNewButton);
-		
+		txt_confirmar.setOpaque(false);      
+		txt_confirmar.setBorder(null);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -194,7 +195,7 @@ public class telaCadAdmin {
 		
 
 				JButton btnVoltar = new JButton("");
-				btnVoltar.setIcon(new ImageIcon(telaEstacionamento.class.getResource("/imagens/botoes_isaac/_comicLight small Base (4).png")));
+				btnVoltar.setIcon(new ImageIcon(telaCadAdmin.class.getResource("/imagens/img_cad_adm/img_cad_adm_btn_voltar.png")));
 				btnVoltar.setContentAreaFilled(false);
 				btnVoltar.setBorderPainted(false);
 				btnVoltar.setBounds(50, 50, 104, 35);
@@ -207,7 +208,7 @@ public class telaCadAdmin {
 				
 				
 		JLabel lblNewLabel_2 = new JLabel("");
-		lblNewLabel_2.setIcon(new ImageIcon(telaCadAdmin.class.getResource("/imagens/telafundocadadmin.png")));
+		lblNewLabel_2.setIcon(new ImageIcon(telaCadAdmin.class.getResource("/imagens/img_cad_adm/img_cad_adm_ficha.png")));
 		lblNewLabel_2.setBounds(0, 0, 1920, 1080);
 		frame.getContentPane().add(lblNewLabel_2);
 	}

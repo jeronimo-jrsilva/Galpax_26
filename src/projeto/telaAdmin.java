@@ -184,14 +184,28 @@ public void visivel() {
 		btnVoltar.setFont(new Font("Tahoma", Font.PLAIN, 26));
 		btnVoltar.setBounds(50, 50, 104, 35);
 		frameAdmin.getContentPane().add(btnVoltar);
+
 		btnVoltar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-		        JOptionPane.showMessageDialog(null, "Sessão encerrada. Voltando para a tela de login.");
-		        
-		        Login telaLogin = new Login(); // RETORNO PARA TELA LOGIN
-		        telaLogin.visivel(); 
-		        		        
-		        frameAdmin.dispose(); // FECHA TELA ATUAL
+		    public void actionPerformed(ActionEvent e) {
+
+		        int opcao = JOptionPane.showConfirmDialog(
+		                frameAdmin,
+		                "Deseja realmente voltar para a tela de login?",
+		                "Confirmação",
+		                JOptionPane.YES_NO_OPTION,
+		                JOptionPane.QUESTION_MESSAGE);
+
+		        if (opcao == JOptionPane.YES_OPTION) {
+
+		            JOptionPane.showMessageDialog(
+		                    frameAdmin,
+		                    "Sessão encerrada com sucesso!");
+
+		            Login telaLogin = new Login(); // RETORNO PARA TELA LOGIN
+		            telaLogin.visivel();
+
+		            frameAdmin.dispose(); // FECHA TELA ATUAL
+		        }
 		    }
 		});
 		
