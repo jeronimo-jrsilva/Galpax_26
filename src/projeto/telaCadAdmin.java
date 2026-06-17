@@ -66,12 +66,12 @@ public class telaCadAdmin {
 		GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		GraphicsDevice device = env.getDefaultScreenDevice();
 		
-		JButton btnVoltar = new JButton("");
-		btnVoltar.setIcon(new ImageIcon(telaCadAdmin.class.getResource("/imagens/botoes_isaac/_comicLight small Base (4).png")));
-		btnVoltar.setContentAreaFilled(false);
-		btnVoltar.setBorderPainted(false);
-		btnVoltar.setBounds(1789, 1007, 117, 58);
-		frame.getContentPane().add(btnVoltar);
+//		JButton btnVoltar = new JButton("");
+//		btnVoltar.setIcon(new ImageIcon(telaCadAdmin.class.getResource("/imagens/botoes_isaac/_comicLight small Base (4).png")));
+//		btnVoltar.setContentAreaFilled(false);
+//		btnVoltar.setBorderPainted(false);
+//		btnVoltar.setBounds(1789, 1007, 117, 58);
+//		frame.getContentPane().add(btnVoltar);
 		
 		txt_nome = new JTextField();
 		txt_nome.setFont(new Font("Tahoma", Font.PLAIN, 25));

@@ -143,7 +143,7 @@ public void visivel() {
 		btnVoltar.setIcon(new ImageIcon(telaAdmin.class.getResource("/imagens/botoes_isaac/_comicLight small Base (4).png")));
 		btnVoltar.setFont(new Font("Tahoma", Font.PLAIN, 26));
 		btnVoltar.setBounds(50, 50, 104, 35);
-		frameAdmin.getContentPane().add(btnNewButton_1_1_1);
+		frameAdmin.getContentPane().add(btnVoltar);
 		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 		        JOptionPane.showMessageDialog(null, "Sessão encerrada. Voltando para a tela de login.");
