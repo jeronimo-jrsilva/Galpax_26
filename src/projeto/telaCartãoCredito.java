@@ -1,58 +1,44 @@
 package projeto;
 
 import java.awt.Font;
-<<<<<<< HEAD
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-=======
 import java.awt.Color;
 import java.text.ParseException;
 import java.time.LocalDate;
->>>>>>> refs/remotes/origin/dev-arthur
 
 import javax.swing.JFrame;
 import javax.swing.JDialog;
-<<<<<<< HEAD
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.MaskFormatter;
 import javax.swing.text.PlainDocument;
-=======
->>>>>>> refs/remotes/origin/dev-arthur
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
 import javax.swing.JComboBox;
-<<<<<<< HEAD
 import javax.swing.text.AttributeSet;
 import javax.swing.DefaultComboBoxModel;
-=======
->>>>>>> refs/remotes/origin/dev-arthur
+
 import javax.swing.ImageIcon;
-<<<<<<< HEAD
+
 import java.awt.Color;
 import javax.swing.JFormattedTextField;
-=======
 import javax.swing.JFormattedTextField;
 import javax.swing.text.MaskFormatter;
->>>>>>> refs/remotes/origin/dev-arthur
 
 public class telaCartãoCredito extends JDialog {
 
     private JTextField txtTitular;
-<<<<<<< HEAD
-    private JTextField txtNumeroCartao;
-    private JTextField txtValidade;
-    private MaskFormatter maskCVV;
-=======
+
     private JFormattedTextField txtNumeroCartao;
     private JFormattedTextField txtValidade;
     private JFormattedTextField txtCVV;
->>>>>>> refs/remotes/origin/dev-arthur
+
 
     public telaCartãoCredito(JFrame parent) {
         super(parent, "Cartão de Crédito", true);
@@ -77,7 +63,7 @@ public class telaCartãoCredito extends JDialog {
         
         
         try {
-			maskCVV = new MaskFormatter("***");
+			MaskFormatter maskCVV = new MaskFormatter("***");
 			
 		}catch (Exception e) {
 			JOptionPane.showMessageDialog(null,"Erro","Aviso",-1);
@@ -161,27 +147,13 @@ public class telaCartãoCredito extends JDialog {
         lblCVV.setBounds(1043, 425, 60, 30);
         getContentPane().add(lblCVV);
 
-<<<<<<< HEAD
         JComboBox<String> cbParcelas = new JComboBox<>(new String[] {"1x sem juros", "2x sem juros", "3x sem juros", "12x sem juros"});
-=======
-        JComboBox<String> cbParcelas = new JComboBox<>(
-                new String[] {
-                        "1x sem juros",
-                        "2x sem juros",
-                        "3x sem juros",
-                        "12x sem juros"
-                });
->>>>>>> refs/remotes/origin/dev-arthur
+
         cbParcelas.setBounds(743, 536, 250, 35);
         getContentPane().add(cbParcelas);
 
         JButton btnConfirmar = new JButton("Confirmar");
-<<<<<<< HEAD
-        btnConfirmar.setContentAreaFilled(false);
-        btnConfirmar.setIcon(new ImageIcon(telaCartãoCredito.class.getResource("/imagens/botoes_isaac/_comicLight small Base (7).png")));
-        btnConfirmar.setBounds(610, 796, 230, 50);
-        btnConfirmar.addActionListener(e -> JOptionPane.showMessageDialog(null, "Compra Concluída!"));
-=======
+
         btnConfirmar.setBounds(626, 796, 220, 50);
 
         btnConfirmar.addActionListener(e -> {
@@ -262,7 +234,6 @@ public class telaCartãoCredito extends JDialog {
                     "Compra Concluída!");
         });
 
->>>>>>> refs/remotes/origin/dev-arthur
         getContentPane().add(btnConfirmar);
         
         
@@ -270,7 +241,7 @@ public class telaCartãoCredito extends JDialog {
         JPasswordField jftCVV = new JPasswordField();
         jftCVV.setBounds(1102, 425, 150, 30);
 
-<<<<<<< HEAD
+
         PlainDocument doc = new PlainDocument() {
             @Override
             public void insertString(int offset, String str, AttributeSet attr)
@@ -287,17 +258,12 @@ public class telaCartãoCredito extends JDialog {
         getContentPane().add(jftCVV);
         
         
-        		JLabel lblFundo = new JLabel("");
-                lblFundo.setIcon(new ImageIcon(telaCartãoCredito.class.getResource("/imagens/fundopagamento.png")));
-                lblFundo.setBounds(0, 0, 1920, 1080);
-                getContentPane().add(lblFundo);
-=======
         JLabel lblFundo = new JLabel("");
         lblFundo.setIcon(
                 new ImageIcon(telaCartãoCredito.class.getResource("/imagens/fundopagamento.png")));
         lblFundo.setBounds(0, 0, 1920, 1080);
         getContentPane().add(lblFundo);
->>>>>>> refs/remotes/origin/dev-arthur
+
 
         GerenciadorJanelas.registrarInstancia(this);
         GerenciadorJanelas.configurarJanela(this);

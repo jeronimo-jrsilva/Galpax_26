@@ -126,30 +126,7 @@ public class Bancodedados {
 	        String email, String endereco, String sala, String tipo,
 	        String aluguel, String status, String nivel, String senha) {
 
-<<<<<<< HEAD
-		String query = "INSERT INTO cad_loja (nome_loja, cnpj_loja, responsavel_loja, telefone_loja, "
-		+ "email_loja, endereco_loja, sala_loja, tipo_loja, aluguel_loja, status_loja, nivel_loja,senha) "
-		+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
-		
-		try (java.sql.PreparedStatement stmt = this.conexão.prepareStatement(query)) {
-    		stmt.setString(1, nome);
-    		stmt.setString(2, cnpj);
-    		stmt.setString(3, responsavel);
-    		stmt.setString(4, telefone);
-    		stmt.setString(5, email);
-    		stmt.setString(6, endereco);
-    		stmt.setString(7, sala);
-    		stmt.setString(8, tipo);
-    		stmt.setString(9, aluguel);
-    		stmt.setString(10, status);
-    		stmt.setString(11, nivel);
-    		stmt.setString(12, senha);
-    		
-    		stmt.executeUpdate();
-		} catch(Exception e) {
-		    JOptionPane.showMessageDialog(null, "Erro ao cadastrar loja no banco: " + e.getMessage(), "Aviso", -1);
-		}
-=======
+
 	    String query = "INSERT INTO cad_loja (nome_loja, cnpj_loja, responsavel_loja, telefone_loja, "
 	            + "email_loja, endereco_loja, sala_loja, tipo_loja, aluguel_loja, status_loja, nivel_loja, senha) "
 	            + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -187,7 +164,6 @@ public class Bancodedados {
 
 	        return false;
 	    }
->>>>>>> refs/remotes/origin/dev-arthur
 	}
 	
 	public ResultSet listarVeiculos() {

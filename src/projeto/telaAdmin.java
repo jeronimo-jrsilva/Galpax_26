@@ -11,6 +11,7 @@ import javax.swing.JButton;
 import java.awt.Font;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
+import java.awt.Image;
 import java.awt.Toolkit;
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
@@ -69,9 +70,9 @@ public void visivel() {
         GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
         GraphicsDevice device = env.getDefaultScreenDevice();
 		
-		JButton btnNewButton_1_1_1_1 = new JButton("");
-		btnNewButton_1_1_1_1.setIcon(new ImageIcon(telaAdmin.class.getResource("/imagens/botao_comun2.png")));
-		btnNewButton_1_1_1_1.addActionListener(new ActionListener() {
+		JButton btn_Estacionamento = new JButton("");
+		btn_Estacionamento.setIcon(new ImageIcon(telaAdmin.class.getResource("/imagens/botao_comun2.png")));
+		btn_Estacionamento.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				telaEstacionamento t = null;
 				try {
@@ -83,21 +84,21 @@ public void visivel() {
 				frameAdmin.setVisible(false);
 			}
 		});
-		JButton btnNewButton = new JButton("");
-		btnNewButton.setIcon(new ImageIcon(telaAdmin.class.getResource("/imagens/botao_admin1.png")));
-		btnNewButton.addActionListener(new ActionListener() {
+		JButton btn_Cadastrar_Veiculo = new JButton("");
+		btn_Cadastrar_Veiculo.setIcon(new ImageIcon(telaAdmin.class.getResource("/imagens/botao_admin1.png")));
+		btn_Cadastrar_Veiculo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				CadastrodeCarros c = new CadastrodeCarros();
 				c.visivel();
 				frameAdmin.dispose();
 			}
 		});
-		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 26));
-		btnNewButton.setBounds(823, 211, 351, 56);
-		frameAdmin.getContentPane().add(btnNewButton);
-		btnNewButton_1_1_1_1.setFont(new Font("Tahoma", Font.PLAIN, 26));
-		btnNewButton_1_1_1_1.setBounds(823, 679, 351, 56);
-		frameAdmin.getContentPane().add(btnNewButton_1_1_1_1);
+		btn_Cadastrar_Veiculo.setFont(new Font("Tahoma", Font.PLAIN, 26));
+		btn_Cadastrar_Veiculo.setBounds(823, 211, 351, 56);
+		frameAdmin.getContentPane().add(btn_Cadastrar_Veiculo);
+		btn_Estacionamento.setFont(new Font("Tahoma", Font.PLAIN, 26));
+		btn_Estacionamento.setBounds(823, 679, 351, 56);
+		frameAdmin.getContentPane().add(btn_Estacionamento);
 		
 		JButton btnCadastrarLoja = new JButton("");
 		btnCadastrarLoja.setIcon(new ImageIcon(telaAdmin.class.getResource("/imagens/botao_admin_2.png")));
@@ -113,7 +114,7 @@ public void visivel() {
 		frameAdmin.getContentPane().add(btnCadastrarLoja);
 		
 		JButton btnVisualizaoDosGalpes = new JButton("");
-		btnVisualizaoDosGalpes.setIcon(new ImageIcon("D:\\Users\\Aluno\\Downloads\\imagem 2+2-1=3\\_basicSolid small Base (15).png"));
+		btnVisualizaoDosGalpes.setIcon(new ImageIcon(telaAdmin.class.getResource("/imagens/_basicSolid small Base (15).png")));
 		btnVisualizaoDosGalpes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				telavisgalpao t = new telavisgalpao();
@@ -125,19 +126,58 @@ public void visivel() {
 		btnVisualizaoDosGalpes.setBounds(823, 443, 351, 56);
 		frameAdmin.getContentPane().add(btnVisualizaoDosGalpes);
 		
-		JButton btnNewButton_1_1 = new JButton("");
-		btnNewButton_1_1.setIcon(new ImageIcon("D:\\Users\\Aluno\\Downloads\\imagem 2+2-1=3\\_basicSolid small Base (14).png"));
-		btnNewButton_1_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				VisualizaçãoCarros v = new VisualizaçãoCarros();
-				v.visivel();
-				frameAdmin.dispose();
-			}
-		});
-		btnNewButton_1_1.setFont(new Font("Tahoma", Font.PLAIN, 26));
-		btnNewButton_1_1.setBounds(823, 562, 351, 56);
-		frameAdmin.getContentPane().add(btnNewButton_1_1);
+//		JButton btn_Visualizar_Veiculos = new JButton("");
+//		btn_Visualizar_Veiculos.setIcon(new ImageIcon(telaAdmin.class.getResource("/imagens/botao_vis (1).png")));
+//		btn_Visualizar_Veiculos.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+//				VisualizaçãoCarros v = new VisualizaçãoCarros();
+//				v.visivel();
+//				frameAdmin.dispose();
+//			}
+//		});
+//		btn_Visualizar_Veiculos.setFont(new Font("Tahoma", Font.PLAIN, 26));
+//		btn_Visualizar_Veiculos.setBounds(823, 562, 351, 56);
+//		frameAdmin.getContentPane().add(btn_Visualizar_Veiculos);
 		
+		JButton btn_Visualizar_Veiculos = new JButton("");
+
+		// --- Ajuste de Redimensionamento Vertical Total (56px) ---
+		ImageIcon icon_vis = new
+		ImageIcon(telaAdmin.class.getResource("/imagens/botao_vis (1).png"));
+		Image img_vis = icon_vis.getImage();
+
+		// Altura baseada no seu setBounds (56)
+		int alturaDesejada = 56;
+		// Cálculo da largura proporcional para não distorcer
+		int larguraProporcional = (img_vis.getWidth(null) *
+		alturaDesejada) / img_vis.getHeight(null);
+
+		// Aplica o redimensionamento suave
+		Image img_vis_final = img_vis.getScaledInstance(larguraProporcional, alturaDesejada, Image.SCALE_SMOOTH);
+		btn_Visualizar_Veiculos.setIcon(new ImageIcon(img_vis_final));
+		// -------------------------------------------------------
+
+		btn_Visualizar_Veiculos.addActionListener(new ActionListener()
+		{
+		public void actionPerformed(ActionEvent e) {
+		VisualizaçãoCarros v = new VisualizaçãoCarros();
+		v.visivel();
+		frameAdmin.dispose();
+		}
+		});
+
+		btn_Visualizar_Veiculos.setFont(new Font("Tahoma", Font.PLAIN, 26));
+		btn_Visualizar_Veiculos.setBounds(823, 562, 351, 56);
+
+		// Ajustes estéticos para garantir que o ícone preencha o espaço sem bordas cinzas
+		btn_Visualizar_Veiculos.setBorderPainted(false);
+		btn_Visualizar_Veiculos.setContentAreaFilled(false);
+		btn_Visualizar_Veiculos.setFocusPainted(false);
+		btn_Visualizar_Veiculos.setMargin(new java.awt.Insets(0, 0, 0, 0));
+
+		frameAdmin.getContentPane().add(btn_Visualizar_Veiculos);
+		// -------------------------------------------------------
+
 		JButton btnVoltar = new JButton("");
 		btnVoltar.setContentAreaFilled(false);
 		btnVoltar.setIcon(new ImageIcon(telaAdmin.class.getResource("/imagens/botoes_isaac/_comicLight small Base (4).png")));

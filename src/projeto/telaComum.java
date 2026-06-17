@@ -51,15 +51,10 @@ public class telaComum {
 				telaComum.class.getResource("/imagens/botoes_isaac/_comicLight small Base (4).png")));
 		btnSair.setContentAreaFilled(false);
 		btnSair.setBorderPainted(false);
-<<<<<<< HEAD
 		btnSair.setBounds(50, 50, 104, 35);
-=======
-		btnSair.setBounds(1766, 50, 104, 35);
 
->>>>>>> refs/remotes/origin/dev-arthur
 		btnSair.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-<<<<<<< HEAD
 		        JOptionPane.showMessageDialog(null, "Sessão encerrada. Voltando para a tela de login.");
 		        
 		        
@@ -68,20 +63,6 @@ public class telaComum {
 		        
 		        frame.dispose(); // FECHA TELA ATUAL
 		    }
-=======
-
-				int opcao = JOptionPane.showConfirmDialog(
-						frame,
-						"Deseja voltar para a tela de login?",
-						"Confirmação",
-						JOptionPane.YES_NO_OPTION);
-
-				if (opcao == JOptionPane.YES_OPTION) {
-					new Login().visivel();
-					frame.dispose();
-				}
-			}
->>>>>>> refs/remotes/origin/dev-arthur
 		});
 
 		frame.getContentPane().add(btnSair);
