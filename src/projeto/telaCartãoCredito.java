@@ -37,7 +37,7 @@ public class telaCartãoCredito extends JDialog {
 
     private JFormattedTextField txtNumeroCartao;
     private JFormattedTextField txtValidade;
-    private JFormattedTextField txtCVV;
+    private JPasswordField jftCVV;
 
 
     public telaCartãoCredito(JFrame parent) {
@@ -127,9 +127,7 @@ public class telaCartãoCredito extends JDialog {
             MaskFormatter mascaraCVV = new MaskFormatter("###");
             mascaraCVV.setPlaceholderCharacter('_');
 
-            txtCVV = new JFormattedTextField(mascaraCVV);
-            txtCVV.setBounds(1103, 425, 150, 30);
-            getContentPane().add(txtCVV);
+            
 
         } catch (ParseException e) {
             e.printStackTrace();
@@ -161,7 +159,7 @@ public class telaCartãoCredito extends JDialog {
             String titular = txtTitular.getText().trim();
             String cartao = txtNumeroCartao.getText();
             String validade = txtValidade.getText();
-            String cvv = txtCVV.getText();
+            String cvv = new String(jftCVV.getPassword());
 
             // Nome
             if (titular.isEmpty()) {
@@ -238,8 +236,7 @@ public class telaCartãoCredito extends JDialog {
         
         
         
-        JPasswordField jftCVV = new JPasswordField();
-        jftCVV.setBounds(1102, 425, 150, 30);
+        jftCVV = new JPasswordField();`n        jftCVV.setBounds(1103, 425, 150, 30);
 
 
         PlainDocument doc = new PlainDocument() {
