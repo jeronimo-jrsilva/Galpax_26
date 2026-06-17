@@ -5,6 +5,9 @@ import javax.swing.JFrame;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.PlainDocument;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -12,13 +15,16 @@ import javax.swing.JButton;
 import javax.swing.SwingConstants;
 import javax.swing.ImageIcon;
 import java.awt.Color;
+import javax.swing.JPasswordField;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class telaCartãoDébito extends JDialog {
 
     private JTextField txtTitular;
     private JTextField txtNumeroCartao;
     private JTextField txtValidade;
-    private JTextField txtCVV;
+    private JPasswordField jftCVV;
 
     public telaCartãoDébito(JFrame parent) {
         super(parent, "Cartão de Débito", true);
@@ -44,6 +50,24 @@ public class telaCartãoDébito extends JDialog {
         btnVoltar.setBounds(50, 50, 104, 35);
         btnVoltar.addActionListener(e -> dispose());
         getContentPane().add(btnVoltar);
+        
+        JPasswordField jftCVV = new JPasswordField();
+        jftCVV.setBounds(1102, 425, 150, 30);
+
+        PlainDocument doc = new PlainDocument() {
+            @Override
+            public void insertString(int offset, String str, AttributeSet attr)
+                    throws BadLocationException {
+                if (str == null) return;
+                if ((getLength() + str.length()) <= 3) {
+                    super.insertString(offset, str, attr);
+                }
+            }
+        };
+
+        jftCVV.setDocument(doc);
+        jftCVV.setEchoChar('*'); // depois do setDocument
+        getContentPane().add(jftCVV);
 
         // UI ORIGINAL DO ALUNO (HENRIQUE)
         JLabel lblTitulo = new JLabel("COMPRA NO CARTÃO DE DÉBITO");
@@ -88,10 +112,6 @@ public class telaCartãoDébito extends JDialog {
         lblCVV.setForeground(Color.WHITE);
         lblCVV.setBounds(1043, 425, 60, 30);
         getContentPane().add(lblCVV);
-
-        txtCVV = new JTextField();
-        txtCVV.setBounds(1103, 425, 150, 30);
-        getContentPane().add(txtCVV);
 
         JButton btnConfirmar = new JButton("");
         btnConfirmar.setContentAreaFilled(false);

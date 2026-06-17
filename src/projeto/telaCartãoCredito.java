@@ -1,17 +1,24 @@
 package projeto;
 
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JFrame;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.border.EmptyBorder;
+import javax.swing.text.BadLocationException;
 import javax.swing.text.MaskFormatter;
+import javax.swing.text.PlainDocument;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
 import javax.swing.JComboBox;
+import javax.swing.text.AttributeSet;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import java.awt.Color;
@@ -22,6 +29,7 @@ public class telaCartãoCredito extends JDialog {
     private JTextField txtTitular;
     private JTextField txtNumeroCartao;
     private JTextField txtValidade;
+    private MaskFormatter maskCVV;
 
     public telaCartãoCredito(JFrame parent) {
         super(parent, "Cartão de Crédito", true);
@@ -39,17 +47,14 @@ public class telaCartãoCredito extends JDialog {
         getContentPane().setLayout(null);
         setLocationRelativeTo(null);
         
-       /* 
+        
         try {
-			//maskCVV = new MaskFormatter("###"); tentando colocar mascara nos campos
-			//maskbirth = new MaskFormatter("##/##/####");
-			//maskcep = new MaskFormatter("#####-###");
-			//maskphone = new MaskFormatter("(##) #####-####");
+			maskCVV = new MaskFormatter("***");
 			
 		}catch (Exception e) {
 			JOptionPane.showMessageDialog(null,"Erro","Aviso",-1);
 		}
-		*/
+		
 
         // BOTÃO VOLTAR (ISAAC)
         JButton btnVoltar = new JButton("");
@@ -69,6 +74,7 @@ public class telaCartãoCredito extends JDialog {
         getContentPane().add(lblTitulo);
 
         JLabel lblTitular = new JLabel("Nome do Titular:");
+        lblTitular.setHorizontalAlignment(SwingConstants.CENTER);
         lblTitular.setFont(new Font("Tahoma", Font.PLAIN, 20));
         lblTitular.setForeground(Color.WHITE);
         lblTitular.setBounds(455, 216, 200, 30);
@@ -79,6 +85,7 @@ public class telaCartãoCredito extends JDialog {
         getContentPane().add(txtTitular);
 
         JLabel lblNumero = new JLabel("Número do Cartão:");
+        lblNumero.setHorizontalAlignment(SwingConstants.CENTER);
         lblNumero.setFont(new Font("Tahoma", Font.PLAIN, 20));
         lblNumero.setForeground(Color.WHITE);
         lblNumero.setBounds(435, 316, 220, 30);
@@ -115,11 +122,26 @@ public class telaCartãoCredito extends JDialog {
         btnConfirmar.addActionListener(e -> JOptionPane.showMessageDialog(null, "Compra Concluída!"));
         getContentPane().add(btnConfirmar);
         
-        /* falhei misseravelmente em colocar uma mascara aqui
-        JFormattedTextField jftCVV = new JFormattedTextField(maskCVV);
+        
+        
+        JPasswordField jftCVV = new JPasswordField();
         jftCVV.setBounds(1102, 425, 150, 30);
-        getContentPane().add(maskCVV);
-        */
+
+        PlainDocument doc = new PlainDocument() {
+            @Override
+            public void insertString(int offset, String str, AttributeSet attr)
+                    throws BadLocationException {
+                if (str == null) return;
+                if ((getLength() + str.length()) <= 3) {
+                    super.insertString(offset, str, attr);
+                }
+            }
+        };
+
+        jftCVV.setDocument(doc);
+        jftCVV.setEchoChar('*'); // depois do setDocument
+        getContentPane().add(jftCVV);
+        
         
         		JLabel lblFundo = new JLabel("");
                 lblFundo.setIcon(new ImageIcon(telaCartãoCredito.class.getResource("/imagens/fundopagamento.png")));
