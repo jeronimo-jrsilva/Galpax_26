@@ -75,7 +75,7 @@ public class CadastrodeCarros {
         }
         
         JButton btnVoltar = new JButton("");
-        btnVoltar.setIcon(new ImageIcon(CadastrodeCarros.class.getResource("/imagens/botoes_isaac/_comicLight small Base (4).png")));
+        btnVoltar.setIcon(new ImageIcon(CadastrodeCarros.class.getResource("/imagens/img_cad_veiculo/img_cad_veiculo_btn_voltar.png")));
         btnVoltar.setContentAreaFilled(false);
         btnVoltar.setBorderPainted(false);
         btnVoltar.setBounds(50, 50, 104, 35);
@@ -91,8 +91,9 @@ public class CadastrodeCarros {
         CadCarrosFrame.getContentPane().add(containerTeclado);
 
         placa_txt = new JFormattedTextField(maskPlaca);
+        placa_txt.setForeground(new Color(255, 255, 255));
         placa_txt.setFont(new Font("Tahoma", Font.BOLD, 18));
-        placa_txt.setBounds(659, 341, 639, 58);
+        placa_txt.setBounds(785, 255, 564, 45);
         placa_txt.setOpaque(false);
         placa_txt.setBorder(null);
         placa_txt.addMouseListener(new MouseAdapter() {
@@ -104,8 +105,9 @@ public class CadastrodeCarros {
         CadCarrosFrame.getContentPane().add(placa_txt);
 
         modelo_txt = new JTextField();
+        modelo_txt.setForeground(new Color(255, 255, 255));
         modelo_txt.setFont(new Font("Tahoma", Font.BOLD, 18));
-        modelo_txt.setBounds(656, 449, 639, 59);
+        modelo_txt.setBounds(797, 346, 552, 45);
         modelo_txt.setOpaque(false);
         modelo_txt.setBorder(null);
         modelo_txt.addMouseListener(new MouseAdapter() {
@@ -114,7 +116,7 @@ public class CadastrodeCarros {
                 mostrarTeclado(criarTecladoCompleto());
             }
         });
-        JButton botãoCadastrar = new JButton(" CADASTRAR ");
+        JButton botãoCadastrar = new JButton("");
         botãoCadastrar.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		
@@ -149,13 +151,17 @@ public class CadastrodeCarros {
         	}
         });
         botãoCadastrar.setFont(new Font("Tahoma", Font.PLAIN, 23));
-        botãoCadastrar.setBounds(729, 642, 441, 40);
+        botãoCadastrar.setBounds(555, 564, 796, 60);
+        botãoCadastrar.setOpaque(false);
+        botãoCadastrar.setContentAreaFilled(false);
+        botãoCadastrar.setBorderPainted(false);
         CadCarrosFrame.getContentPane().add(botãoCadastrar);
         CadCarrosFrame.getContentPane().add(modelo_txt);
 
         CNH_text = new JTextField();
+        CNH_text.setForeground(new Color(255, 255, 255));
         CNH_text.setFont(new Font("Tahoma", Font.BOLD, 18));
-        CNH_text.setBounds(656, 559, 640, 60);
+        CNH_text.setBounds(861, 439, 488, 45);
         CNH_text.setOpaque(false);
         CNH_text.setBorder(null);
         CNH_text.addMouseListener(new MouseAdapter() {
@@ -167,8 +173,8 @@ public class CadastrodeCarros {
         CadCarrosFrame.getContentPane().add(CNH_text);
 
         JLabel lblFundo = new JLabel("");
-        lblFundo.setIcon(new ImageIcon(CadastrodeCarros.class.getResource("/imagens/fundo tela cad carro.png")));
-        lblFundo.setBounds(0, 0, 1920, 1080);
+        lblFundo.setIcon(new ImageIcon(CadastrodeCarros.class.getResource("/imagens/img_cad_veiculo/img_cad_veiculo_ficha.png")));
+        lblFundo.setBounds(0, -13, 1930, 1104);
         CadCarrosFrame.getContentPane().add(lblFundo);
     }
 

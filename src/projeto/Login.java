@@ -68,13 +68,14 @@ public class Login {
         // REGISTRA PARA CTRL+W
         GerenciadorJanelas.registrarInstancia(this);
 
-		containerTeclado.setBounds(360, 700, 1200, 300);
+		containerTeclado.setBounds(368, 741, 1200, 300);
 		telalogin.getContentPane().add(containerTeclado);
 		
 		// CAMPOS DE LOGIN E SENHA
 		login_txt = new JTextField();
+		login_txt.setForeground(new Color(255, 255, 255));
 		login_txt.setFont(new Font("Tahoma", Font.PLAIN, 30));
-		login_txt.setBounds(663, 340, 640, 60); 
+		login_txt.setBounds(915, 275, 772, 77); 
 		login_txt.setOpaque(false);      
 		login_txt.setBorder(null);
 		telalogin.getContentPane().add(login_txt);
@@ -84,8 +85,9 @@ public class Login {
         });
 		
 		senha_txt = new JPasswordField();
+		senha_txt.setForeground(new Color(255, 255, 255));
 		senha_txt.setFont(new Font("Tahoma", Font.PLAIN, 30));
-		senha_txt.setBounds(663, 481, 640, 60);
+		senha_txt.setBounds(915, 446, 772, 77);
 		senha_txt.setOpaque(false);      
 		senha_txt.setBorder(null);
 		telalogin.getContentPane().add(senha_txt);
@@ -95,8 +97,8 @@ public class Login {
 		});
 		
 		JButton btnEntrar = new JButton("");
-		btnEntrar.setIcon(new ImageIcon(Login.class.getResource("/imagens/_basicSolid small Base (1).png")));
-		btnEntrar.setBounds(695, 570, 530, 71);
+		btnEntrar.setIcon(new ImageIcon(Login.class.getResource("/imagens/img_login/img_login_btn_entrar.png")));
+		btnEntrar.setBounds(822, 551, 905, 71);
 		btnEntrar.setOpaque(false);
 		btnEntrar.setBorder(null);
 		btnEntrar.setContentAreaFilled(false);
@@ -130,7 +132,7 @@ public class Login {
 		
 		// FUNDO ADICIONADO POR ÚLTIMO (PARA FICAR ATRÁS NO WB)
 		JLabel lblFundo = new JLabel("");
-		lblFundo.setIcon(new ImageIcon(Login.class.getResource("/imagens/telalogin.png")));
+		lblFundo.setIcon(new ImageIcon(Login.class.getResource("/imagens/img_login/img_login_fundo.png")));
 		lblFundo.setBounds(0, 0, 1920, 1080);
 		telalogin.getContentPane().add(lblFundo);
 
