@@ -28,6 +28,8 @@ import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.awt.event.ActionEvent;
+import java.awt.Rectangle;
+import java.awt.Point;
 
 public class telaEstacionamento {
 
@@ -185,7 +187,7 @@ public class telaEstacionamento {
 		btnVoltar.setIcon(new ImageIcon(telaEstacionamento.class.getResource("/imagens/botoes_isaac/_comicLight small Base (4).png")));
 		btnVoltar.setContentAreaFilled(false);
 		btnVoltar.setBorderPainted(false);
-		btnVoltar.setBounds(50, 50, 104, 35);
+		btnVoltar.setBounds(10, 11, 104, 35);
 		btnVoltar.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
 

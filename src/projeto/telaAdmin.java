@@ -12,6 +12,7 @@ import java.awt.Font;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.awt.Toolkit;
+import javax.swing.JLabel;
 import javax.swing.ImageIcon;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
@@ -137,13 +138,13 @@ public void visivel() {
 		btnNewButton_1_1.setBounds(823, 562, 351, 56);
 		frameAdmin.getContentPane().add(btnNewButton_1_1);
 		
-		JButton btnNewButton_1_1_1 = new JButton("");
-		btnNewButton_1_1_1.setContentAreaFilled(false);
-		btnNewButton_1_1_1.setIcon(new ImageIcon(telaAdmin.class.getResource("/imagens/botoes_isaac/_comicLight small Base (4).png")));
-		btnNewButton_1_1_1.setFont(new Font("Tahoma", Font.PLAIN, 26));
-		btnNewButton_1_1_1.setBounds(50, 50, 104, 35);
+		JButton btnVoltar = new JButton("");
+		btnVoltar.setContentAreaFilled(false);
+		btnVoltar.setIcon(new ImageIcon(telaAdmin.class.getResource("/imagens/botoes_isaac/_comicLight small Base (4).png")));
+		btnVoltar.setFont(new Font("Tahoma", Font.PLAIN, 26));
+		btnVoltar.setBounds(50, 50, 104, 35);
 		frameAdmin.getContentPane().add(btnNewButton_1_1_1);
-		btnNewButton_1_1_1.addActionListener(new ActionListener() {
+		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 		        JOptionPane.showMessageDialog(null, "Sessão encerrada. Voltando para a tela de login.");
 		        

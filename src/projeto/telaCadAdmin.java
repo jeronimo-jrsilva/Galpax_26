@@ -66,6 +66,13 @@ public class telaCadAdmin {
 		GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		GraphicsDevice device = env.getDefaultScreenDevice();
 		
+		JButton btnVoltar = new JButton("");
+		btnVoltar.setIcon(new ImageIcon(telaCadAdmin.class.getResource("/imagens/botoes_isaac/_comicLight small Base (4).png")));
+		btnVoltar.setContentAreaFilled(false);
+		btnVoltar.setBorderPainted(false);
+		btnVoltar.setBounds(1789, 1007, 117, 58);
+		frame.getContentPane().add(btnVoltar);
+		
 		txt_nome = new JTextField();
 		txt_nome.setFont(new Font("Tahoma", Font.PLAIN, 25));
 		txt_nome.setBounds(227, 219, 1289, 58);
@@ -99,15 +106,16 @@ public class telaCadAdmin {
 		
 		txt_confirmar = new JPasswordField();
 		txt_confirmar.setFont(new Font("Tahoma", Font.PLAIN, 25));
-		txt_confirmar.setBounds(460, 681, 1056, 66);
+		txt_confirmar.setBounds(408, 681, 1056, 66);
 		frame.getContentPane().add(txt_confirmar);
 		txt_confirmar.setOpaque(false);      
 		txt_confirmar.setBorder(null);
 		
-		JButton btnNewButton = new JButton("Cadastrar");
-		btnNewButton.setIcon(new ImageIcon(telaCadAdmin.class.getResource("/imagens/botao_admin_6.png")));
+		JButton btnNewButton = new JButton("");
+		btnNewButton.setContentAreaFilled(false);
+		btnNewButton.setIcon(new ImageIcon(telaCadAdmin.class.getResource("/imagens/botoes_isaac/_comicLight small Base (6).png")));
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 31));
-		btnNewButton.setBounds(791, 803, 436, 58);
+		btnNewButton.setBounds(769, 795, 401, 102);
 		frame.getContentPane().add(btnNewButton);
 		
 		btnNewButton.addActionListener(new ActionListener() {
