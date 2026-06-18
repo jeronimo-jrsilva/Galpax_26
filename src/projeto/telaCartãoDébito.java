@@ -3,8 +3,6 @@ package projeto;
 import java.awt.Font;
 import javax.swing.JFrame;
 import javax.swing.JDialog;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.PlainDocument;
@@ -16,8 +14,6 @@ import javax.swing.SwingConstants;
 import javax.swing.ImageIcon;
 import java.awt.Color;
 import javax.swing.JPasswordField;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 public class telaCartãoDébito extends JDialog {
 
@@ -42,7 +38,8 @@ public class telaCartãoDébito extends JDialog {
         getContentPane().setLayout(null);
         setLocationRelativeTo(null);
 
-        // BOTÃO VOLTAR (ISAAC)
+        // GerenciadorTeclado.getInstance().inicializar(this); // JDialog não é JFrame
+
         JButton btnVoltar = new JButton("");
         btnVoltar.setIcon(new ImageIcon(telaCartãoDébito.class.getResource("/imagens/botoes_isaac/_comicLight small Base (4).png")));
         btnVoltar.setContentAreaFilled(false);
@@ -51,25 +48,30 @@ public class telaCartãoDébito extends JDialog {
         btnVoltar.addActionListener(e -> dispose());
         getContentPane().add(btnVoltar);
         
-        JPasswordField jftCVV = new JPasswordField();
+        jftCVV = new JPasswordField();
         jftCVV.setBounds(1102, 425, 150, 30);
-
-        PlainDocument doc = new PlainDocument() {
-            @Override
-            public void insertString(int offset, String str, AttributeSet attr)
-                    throws BadLocationException {
-                if (str == null) return;
-                if ((getLength() + str.length()) <= 3) {
-                    super.insertString(offset, str, attr);
-                }
-            }
-        };
-
-        jftCVV.setDocument(doc);
-        jftCVV.setEchoChar('*'); // depois do setDocument
+        PlainDocument doc = (PlainDocument) jftCVV.getDocument();
+        doc.setDocumentFilter(new DocumentFilter(3));
+        jftCVV.setEchoChar('*');
         getContentPane().add(jftCVV);
+        GerenciadorTeclado.getInstance().registrarCampo(jftCVV);
 
-        // UI ORIGINAL DO ALUNO (HENRIQUE)
+        txtTitular = new JTextField();
+        txtTitular.setBounds(685, 216, 700, 30);
+        getContentPane().add(txtTitular);
+        GerenciadorTeclado.getInstance().registrarCampo(txtTitular);
+        
+        txtNumeroCartao = new JTextField();
+        txtNumeroCartao.setBounds(685, 316, 700, 30);
+        getContentPane().add(txtNumeroCartao);
+        GerenciadorTeclado.getInstance().registrarCampo(txtNumeroCartao);
+        
+        txtValidade = new JTextField();
+        txtValidade.setBounds(743, 425, 180, 30);
+        getContentPane().add(txtValidade);
+        GerenciadorTeclado.getInstance().registrarCampo(txtValidade);
+
+        // UI ORIGINAL (Labels, Botões, etc.)
         JLabel lblTitulo = new JLabel("COMPRA NO CARTÃO DE DÉBITO");
         lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
         lblTitulo.setFont(new Font("Tahoma", Font.BOLD, 28));
@@ -83,29 +85,17 @@ public class telaCartãoDébito extends JDialog {
         lblTitular.setBounds(455, 216, 200, 30);
         getContentPane().add(lblTitular);
 
-        txtTitular = new JTextField();
-        txtTitular.setBounds(685, 216, 700, 30);
-        getContentPane().add(txtTitular);
-
         JLabel lblNumero = new JLabel("Número do Cartão:");
         lblNumero.setFont(new Font("Tahoma", Font.PLAIN, 20));
         lblNumero.setForeground(Color.WHITE);
         lblNumero.setBounds(435, 316, 220, 30);
         getContentPane().add(lblNumero);
 
-        txtNumeroCartao = new JTextField();
-        txtNumeroCartao.setBounds(685, 316, 700, 30);
-        getContentPane().add(txtNumeroCartao);
-
         JLabel lblValidade = new JLabel("Validade:");
         lblValidade.setFont(new Font("Tahoma", Font.PLAIN, 20));
         lblValidade.setForeground(Color.WHITE);
         lblValidade.setBounds(643, 425, 100, 30);
         getContentPane().add(lblValidade);
-
-        txtValidade = new JTextField();
-        txtValidade.setBounds(743, 425, 180, 30);
-        getContentPane().add(txtValidade);
 
         JLabel lblCVV = new JLabel("CVV:");
         lblCVV.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -127,5 +117,26 @@ public class telaCartãoDébito extends JDialog {
 
         GerenciadorJanelas.registrarInstancia(this);
         GerenciadorJanelas.configurarJanela(this);
+    }
+}
+// Adicione a classe DocumentFilter se ela não existir em outro lugar
+class DocumentFilter extends javax.swing.text.DocumentFilter {
+    private int maxLength;
+    public DocumentFilter(int max) {
+        this.maxLength = max;
+    }
+
+    @Override
+    public void insertString(FilterBypass fb, int offset, String string, AttributeSet attr) throws BadLocationException {
+        if ((fb.getDocument().getLength() + string.length()) <= maxLength) {
+            super.insertString(fb, offset, string, attr);
+        }
+    }
+
+    @Override
+    public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException {
+        if ((fb.getDocument().getLength() + text.length() - length) <= maxLength) {
+            super.replace(fb, offset, length, text, attrs);
+        }
     }
 }
