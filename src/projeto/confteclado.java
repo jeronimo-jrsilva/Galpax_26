@@ -2,6 +2,10 @@ package projeto;
 
 import javax.swing.*;
 import java.awt.*;
+//import java.awt.Graphics;
+//import java.awt.Graphics2D;
+//import java.awt.RenderingHints;
+//import java.awt.Insets;
 
 public class confteclado {
 
