@@ -30,6 +30,9 @@ import java.awt.Color;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFormattedTextField;
 import javax.swing.text.MaskFormatter;
+import javax.swing.JSpinner;
+import javax.swing.JProgressBar;
+import javax.swing.JScrollBar;
 
 public class telaCartãoCredito extends JDialog {
 
@@ -57,34 +60,62 @@ public class telaCartãoCredito extends JDialog {
         setUndecorated(true);
         getContentPane().setLayout(null);
         setLocationRelativeTo(null);
-
-        // INICIALIZA O TECLADO UNIVERSAL
-        // GerenciadorTeclado.getInstance().inicializar(this); // JDialog não é JFrame
-
-        JLabel lblTitulo = new JLabel("COMPRA NO CARTÃO DE CRÉDITO");
-        lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
-        lblTitulo.setFont(new Font("Tahoma", Font.BOLD, 28));
-        lblTitulo.setForeground(Color.WHITE);
-        lblTitulo.setBounds(610, 80, 700, 40);
-        getContentPane().add(lblTitulo);
-
-        txtTitular = new JTextField();
-        txtTitular.setBounds(685, 216, 700, 30);
-        getContentPane().add(txtTitular);
-        GerenciadorTeclado.getInstance().registrarCampo(txtTitular);
+        
+        JButton btnConfirmar = new JButton("");
+        btnConfirmar.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		JOptionPane.showMessageDialog(null, "Pagamento Confirmado com Sucesso!");
+        	}
+        });
+        		
+        
+        		String[] parcelas = {"1x (À vista)", "2x (Sem juros)", "3x (Sem juros)"};
+                JComboBox<String> cboxParcelas = new JComboBox<>(parcelas);
+                cboxParcelas.setBounds(858, 723, 88, 22);
+                getContentPane().add(cboxParcelas);
+                                            
+        
+                txtTitular = new JTextField();
+                txtTitular.setFont(new Font("Tahoma", Font.PLAIN, 20));
+                txtTitular.setForeground(new Color(255, 255, 255));
+                txtTitular.setBounds(757, 327, 700, 30);
+                
+                txtTitular.setOpaque(false);
+                txtTitular.setBorder(null); //
+                txtTitular.setBackground(new Color(0, 0, 0, 0));
+                
+                getContentPane().add(txtTitular);
+                GerenciadorTeclado.getInstance().registrarCampo(txtTitular);
+        btnConfirmar.setIcon(new ImageIcon(telaCartãoCredito.class.getResource("/imagens/img_pagamento_credito/img_pagamento_credito_btn_confirmar.png")));
+        btnConfirmar.setBounds(757, 899, 780, 70);
+        getContentPane().add(btnConfirmar);
 
         try {
             MaskFormatter mascaraCartao = new MaskFormatter("#### #### #### ####");
             mascaraCartao.setPlaceholderCharacter('_');
             txtNumeroCartao = new JFormattedTextField(mascaraCartao);
-            txtNumeroCartao.setBounds(685, 316, 700, 30);
+            txtNumeroCartao.setForeground(new Color(255, 255, 255));
+            txtNumeroCartao.setFont(new Font("Tahoma", Font.PLAIN, 20));
+            txtNumeroCartao.setBounds(757, 482, 700, 30);
+            
+            txtNumeroCartao.setOpaque(false);
+            txtNumeroCartao.setBorder(null); //
+            txtNumeroCartao.setBackground(new Color(0, 0, 0, 0));
+            
             getContentPane().add(txtNumeroCartao);
             GerenciadorTeclado.getInstance().registrarCampo(txtNumeroCartao);
 
             MaskFormatter mascaraValidade = new MaskFormatter("##/##");
             mascaraValidade.setPlaceholderCharacter('_');
             txtValidade = new JFormattedTextField(mascaraValidade);
-            txtValidade.setBounds(743, 425, 180, 30);
+            txtValidade.setForeground(new Color(255, 255, 255));
+            txtValidade.setFont(new Font("Tahoma", Font.PLAIN, 20));
+            txtValidade.setBounds(757, 633, 180, 30);
+            
+            txtValidade.setOpaque(false);
+            txtValidade.setBorder(null); //
+            txtValidade.setBackground(new Color(0, 0, 0, 0));
+            
             getContentPane().add(txtValidade);
             GerenciadorTeclado.getInstance().registrarCampo(txtValidade);
 
@@ -93,7 +124,14 @@ public class telaCartãoCredito extends JDialog {
         }
         
         jftCVV = new JPasswordField();
-        jftCVV.setBounds(1103, 425, 150, 30);
+        jftCVV.setForeground(new Color(255, 255, 255));
+        jftCVV.setFont(new Font("Tahoma", Font.PLAIN, 20));
+        jftCVV.setBounds(1256, 633, 150, 30);
+        
+        jftCVV.setOpaque(false);
+        jftCVV.setBorder(null); //
+        jftCVV.setBackground(new Color(0, 0, 0, 0));
+        
         PlainDocument doc = (PlainDocument) jftCVV.getDocument();
         doc.setDocumentFilter(new DocumentFilter(3)); // Limita para 3 caracteres
         jftCVV.setEchoChar('*');
@@ -101,7 +139,7 @@ public class telaCartãoCredito extends JDialog {
         GerenciadorTeclado.getInstance().registrarCampo(jftCVV);
 
         JButton btnVoltar = new JButton("");
-        btnVoltar.setIcon(new ImageIcon(telaCartãoCredito.class.getResource("/imagens/botoes_isaac/_comicLight small Base (4).png")));
+        btnVoltar.setIcon(new ImageIcon(telaCartãoCredito.class.getResource("/imagens/img_pagamento_credito/img_pagamento_credito_btn_voltar.png")));
         btnVoltar.setContentAreaFilled(false);
         btnVoltar.setBorderPainted(false);
         btnVoltar.setBounds(50, 50, 104, 35);
@@ -113,7 +151,7 @@ public class telaCartãoCredito extends JDialog {
 
         JLabel lblFundo = new JLabel("");
         lblFundo.setIcon(
-                new ImageIcon(telaCartãoCredito.class.getResource("/imagens/fundopagamento.png")));
+                new ImageIcon(telaCartãoCredito.class.getResource("/imagens/img_pagamento_credito/img_pagamento_credito_fundo.png")));
         lblFundo.setBounds(0, 0, 1920, 1080);
         getContentPane().add(lblFundo);
 

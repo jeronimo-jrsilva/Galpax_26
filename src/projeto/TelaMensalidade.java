@@ -64,16 +64,16 @@ public class TelaMensalidade {
         GerenciadorJanelas.registrarInstancia(this);
 
 		// PADRÃO: TOP-LEFT (VOLTAR)
-		JButton btnVoltar = new JButton("");
-		btnVoltar.setIcon(new ImageIcon(TelaMensalidade.class.getResource("/imagens/botoes_isaac/_comicLight small Base (4).png")));
-		btnVoltar.setContentAreaFilled(false);
-		btnVoltar.setBorderPainted(false);
-		btnVoltar.setBounds(50, 50, 104, 35);
-		btnVoltar.addActionListener(e -> {
+		JButton btnVoltaratt = new JButton("");
+		btnVoltaratt.setIcon(new ImageIcon(TelaMensalidade.class.getResource("/imagens/img_mensalidade/img_mensalidade_btn_voltar.png")));
+		btnVoltaratt.setContentAreaFilled(false);
+		btnVoltaratt.setBorderPainted(false);
+		btnVoltaratt.setBounds(50, 50, 104, 35);
+		btnVoltaratt.addActionListener(e -> {
 			new telaComum(emailSessao).visivel();
 			frmMensalidade.dispose();
 		});
-		frmMensalidade.getContentPane().add(btnVoltar);
+		frmMensalidade.getContentPane().add(btnVoltaratt);
 		
 		tblMensalidade = new JTable();
 		tblMensalidade.setFont(new Font("Tahoma", Font.PLAIN, 18));
@@ -122,16 +122,16 @@ public class TelaMensalidade {
 		});
 		
 		JScrollPane scrollPane = new JScrollPane(tblMensalidade);
-		scrollPane.setBounds(96, 280, 1728, 400); 
+		scrollPane.setBounds(164, 296, 1607, 393); 
 		frmMensalidade.getContentPane().add(scrollPane);
 		
-		JButton btnHistorico = new JButton("Histórico de Pagamento");
-		btnHistorico.setIcon(new ImageIcon(TelaMensalidade.class.getResource("/imagens/botaopagamento.png")));
-		btnHistorico.setFont(new Font("Arial", Font.PLAIN, 20));
-		btnHistorico.setBounds(781, 700, 358, 46);
-		btnHistorico.setOpaque(false);
-		btnHistorico.setBorder(null);
-		btnHistorico.addActionListener(e -> {
+		JButton btnHistoricoatt = new JButton("Histórico de Pagamento");
+		btnHistoricoatt.setIcon(new ImageIcon(TelaMensalidade.class.getResource("/imagens/img_mensalidade/img_mensalidade_historico.png")));
+		btnHistoricoatt.setFont(new Font("Arial", Font.PLAIN, 20));
+		btnHistoricoatt.setBounds(825, 703, 563, 74);
+		btnHistoricoatt.setOpaque(false);
+		btnHistoricoatt.setBorder(null);
+		btnHistoricoatt.addActionListener(e -> {
 			int linha = tblMensalidade.getSelectedRow();
 			if (linha != -1) {
 				new TelaHistorico((String) modeloTabela.getValueAt(linha, 0));
@@ -139,12 +139,12 @@ public class TelaMensalidade {
 				JOptionPane.showMessageDialog(null, "Selecione uma loja para ver o histórico.");
 			}
 		});
-		frmMensalidade.getContentPane().add(btnHistorico);
+		frmMensalidade.getContentPane().add(btnHistoricoatt);
 		
-		JLabel lblFundo = new JLabel("");
-		lblFundo.setIcon(new ImageIcon(TelaMensalidade.class.getResource("/imagens/fundopagamento.png")));
-		lblFundo.setBounds(0, 0, 1920, 1080);
-		frmMensalidade.getContentPane().add(lblFundo);
+		JLabel lblFundoatt = new JLabel("");
+		lblFundoatt.setIcon(new ImageIcon(TelaMensalidade.class.getResource("/imagens/img_mensalidade/img_mensalidade_fundo.png")));
+		lblFundoatt.setBounds(0, 0, 1920, 1080);
+		frmMensalidade.getContentPane().add(lblFundoatt);
 
         GerenciadorJanelas.configurarJanela(frmMensalidade);
         frmMensalidade.setVisible(true);

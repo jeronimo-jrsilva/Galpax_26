@@ -38,35 +38,24 @@ public class telaPIX extends JDialog {
 
         // BOTÃO VOLTAR (ISAAC)
         JButton btnVoltar = new JButton("");
-        btnVoltar.setIcon(new ImageIcon(telaPIX.class.getResource("/imagens/botoes_isaac/_comicLight small Base (4).png")));
+        btnVoltar.setIcon(new ImageIcon(telaPIX.class.getResource("/imagens/img_pagamento_pix/img_pagamento_pix_btn_voltar.png")));
         btnVoltar.setContentAreaFilled(false);
         btnVoltar.setBorderPainted(false);
-        btnVoltar.setBounds(50, 50, 104, 35);
+        btnVoltar.setBounds(46, 48, 241, 110);
         btnVoltar.addActionListener(e -> dispose());
         getContentPane().add(btnVoltar);
 
         // LÓGICA ORIGINAL DO ALUNO (HENRIQUE)
         String codigoPix = "00020126360014BR.GOV.BCB.PIX0114seupix@email.com520400005303986540510.005802BR5920Empresa Exemplo6009Fortaleza62070503***6304ABCD";
 
-        JLabel lblCodigoPix = new JLabel(codigoPix);
-        lblCodigoPix.setFont(new Font("Tahoma", Font.BOLD, 18));
-        lblCodigoPix.setForeground(Color.WHITE);
-        lblCodigoPix.setHorizontalAlignment(SwingConstants.CENTER);
-        lblCodigoPix.setBounds(157, 120, 1574, 60);
-        getContentPane().add(lblCodigoPix);
-
         try {
             String qrUrl = "https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=" + URLEncoder.encode(codigoPix, "UTF-8");
-            JLabel lblQRCode = new JLabel();
-            lblQRCode.setIcon(new ImageIcon(new URL(qrUrl)));
-            lblQRCode.setBounds(760, 250, 400, 400);
-            getContentPane().add(lblQRCode);
         } catch (Exception e) {
             e.printStackTrace();
         }
 
         JLabel lblFundo = new JLabel("");
-        lblFundo.setIcon(new ImageIcon(telaPIX.class.getResource("/imagens/fundopagamento.png")));
+        lblFundo.setIcon(new ImageIcon(telaPIX.class.getResource("/imagens/img_pagamento_pix/img_pagamento_pix_fundo.png")));
         lblFundo.setBounds(0, 0, 1920, 1080);
         getContentPane().add(lblFundo);
 

@@ -74,7 +74,7 @@ public class CadastroLoja {
 		GerenciadorTeclado.getInstance().inicializar(frame);
 
 		btnVoltar = new JButton("");
-		btnVoltar.setIcon(new ImageIcon(CadastroLoja.class.getResource("/imagens/botoes_isaac/_comicLight small Base (4).png")));
+		btnVoltar.setIcon(new ImageIcon(CadastroLoja.class.getResource("/imagens/img_pagamento_credito/img_pagamento_credito_btn_voltar.png")));
 		btnVoltar.setContentAreaFilled(false);
 		btnVoltar.setBorderPainted(false);
 		btnVoltar.setBounds(50, 50, 104, 35);
@@ -85,7 +85,7 @@ public class CadastroLoja {
 		frame.getContentPane().add(btnVoltar);
 
 		senha = new JPasswordField();
-		senha.setBounds(339, 642, 582, 25);
+		senha.setBounds(304, 745, 517, 25);
 		senha.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		senha.setForeground(new Color(255, 255, 255));
 		senha.setOpaque(false);
@@ -94,7 +94,7 @@ public class CadastroLoja {
 		GerenciadorTeclado.getInstance().registrarCampo(senha);
 
 		confirmarsenha = new JPasswordField();
-		confirmarsenha.setBounds(973, 642, 452, 25);
+		confirmarsenha.setBounds(921, 745, 517, 25);
 		confirmarsenha.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		confirmarsenha.setForeground(new Color(255, 255, 255));
 		confirmarsenha.setOpaque(false);
@@ -112,7 +112,7 @@ public class CadastroLoja {
 		txtNome = new JTextField();
 		txtNome.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		txtNome.setForeground(new Color(255, 255, 255));
-		txtNome.setBounds(304, 160, 517, 40);
+		txtNome.setBounds(304, 160, 517, 25);
 		txtNome.setOpaque(false);
 		txtNome.setBorder(null);
 		frame.getContentPane().add(txtNome);
@@ -121,7 +121,7 @@ public class CadastroLoja {
 		txtCnpj = new JTextField();
 		txtCnpj.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		txtCnpj.setForeground(new Color(255, 255, 255));
-		txtCnpj.setBounds(921, 160, 500, 40);
+		txtCnpj.setBounds(921, 160, 517, 25);
 		txtCnpj.setOpaque(false);
 		txtCnpj.setBorder(null);
 		frame.getContentPane().add(txtCnpj);
@@ -139,7 +139,7 @@ public class CadastroLoja {
 		txtTelefone = new JTextField();
 		txtTelefone.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		txtTelefone.setForeground(new Color(255, 255, 255));
-		txtTelefone.setBounds(921, 258, 500, 40);
+		txtTelefone.setBounds(921, 258, 517, 25);
 		txtTelefone.setOpaque(false);
 		txtTelefone.setBorder(null);
 		frame.getContentPane().add(txtTelefone);
@@ -148,7 +148,7 @@ public class CadastroLoja {
 		txtEmail = new JTextField();
 		txtEmail.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		txtEmail.setForeground(new Color(255, 255, 255));
-		txtEmail.setBounds(315, 362, 506, 34);
+		txtEmail.setBounds(303, 360, 517, 25);
 		txtEmail.setOpaque(false);
 		txtEmail.setBorder(null);
 		frame.getContentPane().add(txtEmail);
@@ -157,7 +157,7 @@ public class CadastroLoja {
 		txtEndereco = new JTextField();
 		txtEndereco.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		txtEndereco.setForeground(new Color(255, 255, 255));
-		txtEndereco.setBounds(943, 362, 478, 30);
+		txtEndereco.setBounds(921, 360, 517, 25);
 		txtEndereco.setOpaque(false);
 		txtEndereco.setBorder(null);
 		frame.getContentPane().add(txtEndereco);
@@ -165,7 +165,7 @@ public class CadastroLoja {
 
 		cbTipoLoja = new JComboBox<>();
 		cbTipoLoja.setModel(new DefaultComboBoxModel<>(new String[] { "moda", "restaurante e lanchonete", "celulares e acessórios", "jogos", "outros" }));
-		cbTipoLoja.setBounds(973, 452, 452, 25);
+		cbTipoLoja.setBounds(921, 452, 500, 25);
 		frame.getContentPane().add(cbTipoLoja);
 
 		txtValorAluguel = new JTextField();
@@ -179,12 +179,12 @@ public class CadastroLoja {
 
 		cbStatus = new JComboBox<>();
 		cbStatus.setModel(new DefaultComboBoxModel<>(new String[] { "ativo", "inativo" }));
-		cbStatus.setBounds(973, 556, 452, 25);
+		cbStatus.setBounds(921, 556, 500, 25);
 		frame.getContentPane().add(cbStatus);
 
 		JComboBox<String> comboBox = new JComboBox<>();
 		comboBox.setModel(new DefaultComboBoxModel<>(new String[] { "131 ", "132" }));
-		comboBox.setBounds(339, 452, 482, 25);
+		comboBox.setBounds(304, 452, 517, 25);
 		frame.getContentPane().add(comboBox);
 
 		JButton btnCadastrar = new JButton("");
@@ -206,11 +206,6 @@ public class CadastroLoja {
 		});
 		btnLimpar.setBounds(1717, 362, 150, 40);
 		frame.getContentPane().add(btnLimpar);
-
-		JButton btnSair = new JButton("");
-		btnSair.addActionListener(e -> frame.dispose());
-		btnSair.setBounds(1717, 463, 150, 40);
-		frame.getContentPane().add(btnSair);
 
 		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setIcon(new ImageIcon(CadastroLoja.class.getResource("/imagens/img_cad_cliente/img_cad_cliente_ficha.png")));
