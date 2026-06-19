@@ -10,6 +10,8 @@ javac -cp "lib/mysql-connector-j-9.0.0.jar:src" -d bin src/projeto/*.java
 
 if [ $? -eq 0 ]; then
     echo "✅ Compilação concluída com sucesso!"
+    echo "📂 Copiando imagens e recursos..."
+    cp -rf src/imagens bin/ 2>/dev/null
     echo "🚀 Iniciando a tela de Login..."
     java -cp "lib/mysql-connector-j-9.0.0.jar:bin" projeto.Login
 else
