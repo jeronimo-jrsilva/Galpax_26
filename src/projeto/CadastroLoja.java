@@ -19,7 +19,20 @@ import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.text.MaskFormatter;
-
+import java.awt.Component;
+import javax.swing.BorderFactory;
+import javax.swing.JList;
+import javax.swing.JScrollPane;
+import javax.swing.ListCellRenderer;
+import javax.swing.SwingConstants;
+import javax.swing.plaf.basic.BasicArrowButton;
+import javax.swing.plaf.basic.BasicComboBoxUI;
+import javax.swing.plaf.basic.BasicComboPopup;
+import javax.swing.plaf.basic.ComboPopup;
+import javax.swing.DefaultListCellRenderer;
+import java.awt.Graphics;
+import java.awt.Rectangle;
+import java.awt.Polygon;
 public class CadastroLoja {
 
 	private JFrame frame;
@@ -35,7 +48,7 @@ public class CadastroLoja {
 	private JPasswordField senha;
 	private JPasswordField confirmarsenha;
 	private JButton btnVoltar;
-
+	
 	MaskFormatter maskCnpj;
 	MaskFormatter maskTelefone;
 
@@ -70,7 +83,7 @@ public class CadastroLoja {
 		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		frame.getContentPane().setLayout(null);
 
-		// INICIALIZA O TECLADO UNIVERSAL
+		
 		GerenciadorTeclado.getInstance().inicializar(frame);
 
 		btnVoltar = new JButton("");
@@ -85,7 +98,7 @@ public class CadastroLoja {
 		frame.getContentPane().add(btnVoltar);
 
 		senha = new JPasswordField();
-		senha.setBounds(304, 745, 517, 25);
+		senha.setBounds(333, 678, 517, 44);
 		senha.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		senha.setForeground(new Color(255, 255, 255));
 		senha.setOpaque(false);
@@ -94,7 +107,7 @@ public class CadastroLoja {
 		GerenciadorTeclado.getInstance().registrarCampo(senha);
 
 		confirmarsenha = new JPasswordField();
-		confirmarsenha.setBounds(921, 745, 517, 25);
+		confirmarsenha.setBounds(940, 674, 517, 46);
 		confirmarsenha.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		confirmarsenha.setForeground(new Color(255, 255, 255));
 		confirmarsenha.setOpaque(false);
@@ -112,7 +125,7 @@ public class CadastroLoja {
 		txtNome = new JTextField();
 		txtNome.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		txtNome.setForeground(new Color(255, 255, 255));
-		txtNome.setBounds(304, 160, 517, 25);
+		txtNome.setBounds(331, 175, 517, 42);
 		txtNome.setOpaque(false);
 		txtNome.setBorder(null);
 		frame.getContentPane().add(txtNome);
@@ -121,7 +134,7 @@ public class CadastroLoja {
 		txtCnpj = new JTextField();
 		txtCnpj.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		txtCnpj.setForeground(new Color(255, 255, 255));
-		txtCnpj.setBounds(921, 160, 517, 25);
+		txtCnpj.setBounds(944, 170, 517, 45);
 		txtCnpj.setOpaque(false);
 		txtCnpj.setBorder(null);
 		frame.getContentPane().add(txtCnpj);
@@ -130,7 +143,7 @@ public class CadastroLoja {
 		txtResponsavel = new JTextField();
 		txtResponsavel.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		txtResponsavel.setForeground(new Color(255, 255, 255));
-		txtResponsavel.setBounds(304, 261, 517, 25);
+		txtResponsavel.setBounds(330, 271, 517, 47);
 		txtResponsavel.setOpaque(false);
 		txtResponsavel.setBorder(null);
 		frame.getContentPane().add(txtResponsavel);
@@ -139,7 +152,7 @@ public class CadastroLoja {
 		txtTelefone = new JTextField();
 		txtTelefone.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		txtTelefone.setForeground(new Color(255, 255, 255));
-		txtTelefone.setBounds(921, 258, 517, 25);
+		txtTelefone.setBounds(939, 268, 517, 47);
 		txtTelefone.setOpaque(false);
 		txtTelefone.setBorder(null);
 		frame.getContentPane().add(txtTelefone);
@@ -148,7 +161,7 @@ public class CadastroLoja {
 		txtEmail = new JTextField();
 		txtEmail.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		txtEmail.setForeground(new Color(255, 255, 255));
-		txtEmail.setBounds(303, 360, 517, 25);
+		txtEmail.setBounds(335, 372, 517, 44);
 		txtEmail.setOpaque(false);
 		txtEmail.setBorder(null);
 		frame.getContentPane().add(txtEmail);
@@ -157,21 +170,28 @@ public class CadastroLoja {
 		txtEndereco = new JTextField();
 		txtEndereco.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		txtEndereco.setForeground(new Color(255, 255, 255));
-		txtEndereco.setBounds(921, 360, 517, 25);
+		txtEndereco.setBounds(940, 368, 517, 47);
 		txtEndereco.setOpaque(false);
 		txtEndereco.setBorder(null);
 		frame.getContentPane().add(txtEndereco);
 		GerenciadorTeclado.getInstance().registrarCampo(txtEndereco);
 
 		cbTipoLoja = new JComboBox<>();
-		cbTipoLoja.setModel(new DefaultComboBoxModel<>(new String[] { "moda", "restaurante e lanchonete", "celulares e acessórios", "jogos", "outros" }));
-		cbTipoLoja.setBounds(921, 452, 500, 25);
+		cbTipoLoja.setModel(new DefaultComboBoxModel<>(new String[] { 
+			"moda", 
+			"restaurante e lanchonete", 
+			"celulares e acessórios", 
+			"jogos", 
+			"outros" 
+		}));
+		cbTipoLoja.setBounds(912, 474, 537, 35);
+		estilizarComboBox(cbTipoLoja);
 		frame.getContentPane().add(cbTipoLoja);
 
 		txtValorAluguel = new JTextField();
 		txtValorAluguel.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		txtValorAluguel.setForeground(new Color(255, 255, 255));
-		txtValorAluguel.setBounds(321, 551, 506, 34);
+		txtValorAluguel.setBounds(338, 563, 506, 47);
 		txtValorAluguel.setOpaque(false);
 		txtValorAluguel.setBorder(null);
 		frame.getContentPane().add(txtValorAluguel);
@@ -179,22 +199,29 @@ public class CadastroLoja {
 
 		cbStatus = new JComboBox<>();
 		cbStatus.setModel(new DefaultComboBoxModel<>(new String[] { "ativo", "inativo" }));
-		cbStatus.setBounds(921, 556, 500, 25);
+		cbStatus.setBounds(913, 575, 537, 46);
+		estilizarComboBox(cbStatus);
 		frame.getContentPane().add(cbStatus);
 
 		JComboBox<String> comboBox = new JComboBox<>();
-		comboBox.setModel(new DefaultComboBoxModel<>(new String[] { "131 ", "132" }));
-		comboBox.setBounds(304, 452, 517, 25);
+		comboBox.setModel(new DefaultComboBoxModel<>(new String[] { "131", "132" }));
+		comboBox.setBounds(306, 474, 545, 35);
+		estilizarComboBox(comboBox);
 		frame.getContentPane().add(comboBox);
 
 		JButton btnCadastrar = new JButton("");
+		btnCadastrar.setIcon(new ImageIcon(CadastroLoja.class.getResource("/imagens/img_cad_cliente/img_cad_cliente_btn_cadastrar.png")));
 		btnCadastrar.addActionListener(e -> {
-			// Lógica de cadastro mantida
+			
 		});
-		btnCadastrar.setBounds(1717, 235, 150, 40);
+		btnCadastrar.setBounds(1537, 132, 182, 40);
 		frame.getContentPane().add(btnCadastrar);
-
+		btnCadastrar.setContentAreaFilled(false);
+		btnCadastrar.setBorderPainted(false);     
+		btnCadastrar.setFocusPainted(false);      
+		btnCadastrar.setOpaque(false);            
 		JButton btnLimpar = new JButton("");
+		btnLimpar.setIcon(new ImageIcon(CadastroLoja.class.getResource("/imagens/img_cad_cliente/img_cad_cliente_btn_limpar.png")));
 		btnLimpar.addActionListener(e -> {
 			txtNome.setText("");
 			txtCnpj.setText("");
@@ -204,15 +231,124 @@ public class CadastroLoja {
 			txtEndereco.setText("");
 			txtValorAluguel.setText("");
 		});
-		btnLimpar.setBounds(1717, 362, 150, 40);
+		btnLimpar.setBounds(1546, 190, 169, 46);
 		frame.getContentPane().add(btnLimpar);
-
+		btnLimpar.setContentAreaFilled(false);
+		btnLimpar.setBorderPainted(false);     
+		btnLimpar.setFocusPainted(false);      
+		btnLimpar.setOpaque(false);     
 		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setIcon(new ImageIcon(CadastroLoja.class.getResource("/imagens/img_cad_cliente/img_cad_cliente_ficha.png")));
-		lblNewLabel.setBounds(-26, -19, 1920, 1080);
+		lblNewLabel.setBounds(0, -9, 1920, 1099);
 		frame.getContentPane().add(lblNewLabel);
 	}
+	private void estilizarComboBox(JComboBox<String> combo) {
+		Color fundo = new Color(0x0e1731);
+		Color fundoSelecionado = new Color(0x16244a);
+		Color texto = Color.WHITE;
 
+		combo.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		combo.setForeground(texto);
+		combo.setBackground(fundo);
+		combo.setOpaque(false);
+		combo.setBorder(null);
+		combo.setFocusable(false);
+		combo.setMaximumRowCount(6);
+
+		combo.setUI(new BasicComboBoxUI() {
+
+			@Override
+			protected JButton createArrowButton() {
+				JButton botao = new JButton() {
+					@Override
+					protected void paintComponent(Graphics g) {
+						super.paintComponent(g);
+
+						g.setColor(Color.WHITE);
+
+						int largura = getWidth();
+						int altura = getHeight();
+
+						Polygon seta = new Polygon();
+						seta.addPoint(largura / 2 - 7, altura / 2 - 3);
+						seta.addPoint(largura / 2 + 7, altura / 2 - 3);
+						seta.addPoint(largura / 2, altura / 2 + 5);
+
+						g.fillPolygon(seta);
+					}
+				};
+
+				botao.setOpaque(false);
+				botao.setContentAreaFilled(false);
+				botao.setBorderPainted(false);
+				botao.setFocusPainted(false);
+
+				return botao;
+			}
+
+			@Override
+			public void paintCurrentValueBackground(Graphics g, Rectangle bounds, boolean hasFocus) {
+				
+			}
+
+			@Override
+			protected ComboPopup createPopup() {
+				BasicComboPopup popup = new BasicComboPopup(comboBox) {
+					@Override
+					protected JScrollPane createScroller() {
+						JScrollPane scroll = super.createScroller();
+						scroll.setBorder(null);
+						scroll.getViewport().setBackground(fundo);
+						return scroll;
+					}
+				};
+
+				popup.setBackground(fundo);
+				popup.setBorder(BorderFactory.createLineBorder(new Color(0x26385f), 1));
+
+				return popup;
+			}
+		});
+
+		combo.setRenderer(new DefaultListCellRenderer() {
+			@Override
+			public Component getListCellRendererComponent(
+					JList<?> list,
+					Object value,
+					int index,
+					boolean isSelected,
+					boolean cellHasFocus) {
+
+				JLabel label = (JLabel) super.getListCellRendererComponent(
+						list, value, index, isSelected, cellHasFocus);
+
+				label.setFont(new Font("Tahoma", Font.PLAIN, 16));
+				label.setForeground(Color.WHITE);
+				label.setBorder(BorderFactory.createEmptyBorder(0, 12, 0, 8));
+
+				if (index == -1) {
+					label.setOpaque(false);
+				} else {
+					label.setOpaque(true);
+
+					if (isSelected) {
+						label.setBackground(fundoSelecionado);
+					} else {
+						label.setBackground(fundo);
+					}
+				}
+
+				list.setBackground(fundo);
+				list.setForeground(Color.WHITE);
+				list.setSelectionBackground(fundoSelecionado);
+				list.setSelectionForeground(Color.WHITE);
+
+				return label;
+			}
+		});
+
+		combo.repaint();
+	}
 	private boolean validarEmail(String email) {
 		return email.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$");
 	}

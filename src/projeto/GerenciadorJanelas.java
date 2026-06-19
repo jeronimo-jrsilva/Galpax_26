@@ -63,8 +63,7 @@ public class GerenciadorJanelas {
         double escalaX, escalaY;
 
         if (isModoJanela) {
-            // Se for Dialog, ele não tem 'undecorated' como método de instância comum (depende do construtor)
-            // Mas aplicamos as bordas visuais do SO
+           
             int targetWidth = (int) (screenSize.width * 0.80);
             int targetHeight = (int) (targetWidth * 1080 / 1920);
             window.setSize(targetWidth, targetHeight);

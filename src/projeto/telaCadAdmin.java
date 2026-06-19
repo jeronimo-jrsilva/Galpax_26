@@ -49,7 +49,10 @@ public class telaCadAdmin {
 	public telaCadAdmin() {
 		initialize();
 	}
-
+	public void visivel() {
+		telaCadAdmin window = new telaCadAdmin();
+		window.frame.setVisible(true);
+	}
 	/**
 	 * Initialize the contents of the frame.
 	 */
@@ -75,7 +78,7 @@ public class telaCadAdmin {
 		
 		txt_nome = new JTextField();
 		txt_nome.setFont(new Font("Tahoma", Font.PLAIN, 25));
-		txt_nome.setBounds(1045, 227, 442, 52);
+		txt_nome.setBounds(1125, 227, 362, 52);
 		frame.getContentPane().add(txt_nome);
 		txt_nome.setColumns(10);
 		txt_nome.setOpaque(false);      
@@ -84,7 +87,7 @@ public class telaCadAdmin {
 		txt_cpf = new JTextField();
 		txt_cpf.setFont(new Font("Tahoma", Font.PLAIN, 25));
 		txt_cpf.setColumns(10);
-		txt_cpf.setBounds(1045, 396, 442, 52);
+		txt_cpf.setBounds(1125, 396, 431, 52);
 		frame.getContentPane().add(txt_cpf);
 		txt_cpf.setOpaque(false);      
 		txt_cpf.setBorder(null);
@@ -92,14 +95,14 @@ public class telaCadAdmin {
 		txt_email = new JTextField();
 		txt_email.setFont(new Font("Tahoma", Font.PLAIN, 25));
 		txt_email.setColumns(10);
-		txt_email.setBounds(515, 495, 442, 52);
+		txt_email.setBounds(595, 495, 440, 52);
 		frame.getContentPane().add(txt_email);
 		txt_email.setOpaque(false);      
 		txt_email.setBorder(null);
 		
 		txt_senha = new JPasswordField();
 		txt_senha.setFont(new Font("Tahoma", Font.PLAIN, 25));
-		txt_senha.setBounds(627, 223, 457, 60);
+		txt_senha.setBounds(594, 223, 441, 60);
 		frame.getContentPane().add(txt_senha);
 		txt_senha.setOpaque(false);      
 		txt_senha.setBorder(null);
@@ -111,10 +114,10 @@ public class telaCadAdmin {
 		txt_confirmar.setOpaque(false);      
 		txt_confirmar.setBorder(null);
 		
-		JButton btnNewButton = new JButton("Cadastrar");
+		JButton btnNewButton = new JButton("");
 		btnNewButton.setIcon(new ImageIcon(telaCadAdmin.class.getResource("/imagens/botao_admin_6.png")));
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 31));
-		btnNewButton.setBounds(549, 590, 1065, 71);
+		btnNewButton.setBounds(538, 570, 1076, 91);
 		frame.getContentPane().add(btnNewButton);
 		txt_confirmar.setOpaque(false);      
 		txt_confirmar.setBorder(null);

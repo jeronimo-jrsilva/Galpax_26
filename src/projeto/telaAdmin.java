@@ -71,7 +71,7 @@ public void visivel() {
         GraphicsDevice device = env.getDefaultScreenDevice();
 		
 		JButton btn_Estacionamento = new JButton("");
-		btn_Estacionamento.setIcon(new ImageIcon(telaAdmin.class.getResource("/imagens/botao_comun2.png")));
+		btn_Estacionamento.setIcon(new ImageIcon(telaAdmin.class.getResource("/imagens/img_menu_admin/img_menu_admin_btn_estacionamento.png")));
 		btn_Estacionamento.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				telaEstacionamento t = null;
@@ -84,8 +84,33 @@ public void visivel() {
 				frameAdmin.setVisible(false);
 			}
 		});
+		
+		JButton btn_cad_admin = new JButton("");
+		btn_cad_admin.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				telaCadAdmin tel = new telaCadAdmin();
+				tel.visivel();
+			}
+		});
+		btn_cad_admin.setOpaque(false);
+		btn_cad_admin.setIcon(new ImageIcon(telaAdmin.class.getResource("/imagens/img_menu_admin/4243aea9-ddd4-4836-b092-5f5e8999e41f-Photoroom (1).png")));
+		btn_cad_admin.setFont(new Font("Tahoma", Font.PLAIN, 26));
+		btn_cad_admin.setFocusPainted(false);
+		btn_cad_admin.setContentAreaFilled(false);
+		btn_cad_admin.setBorderPainted(false);
+		btn_cad_admin.setBounds(809, 824, 343, 91);
+		frameAdmin.getContentPane().add(btn_cad_admin);
+		btn_Estacionamento.setContentAreaFilled(false); 
+		btn_Estacionamento.setBorderPainted(false);     
+		btn_Estacionamento.setFocusPainted(false);      
+		btn_Estacionamento.setOpaque(false); 
+		btn_Estacionamento.setFont(new Font("Tahoma", Font.PLAIN, 26));
+		btn_Estacionamento.setBounds(777, 707, 398, 91);
+		frameAdmin.getContentPane().add(btn_Estacionamento);
+		
+		
 		JButton btn_Cadastrar_Veiculo = new JButton("");
-		btn_Cadastrar_Veiculo.setIcon(new ImageIcon(telaAdmin.class.getResource("/imagens/botao_admin1.png")));
+		btn_Cadastrar_Veiculo.setIcon(new ImageIcon(telaAdmin.class.getResource("/imagens/img_menu_admin/img_menu_admin_btn_cadastrar_veiculo.png")));
 		btn_Cadastrar_Veiculo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				CadastrodeCarros c = new CadastrodeCarros();
@@ -94,14 +119,16 @@ public void visivel() {
 			}
 		});
 		btn_Cadastrar_Veiculo.setFont(new Font("Tahoma", Font.PLAIN, 26));
-		btn_Cadastrar_Veiculo.setBounds(823, 211, 351, 56);
+		btn_Cadastrar_Veiculo.setBounds(700, 274, 553, 98);
 		frameAdmin.getContentPane().add(btn_Cadastrar_Veiculo);
-		btn_Estacionamento.setFont(new Font("Tahoma", Font.PLAIN, 26));
-		btn_Estacionamento.setBounds(823, 679, 351, 56);
-		frameAdmin.getContentPane().add(btn_Estacionamento);
+		
+		btn_Cadastrar_Veiculo.setContentAreaFilled(false); 
+		btn_Cadastrar_Veiculo.setBorderPainted(false);     
+		btn_Cadastrar_Veiculo.setFocusPainted(false);      
+		btn_Cadastrar_Veiculo.setOpaque(false); 
 		
 		JButton btnCadastrarLoja = new JButton("");
-		btnCadastrarLoja.setIcon(new ImageIcon(telaAdmin.class.getResource("/imagens/botao_admin_2.png")));
+		btnCadastrarLoja.setIcon(new ImageIcon(telaAdmin.class.getResource("/imagens/img_menu_admin/img_menu_admin_btn_cadastrar_loj.png")));
 		btnCadastrarLoja.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				CadastroLoja c = new CadastroLoja();
@@ -110,11 +137,15 @@ public void visivel() {
 			}
 		});
 		btnCadastrarLoja.setFont(new Font("Tahoma", Font.PLAIN, 26));
-		btnCadastrarLoja.setBounds(823, 330, 351, 56);
+		btnCadastrarLoja.setBounds(797, 383, 359, 91);
 		frameAdmin.getContentPane().add(btnCadastrarLoja);
-		
+		btnCadastrarLoja.setContentAreaFilled(false); 
+		btnCadastrarLoja.setBorderPainted(false);     
+		btnCadastrarLoja.setFocusPainted(false);      
+		btnCadastrarLoja.setOpaque(false);            
+		btnCadastrarLoja.setMargin(new java.awt.Insets(0, 0, 0, 0));
 		JButton btnVisualizaoDosGalpes = new JButton("");
-		btnVisualizaoDosGalpes.setIcon(new ImageIcon(telaAdmin.class.getResource("/imagens/_basicSolid small Base (15).png")));
+		btnVisualizaoDosGalpes.setIcon(new ImageIcon(telaAdmin.class.getResource("/imagens/img_menu_admin/img_menu_admin_btn_visualizar_galpoes.png")));
 		btnVisualizaoDosGalpes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				telavisgalpao t = new telavisgalpao();
@@ -123,9 +154,12 @@ public void visivel() {
 			}
 		});
 		btnVisualizaoDosGalpes.setFont(new Font("Tahoma", Font.PLAIN, 26));
-		btnVisualizaoDosGalpes.setBounds(823, 443, 351, 56);
+		btnVisualizaoDosGalpes.setBounds(789, 493, 374, 92);
 		frameAdmin.getContentPane().add(btnVisualizaoDosGalpes);
-		
+		btnVisualizaoDosGalpes.setContentAreaFilled(false); 
+		btnVisualizaoDosGalpes.setBorderPainted(false);     
+		btnVisualizaoDosGalpes.setFocusPainted(false);      
+		btnVisualizaoDosGalpes.setOpaque(false);   
 //		JButton btn_Visualizar_Veiculos = new JButton("");
 //		btn_Visualizar_Veiculos.setIcon(new ImageIcon(telaAdmin.class.getResource("/imagens/botao_vis (1).png")));
 //		btn_Visualizar_Veiculos.addActionListener(new ActionListener() {
@@ -154,7 +188,7 @@ public void visivel() {
 
 		// Aplica o redimensionamento suave
 		Image img_vis_final = img_vis.getScaledInstance(larguraProporcional, alturaDesejada, Image.SCALE_SMOOTH);
-		btn_Visualizar_Veiculos.setIcon(new ImageIcon(img_vis_final));
+		btn_Visualizar_Veiculos.setIcon(new ImageIcon(telaAdmin.class.getResource("/imagens/img_menu_admin/img_menu_admin_btn_visualizar_veiculos.png")));
 		// -------------------------------------------------------
 
 		btn_Visualizar_Veiculos.addActionListener(new ActionListener()
@@ -167,22 +201,22 @@ public void visivel() {
 		});
 
 		btn_Visualizar_Veiculos.setFont(new Font("Tahoma", Font.PLAIN, 26));
-		btn_Visualizar_Veiculos.setBounds(823, 562, 351, 56);
+		btn_Visualizar_Veiculos.setBounds(780, 615, 393, 84);
 
 		// Ajustes estéticos para garantir que o ícone preencha o espaço sem bordas cinzas
 		btn_Visualizar_Veiculos.setBorderPainted(false);
 		btn_Visualizar_Veiculos.setContentAreaFilled(false);
 		btn_Visualizar_Veiculos.setFocusPainted(false);
 		btn_Visualizar_Veiculos.setMargin(new java.awt.Insets(0, 0, 0, 0));
-
+		
 		frameAdmin.getContentPane().add(btn_Visualizar_Veiculos);
 		// -------------------------------------------------------
 
 		JButton btnVoltar = new JButton("");
 		btnVoltar.setContentAreaFilled(false);
-		btnVoltar.setIcon(new ImageIcon(telaAdmin.class.getResource("/imagens/botoes_isaac/_comicLight small Base (4).png")));
+		btnVoltar.setIcon(new ImageIcon(telaAdmin.class.getResource("/imagens/img_pagamento_pix/img_pagamento_pix_btn_voltar.png")));
 		btnVoltar.setFont(new Font("Tahoma", Font.PLAIN, 26));
-		btnVoltar.setBounds(50, 50, 104, 35);
+		btnVoltar.setBounds(64, 110, 228, 111);
 		frameAdmin.getContentPane().add(btnVoltar);
 
 		btnVoltar.addActionListener(new ActionListener() {
@@ -208,9 +242,14 @@ public void visivel() {
 		        }
 		    }
 		});
+		btnVoltar.setBorderPainted(false);
+		btnVoltar.setContentAreaFilled(false);
+		btnVoltar.setFocusPainted(false);
+		btnVoltar.setMargin(new java.awt.Insets(0, 0, 0, 0));
+		
 		
 		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon(telaAdmin.class.getResource("/imagens/telamenuprincipal.png")));
+		lblNewLabel.setIcon(new ImageIcon(telaAdmin.class.getResource("/imagens/img_menu_admin/fundotelamenuadm.png")));
 		lblNewLabel.setBounds(0, 0, 1920, 1080);
 		frameAdmin.getContentPane().add(lblNewLabel);
 	}

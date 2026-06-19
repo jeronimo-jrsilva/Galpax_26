@@ -1,25 +1,33 @@
 package projeto;
 
 import javax.swing.JFrame;
-import javax.swing.JDialog;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
+
+import java.awt.Component;
+import java.awt.KeyboardFocusManager;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
-import java.util.ArrayList;
-import java.util.List;
-import java.awt.KeyboardFocusManager;
-import java.awt.Component;
+import java.util.HashSet;
+import java.util.Set;
 
 public class GerenciadorTeclado {
 
     private static GerenciadorTeclado instancia;
-    private TecladoUI tecladoDialog;
+
+    private JFrame framePrincipal;
+
+    private TecladoUI tecladoCompletoDialog;
+    private TecladoNumericoUI tecladoNumericoDialog;
+
     private JTextField campoAtivo;
-    private List<JTextField> camposRegistrados = new ArrayList<>();
+
+    private Set<JTextField> camposRegistrados = new HashSet<>();
+    private Set<JTextField> camposNumericos = new HashSet<>();
+    private Set<JTextField> camposComListener = new HashSet<>();
 
     private GerenciadorTeclado() {
-        // Construtor privado para o Singleton
+       
     }
 
     public static GerenciadorTeclado getInstance() {
@@ -30,44 +38,79 @@ public class GerenciadorTeclado {
     }
 
     public void inicializar(JFrame framePrincipal) {
-        if (tecladoDialog == null) {
-            tecladoDialog = new TecladoUI(framePrincipal);
+        this.framePrincipal = framePrincipal;
+
+        if (tecladoCompletoDialog == null) {
+            tecladoCompletoDialog = new TecladoUI(framePrincipal);
+        }
+
+        if (tecladoNumericoDialog == null) {
+            tecladoNumericoDialog = new TecladoNumericoUI(framePrincipal);
         }
     }
 
     public void registrarCampo(JTextField campo) {
-        if (!camposRegistrados.contains(campo)) {
-            camposRegistrados.add(campo);
+        camposRegistrados.add(campo);
+        camposNumericos.remove(campo);
+        adicionarListenerSeNecessario(campo);
+    }
+
+    public void registrarCampoNumerico(JTextField campo) {
+        camposRegistrados.add(campo);
+        camposNumericos.add(campo);
+        adicionarListenerSeNecessario(campo);
+    }
+
+    private void adicionarListenerSeNecessario(JTextField campo) {
+        if (camposComListener.contains(campo)) {
+            return;
         }
+
+        camposComListener.add(campo);
 
         campo.addFocusListener(new FocusAdapter() {
             @Override
             public void focusGained(FocusEvent e) {
-                setCampoAtivo((JTextField) e.getComponent());
-                mostrarTeclado();
+                JTextField campoAtual = (JTextField) e.getComponent();
+                setCampoAtivo(campoAtual);
+
+                SwingUtilities.invokeLater(() -> {
+                    if (camposNumericos.contains(campoAtual)) {
+                        mostrarTecladoNumerico();
+                    } else {
+                        mostrarTecladoCompleto();
+                    }
+                });
             }
 
             @Override
             public void focusLost(FocusEvent e) {
-                // Adia a verificação para garantir que o novo foco seja processado
                 SwingUtilities.invokeLater(() -> {
-                    Component focusOwner = KeyboardFocusManager.getCurrentKeyboardFocusManager().getFocusOwner();
-                    if (!isCampoRegistrado(focusOwner)) {
-                        esconderTeclado();
+                    Component focusOwner = KeyboardFocusManager
+                            .getCurrentKeyboardFocusManager()
+                            .getFocusOwner();
+
+                    if (!isCampoRegistradoOuTeclado(focusOwner)) {
+                        esconderTeclados();
                     }
                 });
             }
         });
     }
 
-    private boolean isCampoRegistrado(Component comp) {
+    private boolean isCampoRegistradoOuTeclado(Component comp) {
         if (comp instanceof JTextField) {
             return camposRegistrados.contains((JTextField) comp);
         }
-        // Verifica se o componente está dentro do próprio teclado
-        if (comp != null && tecladoDialog != null && SwingUtilities.isDescendingFrom(comp, tecladoDialog)) {
+
+        if (comp != null && tecladoCompletoDialog != null && SwingUtilities.isDescendingFrom(comp, tecladoCompletoDialog)) {
             return true;
         }
+
+        if (comp != null && tecladoNumericoDialog != null && SwingUtilities.isDescendingFrom(comp, tecladoNumericoDialog)) {
+            return true;
+        }
+
         return false;
     }
 
@@ -79,27 +122,53 @@ public class GerenciadorTeclado {
         return this.campoAtivo;
     }
 
-    public void mostrarTeclado() {
-        if (tecladoDialog != null) {
-            tecladoDialog.setVisible(true);
+    public void mostrarTecladoCompleto() {
+        if (tecladoNumericoDialog != null) {
+            tecladoNumericoDialog.setVisible(false);
+        }
+
+        if (tecladoCompletoDialog != null) {
+            tecladoCompletoDialog.setVisible(true);
+        }
+    }
+
+    public void mostrarTecladoNumerico() {
+        if (tecladoCompletoDialog != null) {
+            tecladoCompletoDialog.setVisible(false);
+        }
+
+        if (tecladoNumericoDialog == null && framePrincipal != null) {
+            tecladoNumericoDialog = new TecladoNumericoUI(framePrincipal);
+        }
+
+        if (tecladoNumericoDialog != null) {
+            tecladoNumericoDialog.setVisible(true);
+        }
+    }
+
+    public void esconderTeclados() {
+        if (tecladoCompletoDialog != null) {
+            tecladoCompletoDialog.setVisible(false);
+        }
+
+        if (tecladoNumericoDialog != null) {
+            tecladoNumericoDialog.setVisible(false);
         }
     }
 
     public void esconderTeclado() {
-        if (tecladoDialog != null) {
-            tecladoDialog.setVisible(false);
-        }
+        esconderTeclados();
     }
-    
+
+    public void mostrarTeclado() {
+        mostrarTecladoCompleto();
+    }
+
     public void alternarTecladoNumerico() {
-        if (tecladoDialog != null) {
-            tecladoDialog.mostrarPainelNumerico();
-        }
+        mostrarTecladoNumerico();
     }
 
     public void alternarTecladoCompleto() {
-        if (tecladoDialog != null) {
-            tecladoDialog.mostrarPainelCompleto();
-        }
+        mostrarTecladoCompleto();
     }
 }
