@@ -760,6 +760,7 @@ private void initialize() {
     lblNewLabel.setIcon(new ImageIcon(telavisgalpao.class.getResource("/imagens/img_visualizar_galpao/img_visualizar_galpao_fundo.png")));
     lblNewLabel.setBounds(0, -98, 1920, 1277);
     frame.getContentPane().add(lblNewLabel);
+    GerenciadorJanelas.configurarJanela(frame);
 }
 
 	

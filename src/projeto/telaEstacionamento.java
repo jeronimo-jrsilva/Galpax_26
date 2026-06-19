@@ -202,7 +202,7 @@ public class telaEstacionamento {
 		
 		//FUNDO
 		JLabel lblFundo = new JLabel("");
-		lblFundo.setIcon(new ImageIcon("D:\\Users\\Aluno\\Downloads\\New Project.png"));
+		lblFundo.setIcon(new ImageIcon(telaEstacionamento.class.getResource("/imagens/telagalpao.png")));
 		lblFundo.setBounds(0, 0, 1920, 1080);
 		estacionamento.getContentPane().add(lblFundo);
 

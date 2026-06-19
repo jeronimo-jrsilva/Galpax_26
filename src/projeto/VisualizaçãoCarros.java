@@ -94,6 +94,7 @@ public class VisualizaçãoCarros {
 		btnVoltar.setBorderPainted(false);
 		btnVoltar.setBounds(920, 1045, 104, 35);
 		VisualizaçaoFrame.getContentPane().add(btnVoltar);
+		GerenciadorJanelas.configurarJanela(VisualizaçaoFrame);
 	}
 
 	

@@ -148,6 +148,9 @@ public class CadastrodeCarros {
         lblFundo.setIcon(new ImageIcon(CadastrodeCarros.class.getResource("/imagens/img_cad_veiculo/img_cad_veiculo_ficha.png")));
         lblFundo.setBounds(0, -12, 1930, 1104);
         CadCarrosFrame.getContentPane().add(lblFundo);
+
+        // APLICA GERENCIADOR ADAPTATIVO
+        GerenciadorJanelas.configurarJanela(CadCarrosFrame);
     }
 
     private static class PlaceholderTextField extends JTextField {

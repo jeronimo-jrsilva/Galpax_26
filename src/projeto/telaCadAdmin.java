@@ -214,5 +214,6 @@ public class telaCadAdmin {
 		lblNewLabel_2.setIcon(new ImageIcon(telaCadAdmin.class.getResource("/imagens/img_cad_adm/img_cad_adm_ficha.png")));
 		lblNewLabel_2.setBounds(0, 0, 1920, 1080);
 		frame.getContentPane().add(lblNewLabel_2);
+		GerenciadorJanelas.configurarJanela(frame);
 	}
 }

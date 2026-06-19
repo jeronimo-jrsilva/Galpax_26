@@ -112,7 +112,7 @@ public class TelaMensalidade {
 					String status = (String) modeloTabela.getValueAt(linha, 4);
 					String empreendimento = (String) modeloTabela.getValueAt(linha, 0);
 					if ("Paga".equalsIgnoreCase(status) || "Pago".equalsIgnoreCase(status)) {
-						new TelaRecibo(empreendimento);
+						new TelaRecibo(frmMensalidade, empreendimento);
 					} else {
 						// Passa o frmMensalidade como pai para a janela flutuante
 						new TelaOpcoesPagamento(frmMensalidade, empreendimento);

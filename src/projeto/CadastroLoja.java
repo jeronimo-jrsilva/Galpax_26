@@ -241,6 +241,9 @@ public class CadastroLoja {
 		lblNewLabel.setIcon(new ImageIcon(CadastroLoja.class.getResource("/imagens/img_cad_cliente/img_cad_cliente_ficha.png")));
 		lblNewLabel.setBounds(0, -9, 1920, 1099);
 		frame.getContentPane().add(lblNewLabel);
+
+		// APLICA GERENCIADOR ADAPTATIVO
+		GerenciadorJanelas.configurarJanela(frame);
 	}
 	private void estilizarComboBox(JComboBox<String> combo) {
 		Color fundo = new Color(0x0e1731);

@@ -252,5 +252,6 @@ public void visivel() {
 		lblNewLabel.setIcon(new ImageIcon(telaAdmin.class.getResource("/imagens/img_menu_admin/fundotelamenuadm.png")));
 		lblNewLabel.setBounds(0, 0, 1920, 1080);
 		frameAdmin.getContentPane().add(lblNewLabel);
+		GerenciadorJanelas.configurarJanela(frameAdmin);
 	}
 }
