@@ -377,4 +377,67 @@ public class Bancodedados {
 	        JOptionPane.showMessageDialog(null, "Erro ao cadastrar administrador: " + e.getMessage(), "Aviso", JOptionPane.ERROR_MESSAGE);
 	    }
 	}
+
+	public ResultSet listarLojas() {
+		try {
+			String query = "SELECT * FROM cad_loja";
+			this.resultado = this.consultas.executeQuery(query);
+			return this.resultado;
+		} catch (Exception e) {
+			System.out.println("Erro ao buscar lojas: " + e.getMessage());
+			return null;
+		}
+	}
+
+	public ResultSet buscarLojaPorId(int idLoja) {
+		try {
+			String sql = "SELECT * FROM cad_loja WHERE id_loja = ?";
+			PreparedStatement stmt = conexão.prepareStatement(sql);
+			stmt.setInt(1, idLoja);
+			return stmt.executeQuery();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	public boolean atualizarLoja(int idLoja, String nome, String cnpj, String responsavel, String telefone,
+								 String email, String endereco, String sala, String tipo,
+								 String aluguel, String status, String senha) {
+		String query = "UPDATE cad_loja SET nome_loja = ?, cnpj_loja = ?, responsavel_loja = ?, telefone_loja = ?, "
+				+ "email_loja = ?, endereco_loja = ?, sala_loja = ?, tipo_loja = ?, aluguel_loja = ?, status_loja = ?, senha = ? "
+				+ "WHERE id_loja = ?";
+		try (PreparedStatement stmt = this.conexão.prepareStatement(query)) {
+			stmt.setString(1, nome);
+			stmt.setString(2, cnpj);
+			stmt.setString(3, responsavel);
+			stmt.setString(4, telefone);
+			stmt.setString(5, email);
+			stmt.setString(6, endereco);
+			stmt.setString(7, sala);
+			stmt.setString(8, tipo);
+			stmt.setString(9, aluguel);
+			stmt.setString(10, status);
+			stmt.setString(11, senha);
+			stmt.setInt(12, idLoja);
+			
+			int linhasAfetadas = stmt.executeUpdate();
+			return linhasAfetadas > 0;
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Erro ao atualizar loja no banco: " + e.getMessage(), "Aviso", JOptionPane.ERROR_MESSAGE);
+			return false;
+		}
+	}
+
+	public boolean excluirLoja(int idLoja) {
+		String query = "DELETE FROM cad_loja WHERE id_loja = ?";
+		try (PreparedStatement stmt = this.conexão.prepareStatement(query)) {
+			stmt.setInt(1, idLoja);
+			int linhasAfetadas = stmt.executeUpdate();
+			return linhasAfetadas > 0;
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Erro ao excluir loja: " + e.getMessage(), "Aviso", JOptionPane.ERROR_MESSAGE);
+			return false;
+		}
+	}
 }
