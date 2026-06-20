@@ -1,6 +1,6 @@
 # 📐 Diretrizes de Desenvolvimento do Front-End (Galpax_26)
 
-Para garantir que o software seja executado sem distorções tanto em **Totens Touchscreen (1080p)** quanto em **Laptops/Monitores de Desenvolvimento** no Linux (especialmente sob gerenciadores de janelas tiling como o **Niri Wayland**), todas as novas telas devem seguir rigorosamente estes padrões de arquitetura visual e de código.
+Para garantir que o software seja executado sem distorções tanto em **Totens Touchscreen (1080p)** quanto em **Laptops/Monitores de Desenvolvimento** em diferentes resoluções, todas as novas telas devem seguir rigorosamente estes padrões de arquitetura visual e de código.
 
 ---
 
@@ -36,7 +36,7 @@ private void initialize() {
 ## 2. Diálogos Flutuantes e Janelas Pequenas (`JDialog`)
 
 Devem ser usadas para todas as janelas do tipo pop-up, modais e seletores de opções (ex: *Seletor de Pagamento*, *Tela de Recibo*, etc.). 
-> **IMPORTANTE:** No Linux, gerenciadores de janela baseados em Wayland (como o Niri) forçam `JFrame` sem decoração a maximizar automaticamente. Usar `JDialog` garante que a janela permaneça flutuante e no tamanho correto.
+> **IMPORTANTE:** Usar `JDialog` garante que a janela permaneça flutuante, centralizada e no tamanho correto, impedindo que janelas menores sejam maximizadas ou distorcidas pelo sistema operacional em telas com resoluções de exibição diferentes.
 
 ### 📝 Padrão de Código:
 * **Herança:** A classe deve estender `JDialog` em vez de encapsular um `JFrame`.
