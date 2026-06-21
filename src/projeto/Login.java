@@ -131,8 +131,8 @@ public class Login {
 
 		btnEntrar.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
-		        String login = login_txt.getText();
-		        String senha = new String(senha_txt.getPassword());
+		        String login = login_txt.getText().trim();
+		        String senha = new String(senha_txt.getPassword()).trim();
 
 		        if (!login.isEmpty() && !senha.isEmpty()) {
 		            Bancodedados bd = new Bancodedados();
