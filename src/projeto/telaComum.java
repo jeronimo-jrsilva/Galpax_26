@@ -75,7 +75,7 @@ public class telaComum {
 		});
 
 		btnPagarMensalidade.setIcon(
-				new ImageIcon(telaComum.class.getResource("/imagens/img_menu_user/img_menu_user_btn_mensalidade - Copia.png")));
+				new ImageIcon(telaComum.class.getResource("/imagens/img_menu_user/img_menu_user_btn_mensalidade.png")));
 		btnPagarMensalidade.setFont(new Font("Tahoma", Font.PLAIN, 26));
 		btnPagarMensalidade.setBounds(825, 464, 397, 70);
 		btnPagarMensalidade.setOpaque(false);
@@ -97,7 +97,7 @@ public class telaComum {
 		});
 
 		btnEstacionamento.setIcon(
-				new ImageIcon(telaComum.class.getResource("/imagens/img_menu_user/img_menu_user_btn_estacionamento - Copia - Copia.png")));
+				new ImageIcon(telaComum.class.getResource("/imagens/img_menu_user/img_menu_user_btn_estacionamento.png")));
 		btnEstacionamento.setFont(new Font("Tahoma", Font.PLAIN, 26));
 		btnEstacionamento.setBounds(845, 555, 351, 70);
 		btnEstacionamento.setOpaque(false);
