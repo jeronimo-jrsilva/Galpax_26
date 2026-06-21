@@ -2,6 +2,7 @@ package projeto;
 
 import java.awt.Font;
 import java.util.List;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
@@ -11,30 +12,26 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.ImageIcon;
 import java.awt.Color;
 import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
-public class TelaHistorico {
+public class TelaHistorico extends JDialog {
 
-	private JFrame frame;
 	private JTable tblHistorico;
 	private DefaultTableModel modeloTabela;
 	private String empreendimentoFiltro;
 
-	public TelaHistorico(String empreendimento) {
+	public TelaHistorico(JFrame parent, String empreendimento) {
+		super(parent, "Histórico - " + empreendimento, true);
 		this.empreendimentoFiltro = empreendimento;
-		initialize();
+		initialize(parent);
 		preencherTabelaHistorico();
 	}
 
-	private void initialize() {
-		frame = new JFrame();
-		frame.setTitle("Histórico - " + empreendimentoFiltro);
-		frame.setBounds(150, 150, 800, 500);
-		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); 
-		frame.getContentPane().setLayout(null);
-		frame.setUndecorated(true);
-		frame.setLocationRelativeTo(null);
+	private void initialize(JFrame parent) {
+		setSize(800, 500);
+		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE); 
+		getContentPane().setLayout(null);
+		setUndecorated(true);
+		setLocationRelativeTo(parent);
 
 		// PADRÃO: TOP-LEFT (VOLTAR)
 		JButton btnVoltar = new JButton("");
@@ -42,21 +39,21 @@ public class TelaHistorico {
 		btnVoltar.setContentAreaFilled(false);
 		btnVoltar.setBorderPainted(false);
 		btnVoltar.setBounds(10, 10, 104, 35);
-		btnVoltar.addActionListener(e -> frame.dispose());
-		frame.getContentPane().add(btnVoltar);
+		btnVoltar.addActionListener(e -> dispose());
+		getContentPane().add(btnVoltar);
 
 		JLabel lblTitulo = new JLabel("Histórico de Pagamentos");
 		lblTitulo.setForeground(new Color(255, 255, 255));
 		lblTitulo.setFont(new Font("Arial", Font.BOLD, 30));
 		lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTitulo.setBounds(10, 24, 764, 30);
-		frame.getContentPane().add(lblTitulo);
+		getContentPane().add(lblTitulo);
 
 		JLabel lblSubtitulo = new JLabel("Empreendimento: " + empreendimentoFiltro);
 		lblSubtitulo.setForeground(new Color(255, 255, 255));
 		lblSubtitulo.setFont(new Font("Arial", Font.PLAIN, 20));
 		lblSubtitulo.setBounds(37, 65, 500, 25);
-		frame.getContentPane().add(lblSubtitulo);
+		getContentPane().add(lblSubtitulo);
 
 		tblHistorico = new JTable();
 		modeloTabela = new DefaultTableModel(
@@ -69,14 +66,14 @@ public class TelaHistorico {
 
 		JScrollPane scrollPane = new JScrollPane(tblHistorico);
 		scrollPane.setBounds(37, 110, 710, 300);
-		frame.getContentPane().add(scrollPane);
+		getContentPane().add(scrollPane);
 		
 		JLabel lblFundoHistorico = new JLabel("");
 		lblFundoHistorico.setIcon(new ImageIcon(TelaHistorico.class.getResource("/imagens/fundopagamento.png")));
 		lblFundoHistorico.setBounds(0, 0, 800, 500);
-		frame.getContentPane().add(lblFundoHistorico);
+		getContentPane().add(lblFundoHistorico);
 
-		frame.setVisible(true);
+		setVisible(true);
 	}
 
 	private void preencherTabelaHistorico() {

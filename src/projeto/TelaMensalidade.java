@@ -256,7 +256,7 @@ public class TelaMensalidade {
 
 			if (linha != -1) {
 				String empreendimento = modeloTabela.getValueAt(linha, 0).toString();
-				new TelaHistorico(empreendimento);
+				new TelaHistorico(frmMensalidade, empreendimento);
 			} else {
 				JOptionPane.showMessageDialog(null, "Selecione uma loja para ver o histórico.");
 			}
