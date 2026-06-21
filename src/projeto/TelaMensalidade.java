@@ -286,7 +286,7 @@ public class TelaMensalidade {
 
 			String sql = "SELECT m.*, l.nome_loja "
 					+ "FROM mensalidade m "
-					+ "INNER JOIN cad_loja l ON m.id_loja = l.sala_loja "
+					+ "INNER JOIN cad_loja l ON m.id_loja = l.id_loja "
 					+ "WHERE l.email_loja = ?";
 
 			try (PreparedStatement pstmt = bd.conexão.prepareStatement(sql)) {
