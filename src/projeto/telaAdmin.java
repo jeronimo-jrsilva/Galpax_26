@@ -214,9 +214,9 @@ public void visivel() {
 
 		JButton btnVoltar = new JButton("");
 		btnVoltar.setContentAreaFilled(false);
-		btnVoltar.setIcon(new ImageIcon(telaAdmin.class.getResource("/imagens/img_pagamento_pix/img_pagamento_pix_btn_voltar.png")));
+		btnVoltar.setIcon(new ImageIcon(telaAdmin.class.getResource("/imagens/img_mensalidade/img_mensalidade_btn_voltar.png")));
 		btnVoltar.setFont(new Font("Tahoma", Font.PLAIN, 26));
-		btnVoltar.setBounds(64, 110, 228, 111);
+		btnVoltar.setBounds(89, 122, 177, 75);
 		frameAdmin.getContentPane().add(btnVoltar);
 
 		btnVoltar.addActionListener(new ActionListener() {

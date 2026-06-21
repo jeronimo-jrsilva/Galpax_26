@@ -108,10 +108,10 @@ private void initialize() {
     
     // --- BOTÃO VOLTAR ---
     btnVoltar = new JButton("");
-    btnVoltar.setIcon(new ImageIcon(telavisgalpao.class.getResource("/imagens/img_visualizar_galpao/img_visualizar_galpao_btn_voltar.png")));
+    btnVoltar.setIcon(new ImageIcon(telavisgalpao.class.getResource("/imagens/img_mensalidade/img_mensalidade_btn_voltar.png")));
     btnVoltar.setContentAreaFilled(false);
     btnVoltar.setBorderPainted(false);
-    btnVoltar.setBounds(30, 11, 150, 106);
+    btnVoltar.setBounds(30, 11, 178, 106);
     btnVoltar.addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent e) {
             new telaAdmin("joao.admin@email.com").visivel();

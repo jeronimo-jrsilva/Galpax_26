@@ -87,10 +87,10 @@ public class CadastroLoja {
 		GerenciadorTeclado.getInstance().inicializar(frame);
 
 		btnVoltar = new JButton("");
-		btnVoltar.setIcon(new ImageIcon(CadastroLoja.class.getResource("/imagens/img_pagamento_credito/img_pagamento_credito_btn_voltar.png")));
+		btnVoltar.setIcon(new ImageIcon(CadastroLoja.class.getResource("/imagens/img_mensalidade/img_mensalidade_btn_voltar.png")));
 		btnVoltar.setContentAreaFilled(false);
 		btnVoltar.setBorderPainted(false);
-		btnVoltar.setBounds(50, 50, 104, 35);
+		btnVoltar.setBounds(50, 50, 145, 64);
 		btnVoltar.addActionListener(e -> {
 			new telaAdmin("joao.admin@email.com").visivel();
 			frame.dispose();

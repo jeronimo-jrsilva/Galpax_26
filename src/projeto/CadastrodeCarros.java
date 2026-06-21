@@ -61,10 +61,10 @@ public class CadastrodeCarros {
         GerenciadorTeclado.getInstance().inicializar(CadCarrosFrame);
 
         JButton btnVoltar = new JButton("");
-        btnVoltar.setIcon(new ImageIcon(CadastrodeCarros.class.getResource("/imagens/img_cad_veiculo/img_cad_veiculo_btn_voltar.png")));
+        btnVoltar.setIcon(new ImageIcon(CadastrodeCarros.class.getResource("/imagens/img_mensalidade/img_mensalidade_btn_voltar.png")));
         btnVoltar.setContentAreaFilled(false);
         btnVoltar.setBorderPainted(false);
-        btnVoltar.setBounds(50, 50, 104, 35);
+        btnVoltar.setBounds(50, 50, 157, 75);
         btnVoltar.addActionListener(e -> {
             new telaAdmin("joao.admin@email.com").visivel();
             CadCarrosFrame.dispose();

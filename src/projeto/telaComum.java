@@ -47,11 +47,10 @@ public class telaComum {
 
 		// BOTÃO SAIR
 		JButton btnSair = new JButton("");
-		btnSair.setIcon(new ImageIcon(
-				telaComum.class.getResource("/imagens/botoes_isaac/_comicLight small Base (4).png")));
+		btnSair.setIcon(new ImageIcon(telaComum.class.getResource("/imagens/img_mensalidade/img_mensalidade_btn_voltar.png")));
 		btnSair.setContentAreaFilled(false);
 		btnSair.setBorderPainted(false);
-		btnSair.setBounds(50, 50, 104, 35);
+		btnSair.setBounds(51, 91, 160, 64);
 
 		btnSair.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -67,7 +66,7 @@ public class telaComum {
 
 		frame.getContentPane().add(btnSair);
 
-		JButton btnPagarMensalidade = new JButton("Pagar mensalidade");
+		JButton btnPagarMensalidade = new JButton("");
 		btnPagarMensalidade.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				new TelaMensalidade(emailSessao).visivel();
@@ -76,12 +75,15 @@ public class telaComum {
 		});
 
 		btnPagarMensalidade.setIcon(
-				new ImageIcon(telaComum.class.getResource("/imagens/botao_comun1.png")));
+				new ImageIcon(telaComum.class.getResource("/imagens/img_menu_user/img_menu_user_btn_mensalidade - Copia.png")));
 		btnPagarMensalidade.setFont(new Font("Tahoma", Font.PLAIN, 26));
-		btnPagarMensalidade.setBounds(838, 306, 351, 55);
+		btnPagarMensalidade.setBounds(825, 464, 397, 70);
+		btnPagarMensalidade.setOpaque(false);
+		btnPagarMensalidade.setContentAreaFilled(false);
+		btnPagarMensalidade.setBorderPainted(false);
 		frame.getContentPane().add(btnPagarMensalidade);
 
-		JButton btnEstacionamento = new JButton("Estacionamento");
+		JButton btnEstacionamento = new JButton("");
 		btnEstacionamento.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -95,9 +97,12 @@ public class telaComum {
 		});
 
 		btnEstacionamento.setIcon(
-				new ImageIcon(telaComum.class.getResource("/imagens/botao_comun2.png")));
+				new ImageIcon(telaComum.class.getResource("/imagens/img_menu_user/img_menu_user_btn_estacionamento - Copia - Copia.png")));
 		btnEstacionamento.setFont(new Font("Tahoma", Font.PLAIN, 26));
-		btnEstacionamento.setBounds(838, 419, 351, 55);
+		btnEstacionamento.setBounds(845, 555, 351, 70);
+		btnEstacionamento.setOpaque(false);
+		btnEstacionamento.setContentAreaFilled(false);
+		btnEstacionamento.setBorderPainted(false);
 		frame.getContentPane().add(btnEstacionamento);
 
 		JLabel lblSessao = new JLabel("Lojista: " + emailSessao);
@@ -107,7 +112,7 @@ public class telaComum {
 
 		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setIcon(
-				new ImageIcon(telaComum.class.getResource("/imagens/telamenuprincipal.png")));
+				new ImageIcon(telaComum.class.getResource("/imagens/img_menu_user/img_menu_user_fundo.png")));
 		lblNewLabel.setBounds(0, 0, 1920, 1080);
 		frame.getContentPane().add(lblNewLabel);
 
