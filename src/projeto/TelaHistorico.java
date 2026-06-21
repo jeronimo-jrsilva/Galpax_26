@@ -24,6 +24,7 @@ public class TelaHistorico extends JDialog {
 		this.empreendimentoFiltro = empreendimento;
 		initialize(parent);
 		preencherTabelaHistorico();
+		setVisible(true); // Exibe a janela apenas após popular os dados
 	}
 
 	private void initialize(JFrame parent) {
@@ -72,8 +73,6 @@ public class TelaHistorico extends JDialog {
 		lblFundoHistorico.setIcon(new ImageIcon(TelaHistorico.class.getResource("/imagens/fundopagamento.png")));
 		lblFundoHistorico.setBounds(0, 0, 800, 500);
 		getContentPane().add(lblFundoHistorico);
-
-		setVisible(true);
 	}
 
 	private void preencherTabelaHistorico() {
