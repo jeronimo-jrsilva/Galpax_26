@@ -46,7 +46,15 @@ public class VisualizaçãoCarros {
 		VisualizaçaoFrame.getContentPane().setLayout(null);
 
 		// JTable e JScrollPane estilizados e transparentes
-		table = new JTable();
+		table = new JTable() {
+			@Override
+			protected void paintComponent(java.awt.Graphics g) {
+				g.setColor(getBackground());
+				g.fillRect(0, 0, getWidth(), getHeight());
+				super.paintComponent(g);
+			}
+		};
+		table.setOpaque(false);
 		table.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		table.setForeground(Color.WHITE);
 		table.setBackground(new Color(20, 15, 60, 200));
@@ -120,7 +128,7 @@ public class VisualizaçãoCarros {
 
 		// Fundo Temático de Veículos
 		JLabel lblFundo = new JLabel("");
-		lblFundo.setIcon(new ImageIcon(VisualizaçãoCarros.class.getResource("/imagens/fundogalpvis.png")));
+		lblFundo.setIcon(new ImageIcon(VisualizaçãoCarros.class.getResource("/imagens/telamenuprincipal.png")));
 		lblFundo.setBounds(0, 0, 1920, 1080);
 		VisualizaçaoFrame.getContentPane().add(lblFundo);
 
