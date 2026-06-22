@@ -90,6 +90,7 @@ public class telaAdmin {
 			public void actionPerformed(ActionEvent e) {
 				telaCadAdmin tel = new telaCadAdmin();
 				tel.visivel();
+				frameAdmin.dispose();
 			}
 		});
 		btn_cad_admin.setOpaque(false);

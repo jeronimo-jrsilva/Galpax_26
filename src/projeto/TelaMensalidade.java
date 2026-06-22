@@ -217,9 +217,9 @@ public class TelaMensalidade {
 					String status = modeloTabela.getValueAt(linha, 4).toString();
 
 					if ("Paga".equalsIgnoreCase(status) || "Pago".equalsIgnoreCase(status)) {
-						new TelaRecibo(frmMensalidade, empreendimento);
+						new TelaRecibo(frmMensalidade, empreendimento).visivel();
 					} else {
-						new TelaOpcoesPagamento(frmMensalidade, empreendimento);
+						new TelaOpcoesPagamento(frmMensalidade, empreendimento).visivel();
 					}
 				}
 			}
