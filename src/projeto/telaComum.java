@@ -11,6 +11,7 @@ import javax.swing.ImageIcon;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
 import java.awt.event.ActionEvent;
+import java.awt.Color;
 
 public class telaComum {
 
@@ -75,7 +76,7 @@ public class telaComum {
 		});
 
 		btnPagarMensalidade.setIcon(
-				new ImageIcon(telaComum.class.getResource("/imagens/img_menu_user/img_menu_user_btn_mensalidade.png")));
+				new ImageIcon(telaComum.class.getResource("/imagens/img_menu_user/img_menu_user_btn_mensalidade - Copia.png")));
 		btnPagarMensalidade.setFont(new Font("Tahoma", Font.PLAIN, 26));
 		btnPagarMensalidade.setBounds(825, 464, 397, 70);
 		btnPagarMensalidade.setOpaque(false);
@@ -97,7 +98,7 @@ public class telaComum {
 		});
 
 		btnEstacionamento.setIcon(
-				new ImageIcon(telaComum.class.getResource("/imagens/img_menu_user/img_menu_user_btn_estacionamento.png")));
+				new ImageIcon(telaComum.class.getResource("/imagens/img_menu_user/img_menu_user_btn_estacionamento - Copia - Copia.png")));
 		btnEstacionamento.setFont(new Font("Tahoma", Font.PLAIN, 26));
 		btnEstacionamento.setBounds(845, 555, 351, 70);
 		btnEstacionamento.setOpaque(false);
@@ -105,9 +106,10 @@ public class telaComum {
 		btnEstacionamento.setBorderPainted(false);
 		frame.getContentPane().add(btnEstacionamento);
 
-		JLabel lblSessao = new JLabel("Lojista: " + emailSessao);
+		JLabel lblSessao = new JLabel(emailSessao);
+		lblSessao.setForeground(new Color(255, 255, 255));
 		lblSessao.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lblSessao.setBounds(1600, 50, 500, 30);
+		lblSessao.setBounds(150, 30, 500, 30);
 		frame.getContentPane().add(lblSessao);
 
 		JLabel lblNewLabel = new JLabel("");

@@ -98,12 +98,13 @@ public class TelaMensalidade {
 		modeloTabela = new DefaultTableModel(
 				new Object[][] {},
 				new String[] {
-						"Empreendimento",
-						"Vencimento",
-						"Pagamento",
-						"Valor",
-						"Status",
-						"Ação"
+				        "ID",
+				        "Empreendimento",
+				        "Vencimento",
+				        "Pagamento",
+				        "Valor",
+				        "Status",
+				        "Ação"
 				}
 		) {
 			@Override
@@ -162,7 +163,7 @@ public class TelaMensalidade {
 		tblMensalidade.setDefaultRenderer(Object.class, rendererPadrao);
 
 		
-		tblMensalidade.getColumnModel().getColumn(5).setCellRenderer(new DefaultTableCellRenderer() {
+		tblMensalidade.getColumnModel().getColumn(6).setCellRenderer(new DefaultTableCellRenderer() {
 			@Override
 			public Component getTableCellRendererComponent(
 					JTable table,
@@ -208,18 +209,25 @@ public class TelaMensalidade {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 
-				int linha = tblMensalidade.rowAtPoint(e.getPoint());
-				int coluna = tblMensalidade.columnAtPoint(e.getPoint());
+				int linha = tblMensalidade.getSelectedRow();
+				int coluna = tblMensalidade.getSelectedColumn();
 
-				if (linha != -1 && coluna == 5) {
+				if (linha != -1 && coluna == 6) {
 
-					String empreendimento = modeloTabela.getValueAt(linha, 0).toString();
-					String status = modeloTabela.getValueAt(linha, 4).toString();
+					int idMensalidade = Integer.parseInt(modeloTabela.getValueAt(linha, 0).toString());
+					String empreendimento = modeloTabela.getValueAt(linha, 1).toString();
+					String status = modeloTabela.getValueAt(linha, 5).toString();
 
-					if ("Paga".equalsIgnoreCase(status) || "Pago".equalsIgnoreCase(status)) {
-						new TelaRecibo(frmMensalidade, empreendimento).visivel();
+					if ("Pago".equalsIgnoreCase(status)) {
+
+						recibotela recibo = new recibotela(idMensalidade);
+						recibo.visivel();
+
 					} else {
-						new TelaOpcoesPagamento(frmMensalidade, empreendimento).visivel();
+
+						oppagamento tel = new oppagamento(idMensalidade, emailSessao);
+						tel.visivel();
+						frmMensalidade.dispose();
 					}
 				}
 			}
@@ -255,8 +263,8 @@ public class TelaMensalidade {
 			int linha = tblMensalidade.getSelectedRow();
 
 			if (linha != -1) {
-				String empreendimento = modeloTabela.getValueAt(linha, 0).toString();
-				new TelaHistorico(frmMensalidade, empreendimento);
+				String empreendimento = modeloTabela.getValueAt(linha, 1).toString();
+				new TelaHistorico(empreendimento);
 			} else {
 				JOptionPane.showMessageDialog(null, "Selecione uma loja para ver o histórico.");
 			}
@@ -285,9 +293,9 @@ public class TelaMensalidade {
 			modeloTabela.setRowCount(0);
 
 			String sql = "SELECT m.*, l.nome_loja "
-					+ "FROM mensalidade m "
-					+ "INNER JOIN cad_loja l ON m.id_loja = l.id_loja "
-					+ "WHERE l.email_loja = ?";
+			        + "FROM mensalidade m "
+			        + "INNER JOIN cad_loja l ON m.id_loja = l.id_loja "
+			        + "WHERE l.email_loja = ?";
 
 			try (PreparedStatement pstmt = bd.conexão.prepareStatement(sql)) {
 
@@ -301,19 +309,20 @@ public class TelaMensalidade {
 
 					String acao;
 
-					if ("Paga".equalsIgnoreCase(status) || "Pago".equalsIgnoreCase(status)) {
+					if ("Pago".equalsIgnoreCase(status)) {
 						acao = "Ver Recibo";
 					} else {
 						acao = "Pagar Agora";
 					}
 
 					modeloTabela.addRow(new Object[] {
-							rs.getString("nome_loja"),
-							rs.getDate("vencimento"),
-							rs.getDate("data_pagamento"),
-							rs.getDouble("mensalidade"),
-							status,
-							acao
+					        rs.getInt("id_mensalidade"),
+					        rs.getString("nome_loja"),
+					        rs.getDate("vencimento"),
+					        rs.getDate("data_pagamento"),
+					        rs.getDouble("mensalidade"),
+					        status,
+					        acao
 					});
 				}
 

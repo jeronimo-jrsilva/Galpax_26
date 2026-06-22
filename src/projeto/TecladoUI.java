@@ -2,45 +2,43 @@ package projeto;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
 
 public class TecladoUI extends JDialog {
 
     private JPanel painelTecladoCompleto;
     private JPanel painelTecladoNumerico;
+
     private CardLayout cardLayout = new CardLayout();
     private JPanel containerPaineis = new JPanel(cardLayout);
 
+    private boolean modoSimbolos = false;
+
     public TecladoUI(JFrame owner) {
         super(owner);
+
         setUndecorated(true);
         setFocusableWindowState(false);
         setAlwaysOnTop(true);
-        setBackground(new Color(0, 0, 0, 0)); // Fundo transparente
+        setBackground(new Color(0, 0, 0, 0));
 
-        // Determinar a posição e tamanho
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        int tecladoHeight = 330;
-        setBounds(0, screenSize.height - tecladoHeight, screenSize.width, tecladoHeight);
 
-        // Inicializa os paineis
-        this.painelTecladoCompleto = criarPainelTeclado(false);
-        this.painelTecladoNumerico = criarPainelTeclado(true);
+        int tecladoHeight = 330;
+        int x = 0;
+        int y = screenSize.height - tecladoHeight;
+
+        setBounds(x, y, screenSize.width, tecladoHeight);
+
+        painelTecladoCompleto = criarPainelTeclado(false);
+        painelTecladoNumerico = criarPainelTeclado(true);
 
         containerPaineis.add(painelTecladoCompleto, "COMPLETO");
         containerPaineis.add(painelTecladoNumerico, "NUMERICO");
-        
-        getContentPane().add(containerPaineis);
-        cardLayout.show(containerPaineis, "COMPLETO");
-    }
 
-    public void mostrarPainelCompleto() {
-        cardLayout.show(containerPaineis, "COMPLETO");
-    }
+        getContentPane().setLayout(new BorderLayout());
+        getContentPane().add(containerPaineis, BorderLayout.CENTER);
 
-    public void mostrarPainelNumerico() {
-        cardLayout.show(containerPaineis, "NUMERICO");
+        mostrarLetras();
     }
 
     private JPanel criarPainelTeclado(boolean isNumerico) {
@@ -49,5 +47,31 @@ public class TecladoUI extends JDialog {
         } else {
             return confteclado.criarTecladoCompletoUniversal();
         }
+    }
+
+    public void mostrarPainelCompleto() {
+        mostrarLetras();
+    }
+
+    public void mostrarPainelNumerico() {
+        mostrarSimbolos();
+    }
+
+    public void mostrarSimbolos() {
+        modoSimbolos = true;
+        cardLayout.show(containerPaineis, "NUMERICO");
+        containerPaineis.revalidate();
+        containerPaineis.repaint();
+    }
+
+    public void mostrarLetras() {
+        modoSimbolos = false;
+        cardLayout.show(containerPaineis, "COMPLETO");
+        containerPaineis.revalidate();
+        containerPaineis.repaint();
+    }
+
+    public boolean isModoSimbolos() {
+        return modoSimbolos;
     }
 }

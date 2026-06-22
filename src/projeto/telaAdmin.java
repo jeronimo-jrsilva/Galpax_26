@@ -46,14 +46,14 @@ public class telaAdmin {
 	public telaAdmin() {
 		initialize();
 	}
-	public telaAdmin(String email) {
+public telaAdmin(String email) {
 		this.emailSessão = email;
-		initialize();
 	}
 
-	public void visivel() {
-		frameAdmin.setVisible(true);
-	}
+public void visivel() {
+	telaAdmin window = new telaAdmin();
+	window.frameAdmin.setVisible(true);
+}
 	/**
 	 * Initialize the contents of the frame.
 	 */
@@ -90,23 +90,54 @@ public class telaAdmin {
 			public void actionPerformed(ActionEvent e) {
 				telaCadAdmin tel = new telaCadAdmin();
 				tel.visivel();
-				frameAdmin.dispose();
 			}
 		});
+		
+		JButton btn_apagar_lojista = new JButton("");
+		btn_apagar_lojista.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				TelaApagarLojista tel = new TelaApagarLojista();
+				tel.visivel();
+			}
+		});
+		btn_apagar_lojista.setOpaque(false);
+		btn_apagar_lojista.setIcon(new ImageIcon(telaAdmin.class.getResource("/imagens/img_menu_admin/img_apagar_lojista2.png")));
+		btn_apagar_lojista.setFont(new Font("Tahoma", Font.PLAIN, 26));
+		btn_apagar_lojista.setFocusPainted(false);
+		btn_apagar_lojista.setContentAreaFilled(false);
+		btn_apagar_lojista.setBorderPainted(false);
+		btn_apagar_lojista.setBounds(968, 588, 374, 91);
+		frameAdmin.getContentPane().add(btn_apagar_lojista);
+		
+		JButton btn_editar_lojista = new JButton("");
+		btn_editar_lojista.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				TelaEditarLojista tel = new TelaEditarLojista();
+				tel.visivel();
+			}
+		});
+		btn_editar_lojista.setOpaque(false);
+		btn_editar_lojista.setIcon(new ImageIcon(telaAdmin.class.getResource("/imagens/img_menu_admin/img_editar_logista2.png")));
+		btn_editar_lojista.setFont(new Font("Tahoma", Font.PLAIN, 26));
+		btn_editar_lojista.setFocusPainted(false);
+		btn_editar_lojista.setContentAreaFilled(false);
+		btn_editar_lojista.setBorderPainted(false);
+		btn_editar_lojista.setBounds(568, 588, 359, 91);
+		frameAdmin.getContentPane().add(btn_editar_lojista);
 		btn_cad_admin.setOpaque(false);
 		btn_cad_admin.setIcon(new ImageIcon(telaAdmin.class.getResource("/imagens/img_menu_admin/4243aea9-ddd4-4836-b092-5f5e8999e41f-Photoroom (1).png")));
 		btn_cad_admin.setFont(new Font("Tahoma", Font.PLAIN, 26));
 		btn_cad_admin.setFocusPainted(false);
 		btn_cad_admin.setContentAreaFilled(false);
 		btn_cad_admin.setBorderPainted(false);
-		btn_cad_admin.setBounds(809, 824, 343, 91);
+		btn_cad_admin.setBounds(984, 486, 343, 91);
 		frameAdmin.getContentPane().add(btn_cad_admin);
 		btn_Estacionamento.setContentAreaFilled(false); 
 		btn_Estacionamento.setBorderPainted(false);     
 		btn_Estacionamento.setFocusPainted(false);      
 		btn_Estacionamento.setOpaque(false); 
 		btn_Estacionamento.setFont(new Font("Tahoma", Font.PLAIN, 26));
-		btn_Estacionamento.setBounds(777, 707, 398, 91);
+		btn_Estacionamento.setBounds(548, 486, 398, 91);
 		frameAdmin.getContentPane().add(btn_Estacionamento);
 		
 		
@@ -120,7 +151,7 @@ public class telaAdmin {
 			}
 		});
 		btn_Cadastrar_Veiculo.setFont(new Font("Tahoma", Font.PLAIN, 26));
-		btn_Cadastrar_Veiculo.setBounds(700, 274, 553, 98);
+		btn_Cadastrar_Veiculo.setBounds(556, 274, 383, 98);
 		frameAdmin.getContentPane().add(btn_Cadastrar_Veiculo);
 		
 		btn_Cadastrar_Veiculo.setContentAreaFilled(false); 
@@ -138,7 +169,7 @@ public class telaAdmin {
 			}
 		});
 		btnCadastrarLoja.setFont(new Font("Tahoma", Font.PLAIN, 26));
-		btnCadastrarLoja.setBounds(797, 383, 359, 91);
+		btnCadastrarLoja.setBounds(976, 274, 359, 91);
 		frameAdmin.getContentPane().add(btnCadastrarLoja);
 		btnCadastrarLoja.setContentAreaFilled(false); 
 		btnCadastrarLoja.setBorderPainted(false);     
@@ -146,7 +177,7 @@ public class telaAdmin {
 		btnCadastrarLoja.setOpaque(false);            
 		btnCadastrarLoja.setMargin(new java.awt.Insets(0, 0, 0, 0));
 		JButton btnVisualizaoDosGalpes = new JButton("");
-		btnVisualizaoDosGalpes.setIcon(new ImageIcon(telaAdmin.class.getResource("/imagens/img_menu_admin/img_menu_admin_btn_visualizar_galpoes.png")));
+		btnVisualizaoDosGalpes.setIcon(new ImageIcon(telaAdmin.class.getResource("/imagens/img_menu_admin/img_vis_galpao.png")));
 		btnVisualizaoDosGalpes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				telavisgalpao t = new telavisgalpao();
@@ -155,7 +186,7 @@ public class telaAdmin {
 			}
 		});
 		btnVisualizaoDosGalpes.setFont(new Font("Tahoma", Font.PLAIN, 26));
-		btnVisualizaoDosGalpes.setBounds(789, 493, 374, 92);
+		btnVisualizaoDosGalpes.setBounds(560, 383, 374, 92);
 		frameAdmin.getContentPane().add(btnVisualizaoDosGalpes);
 		btnVisualizaoDosGalpes.setContentAreaFilled(false); 
 		btnVisualizaoDosGalpes.setBorderPainted(false);     
@@ -202,7 +233,7 @@ public class telaAdmin {
 		});
 
 		btn_Visualizar_Veiculos.setFont(new Font("Tahoma", Font.PLAIN, 26));
-		btn_Visualizar_Veiculos.setBounds(780, 615, 393, 84);
+		btn_Visualizar_Veiculos.setBounds(959, 391, 393, 84);
 
 		// Ajustes estéticos para garantir que o ícone preencha o espaço sem bordas cinzas
 		btn_Visualizar_Veiculos.setBorderPainted(false);

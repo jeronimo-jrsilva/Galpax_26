@@ -11,7 +11,7 @@ import java.util.Scanner;
 
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
-
+import java.sql.SQLIntegrityConstraintViolationException;
 
 public class Bancodedados {
 	
@@ -24,7 +24,7 @@ public class Bancodedados {
 	
 	public void conectar() {
 		java.util.Properties props = new java.util.Properties();
-		// Tenta carregar da raiz do projeto (Diretório de execução do Eclipse)
+		
 		java.io.File configFile = new java.io.File("secrets.properties");
 		
 		try (java.io.FileInputStream fis = new java.io.FileInputStream(configFile)) {
@@ -67,7 +67,7 @@ public class Bancodedados {
 	
 	
 	public String realizarLogin(String email, String senha) {
-		// 1º PASSO: Tenta buscar na tabela de LOJAS (Clientes)
+		
 		String queryLoja = "SELECT nivel_loja FROM cad_loja WHERE email_loja = ? AND senha = ?";
 		
 		try (PreparedStatement pstmtLoja = this.conexão.prepareStatement(queryLoja)) {
@@ -76,7 +76,7 @@ public class Bancodedados {
 			
 			try (ResultSet rsLoja = pstmtLoja.executeQuery()) {
 				if (rsLoja.next()) {
-					// Se achou na tabela de lojas, retorna o nível cadastrado na loja (ex: 'cliente')
+					
 					return rsLoja.getString("nivel_loja"); 
 				}
 			}
@@ -84,7 +84,7 @@ public class Bancodedados {
 			System.err.println("Erro ao autenticar na tabela cad_loja: " + e.getMessage());
 		}
 		
-		// 2º PASSO: Se não achou na cad_loja, tenta buscar na tabela de ADMINS
+		
 		String queryAdmin = "SELECT email_admin FROM cad_admin WHERE email_admin = ? AND senha_admin = ?";
 		
 		try (PreparedStatement pstmtAdmin = this.conexão.prepareStatement(queryAdmin)) {
@@ -93,7 +93,7 @@ public class Bancodedados {
 			
 			try (ResultSet rsAdmin = pstmtAdmin.executeQuery()) {
 				if (rsAdmin.next()) {
-					// Se achou na tabela de admins, retorna a String fixa "admin"
+					
 					return "admin"; 
 				}
 			}
@@ -101,24 +101,33 @@ public class Bancodedados {
 			System.err.println("Erro ao autenticar na tabela cad_admin: " + e.getMessage());
 		}
 		
-		// Se passou pelas duas tabelas e não encontrou nada, retorna null (usuário/senha inválidos)
+		
 		return null; 
 	}
 
-	public void inseriVeiculo(String placa, String modelo, String CNH) {
-	   
+	public boolean inserirVeiculo(String placa, String modelo, String cnh) {
+
 		String query = "INSERT INTO cad_carro (placa_carro, modelo_carro, cnh_carro) VALUES (?, ?, ?)";
-		
+
 		try (PreparedStatement pstmt = this.conexão.prepareStatement(query)) {
+
 			pstmt.setString(1, placa);
 			pstmt.setString(2, modelo);
-			pstmt.setString(3, CNH);
-			
-			pstmt.executeUpdate();
-			JOptionPane.showMessageDialog(null, "Veículo cadastrado com sucesso!");
-			
+			pstmt.setString(3, cnh);
+
+			int linhasAfetadas = pstmt.executeUpdate();
+
+			return linhasAfetadas > 0;
+
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null, "Erro ao cadastrar: " + e.getMessage(), "Aviso", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(
+				null,
+				"Erro ao cadastrar veículo: " + e.getMessage(),
+				"Aviso",
+				JOptionPane.ERROR_MESSAGE
+			);
+
+			return false;
 		}
 	}
 	
@@ -126,43 +135,135 @@ public class Bancodedados {
 	        String email, String endereco, String sala, String tipo,
 	        String aluguel, String status, String nivel, String senha) {
 
-
 	    String query = "INSERT INTO cad_loja (nome_loja, cnpj_loja, responsavel_loja, telefone_loja, "
 	            + "email_loja, endereco_loja, sala_loja, tipo_loja, aluguel_loja, status_loja, nivel_loja, senha) "
 	            + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 	    try {
+	        this.conexão.setAutoCommit(false);
 
-	        PreparedStatement stmt = this.conexão.prepareStatement(query);
+	        int idLojaGerado = 0;
 
-	        stmt.setString(1, nome);
-	        stmt.setString(2, cnpj);
-	        stmt.setString(3, responsavel);
-	        stmt.setString(4, telefone);
-	        stmt.setString(5, email);
-	        stmt.setString(6, endereco);
-	        stmt.setString(7, sala);
-	        stmt.setString(8, tipo);
-	        stmt.setString(9, aluguel);
-	        stmt.setString(10, status);
-	        stmt.setString(11, nivel);
-	        stmt.setString(12, senha);
+	        try (PreparedStatement stmt = this.conexão.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
 
-	        int linhasAfetadas = stmt.executeUpdate();
+	            stmt.setString(1, nome);
+	            stmt.setString(2, cnpj);
+	            stmt.setString(3, responsavel);
+	            stmt.setString(4, telefone);
+	            stmt.setString(5, email);
+	            stmt.setString(6, endereco);
+	            stmt.setString(7, sala);
+	            stmt.setString(8, tipo);
+	            stmt.setBigDecimal(9, new java.math.BigDecimal(aluguel));
+	            stmt.setString(10, status);
+	            stmt.setString(11, nivel);
+	            stmt.setString(12, senha);
 
-	        stmt.close();
+	            int linhasAfetadas = stmt.executeUpdate();
 
-	        return linhasAfetadas > 0;
+	            if (linhasAfetadas == 0) {
+	                this.conexão.rollback();
+	                return false;
+	            }
+
+	            try (ResultSet rs = stmt.getGeneratedKeys()) {
+	                if (rs.next()) {
+	                    idLojaGerado = rs.getInt(1);
+	                } else {
+	                    this.conexão.rollback();
+	                    JOptionPane.showMessageDialog(
+	                            null,
+	                            "A loja foi cadastrada, mas não foi possível obter o ID gerado.",
+	                            "Aviso",
+	                            JOptionPane.ERROR_MESSAGE
+	                    );
+	                    return false;
+	                }
+	            }
+	        }
+
+	        double valorAluguel = Double.parseDouble(aluguel);
+
+	        gerarMensalidadesAteFinalDoAno(idLojaGerado, valorAluguel);
+
+	        this.conexão.commit();
+	        this.conexão.setAutoCommit(true);
+
+	        return true;
 
 	    } catch (Exception e) {
+	        try {
+	            if (this.conexão != null) {
+	                this.conexão.rollback();
+	                this.conexão.setAutoCommit(true);
+	            }
+	        } catch (Exception erroRollback) {
+	            erroRollback.printStackTrace();
+	        }
 
 	        JOptionPane.showMessageDialog(
 	                null,
-	                "Erro ao cadastrar loja no banco: " + e.getMessage(),
+	                "Erro ao cadastrar loja e gerar mensalidades: " + e.getMessage(),
 	                "Aviso",
-	                JOptionPane.ERROR_MESSAGE);
+	                JOptionPane.ERROR_MESSAGE
+	        );
 
 	        return false;
+	    }
+	}
+	private String gerarCodigoRecibo() {
+		String letras = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+		String numeros = "0123456789";
+		String caracteres = letras + numeros;
+
+		StringBuilder codigo = new StringBuilder("REC-");
+
+		java.util.Random random = new java.util.Random();
+
+		for (int i = 0; i < 8; i++) {
+			int posicao = random.nextInt(caracteres.length());
+			codigo.append(caracteres.charAt(posicao));
+		}
+
+		return codigo.toString();
+	}
+	private void gerarMensalidadesAteFinalDoAno(int idLoja, double valorMensalidade) throws Exception {
+
+	    java.time.LocalDate hoje = java.time.LocalDate.now();
+
+	    int anoAtual = hoje.getYear();
+	    int mesInicial = hoje.getMonthValue();
+
+	    int diaVencimento = 10;
+
+	    /*
+	     * Se hoje já passou do dia de vencimento, começa pelo próximo mês.
+	     * Exemplo:
+	     * Hoje: 22/06
+	     * Primeiro boleto: 10/07
+	     *
+	     * Se quiser gerar também o mês atual, apague este if.
+	     */
+	    if (hoje.getDayOfMonth() > diaVencimento) {
+	        mesInicial++;
+	    }
+
+	    String sql = "INSERT INTO mensalidade "
+	            + "(id_loja, mensalidade, vencimento, data_pagamento, status) "
+	            + "VALUES (?, ?, ?, NULL, 'Pendente')";
+
+	    try (PreparedStatement stmt = this.conexão.prepareStatement(sql)) {
+
+	        for (int mes = mesInicial; mes <= 12; mes++) {
+
+	            java.time.LocalDate vencimento = java.time.LocalDate.of(anoAtual, mes, diaVencimento);
+
+	            stmt.setInt(1, idLoja);
+	            stmt.setDouble(2, valorMensalidade);
+	            stmt.setDate(3, java.sql.Date.valueOf(vencimento));
+
+	            stmt.executeUpdate();
+	        }
 	    }
 	}
 	
@@ -200,12 +301,10 @@ public class Bancodedados {
 
 		try {
 
-			String query = "SELECT\r\n"
-					+ "    m.*,\r\n"
-					+ "    l.nome_loja\r\n"
-					+ "FROM mensalidade m\r\n"
-					+ "INNER JOIN cad_loja l\r\n"
-					+ "    ON m.id_loja = l.id_loja;";
+			String query = "SELECT m.*, l.nome_loja "
+			        + "FROM mensalidade m "
+			        + "INNER JOIN cad_loja l ON m.id_loja = l.id_loja "
+			        + "WHERE l.email_loja = ?";
 
 			this.resultado = this.consultas.executeQuery(query);
 
@@ -232,21 +331,31 @@ public class Bancodedados {
 		return lista;
 	}
 
-	// PAGAMENTO FICTÍCIO
-	public void pagarMensalidade(int idMensalidade) {
+	
+	public boolean pagarMensalidade(int idMensalidade, String formaPagamento) {
 
-		try {
+		String codigoRecibo = gerarCodigoRecibo();
 
-			String query = "UPDATE mensalidade " +
-					"SET status='Pago', " +
-					"data_pagamento=CURDATE() " +
-					"WHERE id_mensalidade=" + idMensalidade;
+		String sql = "UPDATE mensalidade "
+				+ "SET status = 'Pago', "
+				+ "data_pagamento = CURDATE(), "
+				+ "forma_pagamento = ?, "
+				+ "codigo_recibo = ? "
+				+ "WHERE id_mensalidade = ?";
 
-			this.consultas.executeUpdate(query);
-			System.out.println("Pagamento realizado com sucesso!");
+		try (PreparedStatement pstmt = this.conexão.prepareStatement(sql)) {
 
-		} catch(Exception e) {
+			pstmt.setString(1, formaPagamento);
+			pstmt.setString(2, codigoRecibo);
+			pstmt.setInt(3, idMensalidade);
+
+			int linhasAfetadas = pstmt.executeUpdate();
+
+			return linhasAfetadas > 0;
+
+		} catch (Exception e) {
 			e.printStackTrace();
+			return false;
 		}
 	}
 
@@ -361,22 +470,7 @@ public class Bancodedados {
 		}
 	}
 	
-	public void inserirAdmin(String nome, String cpf, String email, String senha) {
-	    String query = "INSERT INTO cad_admin (nome_admin, cpf_admin, email_admin, senha_admin) VALUES (?, ?, ?, ?)";
-	    
-	    try (PreparedStatement pstmt = this.conexão.prepareStatement(query)) {
-	        pstmt.setString(1, nome);
-	        pstmt.setString(2, cpf);
-	        pstmt.setString(3, email);
-	        pstmt.setString(4, senha);
-	        
-	        pstmt.executeUpdate();
-	        JOptionPane.showMessageDialog(null, "Administrador cadastrado com sucesso!");
-	        
-	    } catch (Exception e) {
-	        JOptionPane.showMessageDialog(null, "Erro ao cadastrar administrador: " + e.getMessage(), "Aviso", JOptionPane.ERROR_MESSAGE);
-	    }
-	}
+	
 
 	public ResultSet listarLojas() {
 		try {
@@ -440,4 +534,52 @@ public class Bancodedados {
 			return false;
 		}
 	}
+	public boolean inserirAdmin(String nome, String cpf, String email, String senha) {
+		String query = "INSERT INTO cad_admin (nome_admin, cpf_admin, email_admin, senha_admin) VALUES (?, ?, ?, ?)";
+
+		if (this.conexão == null) {
+			JOptionPane.showMessageDialog(
+				null,
+				"Não existe conexão ativa com o banco de dados.",
+				"Erro de Conexão",
+				JOptionPane.ERROR_MESSAGE
+			);
+			return false;
+		}
+
+		try (PreparedStatement pstmt = this.conexão.prepareStatement(query)) {
+
+			pstmt.setString(1, nome);
+			pstmt.setString(2, cpf);
+			pstmt.setString(3, email);
+			pstmt.setString(4, senha);
+
+			int linhasAfetadas = pstmt.executeUpdate();
+
+			return linhasAfetadas > 0;
+
+		} catch (SQLIntegrityConstraintViolationException e) {
+
+			JOptionPane.showMessageDialog(
+				null,
+				"Já existe um administrador cadastrado com este CPF ou e-mail.",
+				"Cadastro Duplicado",
+				JOptionPane.WARNING_MESSAGE
+			);
+
+			return false;
+
+		} catch (Exception e) {
+
+			JOptionPane.showMessageDialog(
+				null,
+				"Erro ao cadastrar administrador: " + e.getMessage(),
+				"Aviso",
+				JOptionPane.ERROR_MESSAGE
+			);
+
+			return false;
+		}
+	}
+	
 }

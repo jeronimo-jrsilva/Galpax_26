@@ -33,6 +33,8 @@ import javax.swing.DefaultListCellRenderer;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.Polygon;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 public class CadastroLoja {
 
 	private JFrame frame;
@@ -45,10 +47,22 @@ public class CadastroLoja {
 	private JTextField txtTelefone;
 	private JComboBox<String> cbTipoLoja;
 	private JComboBox<String> cbStatus;
+	private JComboBox<String> cbSalaLoja;
 	private JPasswordField senha;
 	private JPasswordField confirmarsenha;
 	private JButton btnVoltar;
-	
+	private static final Color COR_TEXTO = Color.WHITE;
+	private static final Color COR_PLACEHOLDER = new Color(180, 180, 180);
+
+	private static final String PLACEHOLDER_NOME = "Digite seu nome aqui";
+	private static final String PLACEHOLDER_CNPJ = "Digite o CNPJ aqui";
+	private static final String PLACEHOLDER_RESPONSAVEL = "Digite o responsável aqui";
+	private static final String PLACEHOLDER_TELEFONE = "Digite o telefone aqui";
+	private static final String PLACEHOLDER_EMAIL = "Digite o e-mail aqui";
+	private static final String PLACEHOLDER_ENDERECO = "Digite o endereço aqui";
+	private static final String PLACEHOLDER_ALUGUEL = "Digite o valor do aluguel aqui";
+	private static final String PLACEHOLDER_SENHA = "Digite sua senha aqui";
+	private static final String PLACEHOLDER_CONFIRMAR_SENHA = "Confirme sua senha aqui";
 	MaskFormatter maskCnpj;
 	MaskFormatter maskTelefone;
 
@@ -161,7 +175,7 @@ public class CadastroLoja {
 		txtEmail = new JTextField();
 		txtEmail.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		txtEmail.setForeground(new Color(255, 255, 255));
-		txtEmail.setBounds(335, 372, 517, 44);
+		txtEmail.setBounds(335, 368, 517, 48);
 		txtEmail.setOpaque(false);
 		txtEmail.setBorder(null);
 		frame.getContentPane().add(txtEmail);
@@ -195,24 +209,157 @@ public class CadastroLoja {
 		txtValorAluguel.setOpaque(false);
 		txtValorAluguel.setBorder(null);
 		frame.getContentPane().add(txtValorAluguel);
-		GerenciadorTeclado.getInstance().registrarCampo(txtValorAluguel);
-
+		GerenciadorTeclado.getInstance().registrarCampoNumerico(txtValorAluguel);
+		configurarPlaceholders();
 		cbStatus = new JComboBox<>();
 		cbStatus.setModel(new DefaultComboBoxModel<>(new String[] { "ativo", "inativo" }));
 		cbStatus.setBounds(913, 575, 537, 46);
 		estilizarComboBox(cbStatus);
 		frame.getContentPane().add(cbStatus);
 
-		JComboBox<String> comboBox = new JComboBox<>();
-		comboBox.setModel(new DefaultComboBoxModel<>(new String[] { "131", "132" }));
-		comboBox.setBounds(306, 474, 545, 35);
-		estilizarComboBox(comboBox);
-		frame.getContentPane().add(comboBox);
+		cbSalaLoja = new JComboBox<>();
+		cbSalaLoja.setBounds(306, 474, 545, 35);
+		estilizarComboBox(cbSalaLoja);
+		frame.getContentPane().add(cbSalaLoja);
+
+		carregarSalasDisponiveis();
 
 		JButton btnCadastrar = new JButton("");
 		btnCadastrar.setIcon(new ImageIcon(CadastroLoja.class.getResource("/imagens/img_cad_cliente/img_cad_cliente_btn_cadastrar.png")));
 		btnCadastrar.addActionListener(e -> {
-			
+
+			if (cbSalaLoja.getSelectedItem() == null ||
+					cbSalaLoja.getSelectedItem().toString().equals("Nenhuma sala disponível")) {
+
+				JOptionPane.showMessageDialog(
+					frame,
+					"Não existe sala disponível para cadastro.",
+					"Aviso",
+					JOptionPane.WARNING_MESSAGE
+				);
+				return;
+			}
+			String nome = pegarTexto(txtNome, PLACEHOLDER_NOME);
+			String cnpj = pegarTexto(txtCnpj, PLACEHOLDER_CNPJ);
+			String responsavel = pegarTexto(txtResponsavel, PLACEHOLDER_RESPONSAVEL);
+			String telefone = pegarTexto(txtTelefone, PLACEHOLDER_TELEFONE);
+			String email = pegarTexto(txtEmail, PLACEHOLDER_EMAIL);
+			String endereco = pegarTexto(txtEndereco, PLACEHOLDER_ENDERECO);
+			String sala = cbSalaLoja.getSelectedItem().toString();
+			String tipo = cbTipoLoja.getSelectedItem().toString();
+			String aluguel = pegarTexto(txtValorAluguel, PLACEHOLDER_ALUGUEL).replace(",", ".");
+			String status = cbStatus.getSelectedItem().toString();
+			String nivel = "cliente";
+
+			String senhaDigitada = pegarSenha(senha, PLACEHOLDER_SENHA);
+			String confirmarSenhaDigitada = pegarSenha(confirmarsenha, PLACEHOLDER_CONFIRMAR_SENHA);
+
+			if (nome.isEmpty() || cnpj.isEmpty() || responsavel.isEmpty() ||
+					telefone.isEmpty() || email.isEmpty() || endereco.isEmpty() ||
+					aluguel.isEmpty() || senhaDigitada.isEmpty() || confirmarSenhaDigitada.isEmpty()) {
+
+				JOptionPane.showMessageDialog(
+					frame,
+					"Preencha todos os campos.",
+					"Aviso",
+					JOptionPane.WARNING_MESSAGE
+				);
+				return;
+			}
+
+			if (!validarCNPJ(cnpj)) {
+				JOptionPane.showMessageDialog(
+					frame,
+					"CNPJ inválido.",
+					"Aviso",
+					JOptionPane.WARNING_MESSAGE
+				);
+				return;
+			}
+
+			if (!validarTelefone(telefone)) {
+				JOptionPane.showMessageDialog(
+					frame,
+					"Telefone inválido. Use o formato: (85) 99999-9999",
+					"Aviso",
+					JOptionPane.WARNING_MESSAGE
+				);
+				return;
+			}
+
+			if (!validarEmail(email)) {
+				JOptionPane.showMessageDialog(
+					frame,
+					"E-mail inválido.",
+					"Aviso",
+					JOptionPane.WARNING_MESSAGE
+				);
+				return;
+			}
+
+			if (!senhaDigitada.equals(confirmarSenhaDigitada)) {
+				JOptionPane.showMessageDialog(
+					frame,
+					"As senhas não coincidem.",
+					"Aviso",
+					JOptionPane.WARNING_MESSAGE
+				);
+				return;
+			}
+
+			if (!aluguel.matches("\\d+(\\.\\d{1,2})?")) {
+				JOptionPane.showMessageDialog(
+					frame,
+					"Valor do aluguel inválido. Exemplo: 1200.00",
+					"Aviso",
+					JOptionPane.WARNING_MESSAGE
+				);
+				return;
+			}
+
+			Bancodedados banco = new Bancodedados();
+			banco.conectar();
+
+			if (!banco.verificar()) {
+				JOptionPane.showMessageDialog(
+					frame,
+					"Não foi possível conectar ao banco de dados.",
+					"Aviso",
+					JOptionPane.ERROR_MESSAGE
+				);
+				return;
+			}
+
+			boolean cadastrado = banco.inserirLojaCompleta(
+				nome,
+				cnpj,
+				responsavel,
+				telefone,
+				email,
+				endereco,
+				sala,
+				tipo,
+				aluguel,
+				status,
+				nivel,
+				senhaDigitada
+			);
+
+			banco.desconectar();
+
+			if (cadastrado) {
+				JOptionPane.showMessageDialog(
+					frame,
+					"Loja cadastrada com sucesso!",
+					"Sucesso",
+					JOptionPane.INFORMATION_MESSAGE
+				);
+
+				limparCamposComPlaceholder();
+				carregarSalasDisponiveis();
+
+				
+			}
 		});
 		btnCadastrar.setBounds(1537, 132, 182, 40);
 		frame.getContentPane().add(btnCadastrar);
@@ -223,13 +370,7 @@ public class CadastroLoja {
 		JButton btnLimpar = new JButton("");
 		btnLimpar.setIcon(new ImageIcon(CadastroLoja.class.getResource("/imagens/img_cad_cliente/img_cad_cliente_btn_limpar.png")));
 		btnLimpar.addActionListener(e -> {
-			txtNome.setText("");
-			txtCnpj.setText("");
-			txtResponsavel.setText("");
-			txtTelefone.setText("");
-			txtEmail.setText("");
-			txtEndereco.setText("");
-			txtValorAluguel.setText("");
+			limparCamposComPlaceholder();
 		});
 		btnLimpar.setBounds(1546, 190, 169, 46);
 		frame.getContentPane().add(btnLimpar);
@@ -383,6 +524,139 @@ public class CadastroLoja {
 			return (dig1 == (cnpj.charAt(12) - '0')) && (dig2 == (cnpj.charAt(13) - '0'));
 		} catch (Exception e) {
 			return false;
+		}
+	}
+	private void carregarSalasDisponiveis() {
+		Bancodedados banco = new Bancodedados();
+		banco.conectar();
+
+		if (banco.verificar()) {
+			banco.popularComboSalasLivres(cbSalaLoja);
+
+			if (cbSalaLoja.getItemCount() == 0) {
+				cbSalaLoja.addItem("Nenhuma sala disponível");
+				cbSalaLoja.setEnabled(false);
+			} else {
+				cbSalaLoja.setEnabled(true);
+			}
+		} else {
+			JOptionPane.showMessageDialog(
+				frame,
+				"Não foi possível conectar ao banco de dados.",
+				"Aviso",
+				JOptionPane.ERROR_MESSAGE
+			);
+		}
+
+		banco.desconectar();
+	}
+	private void aplicarPlaceholder(JTextField campo, String placeholder) {
+		mostrarPlaceholder(campo, placeholder);
+
+		campo.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				if (campo.getText().equals(placeholder)) {
+					campo.setText("");
+					campo.setForeground(COR_TEXTO);
+				}
+			}
+
+			@Override
+			public void focusLost(FocusEvent e) {
+				if (campo.getText().trim().isEmpty()) {
+					mostrarPlaceholder(campo, placeholder);
+				}
+			}
+		});
+	}
+
+	private void mostrarPlaceholder(JTextField campo, String placeholder) {
+		campo.setText(placeholder);
+		campo.setForeground(COR_PLACEHOLDER);
+	}
+
+	private String pegarTexto(JTextField campo, String placeholder) {
+		String texto = campo.getText().trim();
+
+		if (texto.equals(placeholder)) {
+			return "";
+		}
+
+		return texto;
+	}
+
+	private void aplicarPlaceholderSenha(JPasswordField campo, String placeholder) {
+		char echoPadrao = campo.getEchoChar();
+
+		mostrarPlaceholderSenha(campo, placeholder);
+
+		campo.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				String textoAtual = new String(campo.getPassword());
+
+				if (textoAtual.equals(placeholder)) {
+					campo.setText("");
+					campo.setForeground(COR_TEXTO);
+					campo.setEchoChar(echoPadrao);
+				}
+			}
+
+			@Override
+			public void focusLost(FocusEvent e) {
+				String textoAtual = new String(campo.getPassword()).trim();
+
+				if (textoAtual.isEmpty()) {
+					mostrarPlaceholderSenha(campo, placeholder);
+				}
+			}
+		});
+	}
+
+	private void mostrarPlaceholderSenha(JPasswordField campo, String placeholder) {
+		campo.setEchoChar((char) 0);
+		campo.setText(placeholder);
+		campo.setForeground(COR_PLACEHOLDER);
+	}
+
+	private String pegarSenha(JPasswordField campo, String placeholder) {
+		String texto = new String(campo.getPassword()).trim();
+
+		if (texto.equals(placeholder)) {
+			return "";
+		}
+
+		return texto;
+	}
+
+	private void configurarPlaceholders() {
+		aplicarPlaceholder(txtNome, PLACEHOLDER_NOME);
+		aplicarPlaceholder(txtCnpj, PLACEHOLDER_CNPJ);
+		aplicarPlaceholder(txtResponsavel, PLACEHOLDER_RESPONSAVEL);
+		aplicarPlaceholder(txtTelefone, PLACEHOLDER_TELEFONE);
+		aplicarPlaceholder(txtEmail, PLACEHOLDER_EMAIL);
+		aplicarPlaceholder(txtEndereco, PLACEHOLDER_ENDERECO);
+		aplicarPlaceholder(txtValorAluguel, PLACEHOLDER_ALUGUEL);
+
+		aplicarPlaceholderSenha(senha, PLACEHOLDER_SENHA);
+		aplicarPlaceholderSenha(confirmarsenha, PLACEHOLDER_CONFIRMAR_SENHA);
+	}
+
+	private void limparCamposComPlaceholder() {
+		mostrarPlaceholder(txtNome, PLACEHOLDER_NOME);
+		mostrarPlaceholder(txtCnpj, PLACEHOLDER_CNPJ);
+		mostrarPlaceholder(txtResponsavel, PLACEHOLDER_RESPONSAVEL);
+		mostrarPlaceholder(txtTelefone, PLACEHOLDER_TELEFONE);
+		mostrarPlaceholder(txtEmail, PLACEHOLDER_EMAIL);
+		mostrarPlaceholder(txtEndereco, PLACEHOLDER_ENDERECO);
+		mostrarPlaceholder(txtValorAluguel, PLACEHOLDER_ALUGUEL);
+
+		mostrarPlaceholderSenha(senha, PLACEHOLDER_SENHA);
+		mostrarPlaceholderSenha(confirmarsenha, PLACEHOLDER_CONFIRMAR_SENHA);
+
+		if (cbSalaLoja.getItemCount() > 0) {
+			cbSalaLoja.setSelectedIndex(0);
 		}
 	}
 }

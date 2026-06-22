@@ -27,7 +27,7 @@ public class GerenciadorTeclado {
     private Set<JTextField> camposComListener = new HashSet<>();
 
     private GerenciadorTeclado() {
-       
+
     }
 
     public static GerenciadorTeclado getInstance() {
@@ -103,11 +103,13 @@ public class GerenciadorTeclado {
             return camposRegistrados.contains((JTextField) comp);
         }
 
-        if (comp != null && tecladoCompletoDialog != null && SwingUtilities.isDescendingFrom(comp, tecladoCompletoDialog)) {
+        if (comp != null && tecladoCompletoDialog != null &&
+                SwingUtilities.isDescendingFrom(comp, tecladoCompletoDialog)) {
             return true;
         }
 
-        if (comp != null && tecladoNumericoDialog != null && SwingUtilities.isDescendingFrom(comp, tecladoNumericoDialog)) {
+        if (comp != null && tecladoNumericoDialog != null &&
+                SwingUtilities.isDescendingFrom(comp, tecladoNumericoDialog)) {
             return true;
         }
 
@@ -122,13 +124,23 @@ public class GerenciadorTeclado {
         return this.campoAtivo;
     }
 
+    public boolean campoAtivoEhNumerico() {
+        return campoAtivo != null && camposNumericos.contains(campoAtivo);
+    }
+
     public void mostrarTecladoCompleto() {
         if (tecladoNumericoDialog != null) {
             tecladoNumericoDialog.setVisible(false);
         }
 
+        if (tecladoCompletoDialog == null && framePrincipal != null) {
+            tecladoCompletoDialog = new TecladoUI(framePrincipal);
+        }
+
         if (tecladoCompletoDialog != null) {
+            tecladoCompletoDialog.mostrarLetras(); // volta para o QWERTY
             tecladoCompletoDialog.setVisible(true);
+            tecladoCompletoDialog.toFront();
         }
     }
 
@@ -143,6 +155,7 @@ public class GerenciadorTeclado {
 
         if (tecladoNumericoDialog != null) {
             tecladoNumericoDialog.setVisible(true);
+            tecladoNumericoDialog.toFront();
         }
     }
 
@@ -161,14 +174,28 @@ public class GerenciadorTeclado {
     }
 
     public void mostrarTeclado() {
-        mostrarTecladoCompleto();
+        if (campoAtivoEhNumerico()) {
+            mostrarTecladoNumerico();
+        } else {
+            mostrarTecladoCompleto();
+        }
     }
 
     public void alternarTecladoNumerico() {
-        mostrarTecladoNumerico();
+        if (campoAtivoEhNumerico()) {
+            mostrarTecladoNumerico();
+        } else {
+            if (tecladoCompletoDialog != null) {
+                tecladoCompletoDialog.mostrarSimbolos();
+            }
+        }
     }
 
     public void alternarTecladoCompleto() {
+        if (tecladoCompletoDialog != null) {
+            tecladoCompletoDialog.mostrarLetras();
+        }
+
         mostrarTecladoCompleto();
     }
 }

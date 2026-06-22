@@ -179,18 +179,36 @@ public class telaCadAdmin {
 				}
 
 				Bancodedados bd = new Bancodedados();
-				bd.conectar();
 
-				if (bd.verificar()) {
+				try {
+					bd.conectar();
 
-					bd.inserirAdmin(nome, cpfLimpo, email, senha);
+					if (bd.verificar()) {
 
-					limparCampos();
+						boolean cadastrado = bd.inserirAdmin(nome, cpfLimpo, email, senha);
 
+						if (cadastrado) {
+							JOptionPane.showMessageDialog(
+								frame,
+								"Administrador cadastrado com sucesso!",
+								"Cadastro Realizado",
+								JOptionPane.INFORMATION_MESSAGE
+							);
+
+							limparCampos();
+						}
+
+					} else {
+						JOptionPane.showMessageDialog(
+							frame,
+							"Não foi possível conectar ao Banco de Dados.",
+							"Erro de Conexão",
+							JOptionPane.ERROR_MESSAGE
+						);
+					}
+
+				} finally {
 					bd.desconectar();
-
-				} else {
-					JOptionPane.showMessageDialog(frame, "Não foi possível conectar ao Banco de Dados.", "Erro de Conexão", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});

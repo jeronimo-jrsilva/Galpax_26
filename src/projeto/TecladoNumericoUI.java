@@ -29,8 +29,8 @@ public class TecladoNumericoUI extends JDialog {
 
         Dimension tela = Toolkit.getDefaultToolkit().getScreenSize();
 
-        int x = (tela.width - 420) / 2;
-        int y = tela.height - 360;
+        int x = (tela.width - getWidth()) / 2;
+        int y = tela.height - getHeight() - 25;
 
         setLocation(x, y);
 

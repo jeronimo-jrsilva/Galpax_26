@@ -29,7 +29,15 @@ import javax.swing.text.AbstractDocument;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DocumentFilter;
-
+import javax.print.Doc;
+import javax.print.DocFlavor;
+import javax.print.DocPrintJob;
+import javax.print.PrintException;
+import javax.print.PrintService;
+import javax.print.PrintServiceLookup;
+import javax.print.SimpleDoc;
+import java.nio.charset.StandardCharsets;
+import java.text.Normalizer;
 public class telaEstacionamento {
 
     private JFrame estacionamento;
@@ -123,6 +131,8 @@ public class telaEstacionamento {
 
                                     imprimirTicket(placa, modelo, cnh, dataHoraStr);
 
+                                    JOptionPane.showMessageDialog(null, mensagem, "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+
                                 } else {
                                     JOptionPane.showMessageDialog(
                                             null,
@@ -164,66 +174,67 @@ public class telaEstacionamento {
 
             // MÉTODO PARA IMPRIMIR TICKET
             private void imprimirTicket(String placa, String modelo, String cnh, String dataHora) {
-                PrinterJob job = PrinterJob.getPrinterJob();
-
-                job.setPrintable(new Printable() {
-                    @Override
-                    public int print(Graphics graphics, PageFormat pageFormat, int pageIndex) throws PrinterException {
-
-                        if (pageIndex > 0) {
-                            return NO_SUCH_PAGE;
-                        }
-
-                        Graphics2D g2d = (Graphics2D) graphics;
-
-                        g2d.translate(pageFormat.getImageableX(), pageFormat.getImageableY());
-
-                        Font fonteTitulo = new Font("Courier New", Font.BOLD, 12);
-                        Font fonteCorpo = new Font("Courier New", Font.PLAIN, 10);
-                        Font fonteRodape = new Font("Courier New", Font.ITALIC, 8);
-
-                        int y = 15;
-
-                        g2d.setFont(fonteTitulo);
-                        g2d.drawString("    GALPAX ESTACIONAMENTO    ", 10, y);
-                        y += 15;
-
-                        g2d.drawString("-----------------------------", 10, y);
-                        y += 15;
-
-                        g2d.setFont(fonteCorpo);
-                        g2d.drawString("COMPROVANTE DE ENTRADA", 10, y);
-                        y += 15;
-
-                        g2d.drawString("DATA/HORA: " + dataHora, 10, y);
-                        y += 15;
-
-                        g2d.drawString("PLACA:     " + placa, 10, y);
-                        y += 15;
-
-                        g2d.drawString("MODELO:    " + modelo, 10, y);
-                        y += 15;
-
-                        g2d.drawString("CNH:       " + cnh, 10, y);
-                        y += 15;
-
-                        g2d.setFont(fonteTitulo);
-                        g2d.drawString("-----------------------------", 10, y);
-                        y += 15;
-
-                        g2d.setFont(fonteRodape);
-                        g2d.drawString("   Guarde seu comprovante.   ", 10, y);
-                        y += 12;
-
-                        g2d.drawString("      Obrigado pela visita!  ", 10, y);
-
-                        return PAGE_EXISTS;
-                    }
-                });
-
                 try {
-                    job.print();
-                } catch (PrinterException ex) {
+                    PrintService impressoraPOS80 = buscarImpressoraPOS80();
+
+                    if (impressoraPOS80 == null) {
+                        JOptionPane.showMessageDialog(
+                                null,
+                                "Impressora POS-80 não encontrada.\nVerifique o nome da impressora no Windows.",
+                                "Erro de Impressão",
+                                JOptionPane.ERROR_MESSAGE
+                        );
+                        return;
+                    }
+
+                    String ESC = "\u001B";
+
+                    StringBuilder ticket = new StringBuilder();
+
+                    // Inicializa a impressora
+                    ticket.append(ESC).append("@");
+
+                    // Espaçamento menor entre linhas
+                    ticket.append(ESC).append("3").append((char) 24);
+
+                    // Centralizado
+                    ticket.append(ESC).append("a").append((char) 1);
+
+                    // Negrito ligado
+                    ticket.append(ESC).append("E").append((char) 1);
+                    ticket.append("GALPAX ESTACIONAMENTO\n");
+
+                    // Negrito desligado
+                    ticket.append(ESC).append("E").append((char) 0);
+
+                    ticket.append("-------------------------------\n");
+                    ticket.append("COMPROVANTE DE ENTRADA\n");
+                    ticket.append("-------------------------------\n");
+
+                    // Alinhado à esquerda
+                    ticket.append(ESC).append("a").append((char) 0);
+
+                    ticket.append("DATA/HORA: ").append(dataHora).append("\n");
+                    ticket.append("PLACA:     ").append(limitarTexto(placa, 20)).append("\n");
+                    ticket.append("MODELO:    ").append(limitarTexto(modelo, 22)).append("\n");
+                    ticket.append("CNH:       ").append(limitarTexto(cnh, 20)).append("\n");
+
+                    ticket.append("-------------------------------\n");
+
+                    // Centralizado
+                    ticket.append(ESC).append("a").append((char) 1);
+                    ticket.append("Guarde seu comprovante.\n");
+                    ticket.append("Obrigado pela visita!\n\n\n");
+
+                    byte[] dados = ticket.toString().getBytes(StandardCharsets.ISO_8859_1);
+
+                    DocFlavor flavor = DocFlavor.BYTE_ARRAY.AUTOSENSE;
+                    Doc doc = new SimpleDoc(dados, flavor, null);
+
+                    DocPrintJob job = impressoraPOS80.createPrintJob();
+                    job.print(doc, null);
+
+                } catch (PrintException ex) {
                     JOptionPane.showMessageDialog(
                             null,
                             "Erro ao tentar imprimir: " + ex.getMessage(),
@@ -231,6 +242,39 @@ public class telaEstacionamento {
                             JOptionPane.ERROR_MESSAGE
                     );
                 }
+            }
+
+            private PrintService buscarImpressoraPOS80() {
+                PrintService[] impressoras = PrintServiceLookup.lookupPrintServices(null, null);
+
+                for (PrintService impressora : impressoras) {
+                    System.out.println("Impressora encontrada: " + impressora.getName());
+
+                    if (impressora.getName().toLowerCase().contains("pos-80")) {
+                        return impressora;
+                    }
+                }
+
+                return null;
+            }
+
+            private String limitarTexto(String texto, int limite) {
+                if (texto == null) {
+                    return "";
+                }
+
+                texto = removerAcentos(texto);
+
+                if (texto.length() > limite) {
+                    return texto.substring(0, limite);
+                }
+
+                return texto;
+            }
+
+            private String removerAcentos(String texto) {
+                String normalizado = Normalizer.normalize(texto, Normalizer.Form.NFD);
+                return normalizado.replaceAll("[\\p{InCombiningDiacriticalMarks}]", "");
             }
         });
 

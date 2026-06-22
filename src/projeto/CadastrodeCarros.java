@@ -30,7 +30,7 @@ public class CadastrodeCarros {
     private JTextField placa_txt;
 
     public static void main(String[] args) {
-        EventQueue.invokeLater(() -> {
+        EventQueue.invokeLater(() -> {	
             try {
                 CadastrodeCarros window = new CadastrodeCarros();
                 window.CadCarrosFrame.setVisible(true);
@@ -106,37 +106,91 @@ public class CadastrodeCarros {
         JButton botãoCadastrar = new JButton("");
         botãoCadastrar.setIcon(new ImageIcon(CadastrodeCarros.class.getResource("/imagens/img_cad_veiculo/img_cad_veiculo_ficha2-Photoroom (1).png")));
         botãoCadastrar.addActionListener(e -> {
+
+            String placa = placa_txt.getText().trim().toUpperCase();
+            String modelo = modelo_txt.getText().trim();
+            String cnh = CNH_text.getText().trim();
+
+            if (placa.isEmpty() || modelo.isEmpty() || cnh.isEmpty()) {
+                JOptionPane.showMessageDialog(
+                    CadCarrosFrame,
+                    "Preencha todos os campos!",
+                    "Aviso",
+                    JOptionPane.WARNING_MESSAGE
+                );
+                return;
+            }
+
+            if (placa.length() != 7) {
+                JOptionPane.showMessageDialog(
+                    CadCarrosFrame,
+                    "A placa deve conter 7 caracteres. Exemplo: ABC1234",
+                    "Aviso",
+                    JOptionPane.WARNING_MESSAGE
+                );
+                return;
+            }
+
+            if (!placaValida(placa)) {
+                JOptionPane.showMessageDialog(
+                    CadCarrosFrame,
+                    "Placa inválida. Use o formato antigo ABC1234 ou Mercosul ABC1D23",
+                    "Aviso",
+                    JOptionPane.WARNING_MESSAGE
+                );
+                return;
+            }
+
+            if (cnh.length() != 11) {
+                JOptionPane.showMessageDialog(
+                    CadCarrosFrame,
+                    "A CNH deve conter exatamente 11 dígitos.",
+                    "Aviso",
+                    JOptionPane.WARNING_MESSAGE
+                );
+                return;
+            }
+
+            if (!cnh.matches("\\d{11}")) {
+                JOptionPane.showMessageDialog(
+                    CadCarrosFrame,
+                    "A CNH deve conter somente números.",
+                    "Aviso",
+                    JOptionPane.WARNING_MESSAGE
+                );
+                return;
+            }
+
             Bancodedados bd = new Bancodedados();
             bd.conectar();
 
-            if (bd.verificar()) {
-                String placa = placa_txt.getText().trim();
-                String modelo = modelo_txt.getText().trim();
-                String cnh = CNH_text.getText().trim();
-
-                if (placa.isEmpty() || modelo.isEmpty() || cnh.isEmpty()) {
-                    JOptionPane.showMessageDialog(null, "Preencha todos os campos!");
-                } else if (placa.length() != 7) {
-                    JOptionPane.showMessageDialog(null, "A placa deve conter 7 caracteres. Exemplo: ABC1234");
-                } else if (cnh.length() != 11) {
-                    JOptionPane.showMessageDialog(null, "A CNH deve conter exatamente 11 dígitos.");
-                } else {
-                    bd.inseriVeiculo(placa, modelo, cnh);
-
-                    placa_txt.setText("");
-                    modelo_txt.setText("");
-                    CNH_text.setText("");
-
-                    JOptionPane.showMessageDialog(null, "Veículo cadastrado com sucesso!");
-                }
-
-            } else {
-                JOptionPane.showMessageDialog(null, "Erro na conexão com o banco de dados.");
+            if (!bd.verificar()) {
+                JOptionPane.showMessageDialog(
+                    CadCarrosFrame,
+                    "Erro na conexão com o banco de dados.",
+                    "Erro",
+                    JOptionPane.ERROR_MESSAGE
+                );
+                return;
             }
 
-            bd.desconectar();
-        });
+            boolean cadastrado = bd.inserirVeiculo(placa, modelo, cnh);
 
+            bd.desconectar();
+
+            if (cadastrado) {
+                JOptionPane.showMessageDialog(
+                    CadCarrosFrame,
+                    "Veículo cadastrado com sucesso!",
+                    "Sucesso",
+                    JOptionPane.INFORMATION_MESSAGE
+                );
+
+                placa_txt.setText("");
+                modelo_txt.setText("");
+                CNH_text.setText("");
+            }
+        });
         botãoCadastrar.setFont(new Font("Tahoma", Font.PLAIN, 23));
         botãoCadastrar.setBounds(555, 564, 796, 60);
         botãoCadastrar.setOpaque(false);
@@ -145,7 +199,7 @@ public class CadastrodeCarros {
         CadCarrosFrame.getContentPane().add(botãoCadastrar);
 
         JLabel lblFundo = new JLabel("");
-        lblFundo.setIcon(new ImageIcon(CadastrodeCarros.class.getResource("/imagens/img_cad_veiculo/img_cad_veiculo_ficha.png")));
+        lblFundo.setIcon(new ImageIcon(CadastrodeCarros.class.getResource("/imagens/img_cad_veiculo/img_cad_veiculo_ficha_4.png")));
         lblFundo.setBounds(0, -12, 1930, 1104);
         CadCarrosFrame.getContentPane().add(lblFundo);
 
@@ -272,7 +326,15 @@ public class CadastrodeCarros {
                     if (!Character.isLetter(c)) {
                         return false;
                     }
-                } else {
+                } else if (i == 3) {
+                    if (!Character.isDigit(c)) {
+                        return false;
+                    }
+                } else if (i == 4) {
+                    if (!Character.isLetterOrDigit(c)) {
+                        return false;
+                    }
+                } else if (i == 5 || i == 6) {
                     if (!Character.isDigit(c)) {
                         return false;
                     }
@@ -281,5 +343,11 @@ public class CadastrodeCarros {
 
             return true;
         }
+    }
+    private boolean placaValida(String placa) {
+        String placaAntiga = "[A-Z]{3}\\d{4}";
+        String placaMercosul = "[A-Z]{3}\\d[A-Z]\\d{2}";
+
+        return placa.matches(placaAntiga) || placa.matches(placaMercosul);
     }
 }

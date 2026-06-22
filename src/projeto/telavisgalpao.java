@@ -86,9 +86,10 @@ public class telavisgalpao {
 		initialize();
 		atualizarTodosOsGalpoes(); 
 	}
-	public void visivel() {
-		frame.setVisible(true);
-	}
+public void visivel() {
+	telavisgalpao window = new telavisgalpao();
+	window.frame.setVisible(true);
+}
 	/**
 	 * Initialize the contents of the frame.
 	 */
@@ -117,6 +118,18 @@ private void initialize() {
             frame.dispose();
         }
     });
+    
+    JLabel lblNewLabel_3_1 = new JLabel("Corredor Sul");
+    lblNewLabel_3_1.setForeground(Color.WHITE);
+    lblNewLabel_3_1.setFont(new Font("Tahoma", Font.BOLD, 39));
+    lblNewLabel_3_1.setBounds(809, 812, 462, 65);
+    frame.getContentPane().add(lblNewLabel_3_1);
+    
+    JLabel lblNewLabel_3 = new JLabel("Corredor Norte");
+    lblNewLabel_3.setFont(new Font("Tahoma", Font.BOLD, 39));
+    lblNewLabel_3.setForeground(new Color(255, 255, 255));
+    lblNewLabel_3.setBounds(809, 556, 462, 65);
+    frame.getContentPane().add(lblNewLabel_3);
     frame.getContentPane().add(btnVoltar);
 
     // --- LINHA DOS GALPÕES 125 A 132 ---
@@ -137,7 +150,7 @@ private void initialize() {
         }
     });
     lblNewLabel_1_13.setIcon(null);
-    lblNewLabel_1_13.setBounds(1716, 929, 150, 140); // Ajustado para 150x140
+    lblNewLabel_1_13.setBounds(1760, 791, 150, 140); // Ajustado para 150x140
     frame.getContentPane().add(lblNewLabel_1_13);
     
     lblNewLabel_1_12 = new JLabel("131");
@@ -157,7 +170,7 @@ private void initialize() {
         }
     });
     lblNewLabel_1_12.setIcon(null);
-    lblNewLabel_1_12.setBounds(1500, 929, 150, 140); // Ajustado para 150x140
+    lblNewLabel_1_12.setBounds(1760, 495, 150, 140); // Ajustado para 150x140
     frame.getContentPane().add(lblNewLabel_1_12);
     
     lblNewLabel_1_11 = new JLabel("130");
@@ -177,7 +190,7 @@ private void initialize() {
         }
     });
     lblNewLabel_1_11.setIcon(null);
-    lblNewLabel_1_11.setBounds(1225, 929, 150, 140); // Ajustado para 150x140
+    lblNewLabel_1_11.setBounds(1614, 929, 150, 140); // Ajustado para 150x140
     frame.getContentPane().add(lblNewLabel_1_11);
     
     lblNewLabel_1_10 = new JLabel("129");
@@ -197,7 +210,7 @@ private void initialize() {
         }
     });
     lblNewLabel_1_10.setIcon(null);
-    lblNewLabel_1_10.setBounds(1005, 929, 150, 140); // Ajustado para 150x140
+    lblNewLabel_1_10.setBounds(1464, 929, 150, 140); // Ajustado para 150x140
     frame.getContentPane().add(lblNewLabel_1_10);
     
     lblNewLabel_1_8 = new JLabel("127");
@@ -217,7 +230,7 @@ private void initialize() {
         }
     });
     lblNewLabel_1_8.setIcon(null);
-    lblNewLabel_1_8.setBounds(517, 929, 150, 140); // Ajustado para 150x140
+    lblNewLabel_1_8.setBounds(1086, 929, 150, 140); // Ajustado para 150x140
     frame.getContentPane().add(lblNewLabel_1_8);
     
     lblNewLabel_1_6 = new JLabel("125");
@@ -237,7 +250,7 @@ private void initialize() {
         }
     });
     lblNewLabel_1_6.setIcon(null);
-    lblNewLabel_1_6.setBounds(90, 929, 150, 140); // Ajustado para 150x140
+    lblNewLabel_1_6.setBounds(766, 929, 150, 140); // Ajustado para 150x140
     frame.getContentPane().add(lblNewLabel_1_6);
     
     lblNewLabel_1_7 = new JLabel("126");
@@ -257,7 +270,7 @@ private void initialize() {
         }
     });
     lblNewLabel_1_7.setIcon(null);
-    lblNewLabel_1_7.setBounds(298, 929, 150, 140); // Ajustado para 150x140
+    lblNewLabel_1_7.setBounds(926, 929, 150, 140); // Ajustado para 150x140
     frame.getContentPane().add(lblNewLabel_1_7);
     
     lblNewLabel_1_9 = new JLabel("128");
@@ -277,7 +290,7 @@ private void initialize() {
         }
     });
     lblNewLabel_1_9.setIcon(null);
-    lblNewLabel_1_9.setBounds(729, 929, 150, 140); // Ajustado para 150x140
+    lblNewLabel_1_9.setBounds(1246, 929, 150, 140); // Ajustado para 150x140
     frame.getContentPane().add(lblNewLabel_1_9);
     
     // --- LINHA DOS GALPÕES 117 A 124 ---
@@ -298,7 +311,7 @@ private void initialize() {
         }
     });
     lblNewLabel_2_3_8_4.setIcon(null);
-    lblNewLabel_2_3_8_4.setBounds(1716, 776, 150, 140); // Ajustado para 150x140
+    lblNewLabel_2_3_8_4.setBounds(553, 929, 150, 140); // Ajustado para 150x140
     frame.getContentPane().add(lblNewLabel_2_3_8_4);
     
     lblNewLabel_2_3_8_3 = new JLabel("123");
@@ -318,7 +331,7 @@ private void initialize() {
         }
     });
     lblNewLabel_2_3_8_3.setIcon(null);
-    lblNewLabel_2_3_8_3.setBounds(1500, 776, 150, 140); // Ajustado para 150x140
+    lblNewLabel_2_3_8_3.setBounds(393, 929, 150, 140); // Ajustado para 150x140
     frame.getContentPane().add(lblNewLabel_2_3_8_3);
     
     lblNewLabel_2_3_8_2 = new JLabel("122");
@@ -338,7 +351,7 @@ private void initialize() {
         }
     });
     lblNewLabel_2_3_8_2.setIcon(null);
-    lblNewLabel_2_3_8_2.setBounds(1225, 778, 150, 140); // Ajustado para 150x140
+    lblNewLabel_2_3_8_2.setBounds(233, 929, 150, 140); // Ajustado para 150x140
     frame.getContentPane().add(lblNewLabel_2_3_8_2);
     
     lblNewLabel_2_3_8_1 = new JLabel("121");
@@ -358,7 +371,7 @@ private void initialize() {
         }
     });
     lblNewLabel_2_3_8_1.setIcon(null);
-    lblNewLabel_2_3_8_1.setBounds(1005, 778, 150, 140); // Ajustado para 150x140
+    lblNewLabel_2_3_8_1.setBounds(73, 929, 150, 140); // Ajustado para 150x140
     frame.getContentPane().add(lblNewLabel_2_3_8_1);
     
     lblNewLabel_2_3_8 = new JLabel("120");
@@ -366,7 +379,7 @@ private void initialize() {
     lblNewLabel_2_3_8.setHorizontalAlignment(SwingConstants.CENTER);
     lblNewLabel_2_3_8.setFont(new Font("Impact", Font.PLAIN, 52));
     lblNewLabel_2_3_8.setIcon(null);
-    lblNewLabel_2_3_8.setBounds(729, 776, 150, 140); // Ajustado para 150x140
+    lblNewLabel_2_3_8.setBounds(1614, 646, 150, 140); // Ajustado para 150x140
     frame.getContentPane().add(lblNewLabel_2_3_8);
     
     lblNewLabel_2_3_7 = new JLabel("119");
@@ -386,7 +399,7 @@ private void initialize() {
         }
     });
     lblNewLabel_2_3_7.setIcon(null);
-    lblNewLabel_2_3_7.setBounds(517, 778, 150, 140); // Ajustado para 150x140
+    lblNewLabel_2_3_7.setBounds(1464, 646, 150, 140); // Ajustado para 150x140
     frame.getContentPane().add(lblNewLabel_2_3_7);
     
     lblNewLabel_2_3_6 = new JLabel("118");
@@ -406,7 +419,7 @@ private void initialize() {
         }
     });
     lblNewLabel_2_3_6.setIcon(null);
-    lblNewLabel_2_3_6.setBounds(298, 776, 150, 140); // Ajustado para 150x140
+    lblNewLabel_2_3_6.setBounds(1238, 646, 150, 140); // Ajustado para 150x140
     frame.getContentPane().add(lblNewLabel_2_3_6);
     
     lblNewLabel_2_3_5 = new JLabel("117");
@@ -426,7 +439,7 @@ private void initialize() {
         }
     });
     lblNewLabel_2_3_5.setIcon(null);
-    lblNewLabel_2_3_5.setBounds(90, 778, 150, 140); // Ajustado para 150x140
+    lblNewLabel_2_3_5.setBounds(1078, 646, 150, 140); // Ajustado para 150x140
     frame.getContentPane().add(lblNewLabel_2_3_5);
     
     // --- LINHA DOS GALPÕES 109 A 116 ---
@@ -447,7 +460,7 @@ private void initialize() {
         }
     });
     lblNewLabel_2_3_4.setIcon(null);
-    lblNewLabel_2_3_4.setBounds(1716, 619, 150, 140); // Ajustado para 150x140
+    lblNewLabel_2_3_4.setBounds(918, 646, 150, 140); // Ajustado para 150x140
     frame.getContentPane().add(lblNewLabel_2_3_4);
     
     lblNewLabel_2_3_3 = new JLabel("115");
@@ -467,7 +480,7 @@ private void initialize() {
         }
     });
     lblNewLabel_2_3_3.setIcon(null);
-    lblNewLabel_2_3_3.setBounds(1500, 621, 150, 140); // Ajustado para 150x140
+    lblNewLabel_2_3_3.setBounds(758, 646, 150, 140); // Ajustado para 150x140
     frame.getContentPane().add(lblNewLabel_2_3_3);
     
     lblNewLabel_2_3_2 = new JLabel("114");
@@ -487,7 +500,7 @@ private void initialize() {
         }
     });
     lblNewLabel_2_3_2.setIcon(null);
-    lblNewLabel_2_3_2.setBounds(1225, 625, 150, 140); // Ajustado para 150x140
+    lblNewLabel_2_3_2.setBounds(545, 646, 150, 140); // Ajustado para 150x140
     frame.getContentPane().add(lblNewLabel_2_3_2);
     
     lblNewLabel_2_3_1 = new JLabel("113");
@@ -507,7 +520,7 @@ private void initialize() {
         }
     });
     lblNewLabel_2_3_1.setIcon(null);
-    lblNewLabel_2_3_1.setBounds(1005, 627, 150, 140); // Ajustado para 150x140
+    lblNewLabel_2_3_1.setBounds(385, 646, 150, 140); // Ajustado para 150x140
     frame.getContentPane().add(lblNewLabel_2_3_1);
     
     lblNewLabel_2_3 = new JLabel("112");
@@ -527,7 +540,7 @@ private void initialize() {
         }
     });
     lblNewLabel_2_3.setIcon(null);
-    lblNewLabel_2_3.setBounds(729, 620, 150, 140); // Ajustado para 150x140
+    lblNewLabel_2_3.setBounds(225, 646, 150, 140); // Ajustado para 150x140
     frame.getContentPane().add(lblNewLabel_2_3);
     
     lblNewLabel_2_2 = new JLabel("111");
@@ -547,7 +560,7 @@ private void initialize() {
         }
     });
     lblNewLabel_2_2.setIcon(null);
-    lblNewLabel_2_2.setBounds(517, 619, 150, 140); // Ajustado para 150x140
+    lblNewLabel_2_2.setBounds(65, 646, 150, 140); // Ajustado para 150x140
     frame.getContentPane().add(lblNewLabel_2_2);
     
     lblNewLabel_2_1 = new JLabel("110");
@@ -567,7 +580,7 @@ private void initialize() {
         }
     });
     lblNewLabel_2_1.setIcon(null);
-    lblNewLabel_2_1.setBounds(298, 619, 150, 140); // Ajustado para 150x140
+    lblNewLabel_2_1.setBounds(1614, 350, 150, 140); // Ajustado para 150x140
     frame.getContentPane().add(lblNewLabel_2_1);
     
     lblNewLabel_2 = new JLabel("109");
@@ -587,7 +600,7 @@ private void initialize() {
         }
     });
     lblNewLabel_2.setIcon(null);
-    lblNewLabel_2.setBounds(90, 619, 150, 140); // Ajustado para 150x140
+    lblNewLabel_2.setBounds(1454, 350, 150, 140); // Ajustado para 150x140
     frame.getContentPane().add(lblNewLabel_2);
     
     // --- LINHA DOS GALPÕES 101 A 108 ---
@@ -608,7 +621,7 @@ private void initialize() {
         }
     });
     lblNewLabel_1_5_2.setIcon(null);
-    lblNewLabel_1_5_2.setBounds(1716, 453, 150, 140); // Ajustado para 150x140
+    lblNewLabel_1_5_2.setBounds(1238, 350, 150, 140); // Ajustado para 150x140
     frame.getContentPane().add(lblNewLabel_1_5_2);
     
     lblNewLabel_1_5_1 = new JLabel("106");
@@ -628,7 +641,7 @@ private void initialize() {
         }
     });
     lblNewLabel_1_5_1.setIcon(null);
-    lblNewLabel_1_5_1.setBounds(1225, 453, 150, 140); // Ajustado para 150x140
+    lblNewLabel_1_5_1.setBounds(918, 350, 150, 140); // Ajustado para 150x140
     frame.getContentPane().add(lblNewLabel_1_5_1);
     
     lblNewLabel_1_5 = new JLabel("107");
@@ -648,7 +661,7 @@ private void initialize() {
         }
     });
     lblNewLabel_1_5.setIcon(null);
-    lblNewLabel_1_5.setBounds(1500, 453, 150, 140); // Ajustado para 150x140
+    lblNewLabel_1_5.setBounds(1078, 350, 150, 140); // Ajustado para 150x140
     frame.getContentPane().add(lblNewLabel_1_5);
     
     lblNewLabel_1_4 = new JLabel("105");
@@ -668,7 +681,7 @@ private void initialize() {
         }
     });
     lblNewLabel_1_4.setIcon(null);
-    lblNewLabel_1_4.setBounds(1005, 453, 150, 140); // Ajustado para 150x140
+    lblNewLabel_1_4.setBounds(758, 350, 150, 140); // Ajustado para 150x140
     frame.getContentPane().add(lblNewLabel_1_4);
     
     lblNewLabel_1_3 = new JLabel("104");
@@ -688,7 +701,7 @@ private void initialize() {
         }
     });
     lblNewLabel_1_3.setIcon(null);
-    lblNewLabel_1_3.setBounds(729, 453, 150, 140); // Ajustado para 150x140
+    lblNewLabel_1_3.setBounds(545, 350, 150, 140); // Ajustado para 150x140
     frame.getContentPane().add(lblNewLabel_1_3);
     
     lblNewLabel_1_2 = new JLabel("103");
@@ -708,7 +721,7 @@ private void initialize() {
         }
     });
     lblNewLabel_1_2.setIcon(null);
-    lblNewLabel_1_2.setBounds(517, 453, 150, 140); // Já era 150x140, mantido
+    lblNewLabel_1_2.setBounds(385, 350, 150, 140); // Já era 150x140, mantido
     frame.getContentPane().add(lblNewLabel_1_2);
     
     lblNewLabel_1_1 = new JLabel("102");
@@ -729,7 +742,7 @@ private void initialize() {
         }
     });
     lblNewLabel_1_1.setIcon(null);
-    lblNewLabel_1_1.setBounds(298, 453, 150, 140); // Já era 150x140, mantido
+    lblNewLabel_1_1.setBounds(225, 350, 150, 140); // Já era 150x140, mantido
     frame.getContentPane().add(lblNewLabel_1_1);
     
     lblNewLabel_1 = new JLabel("101");
@@ -749,7 +762,7 @@ private void initialize() {
         }
     });
     lblNewLabel_1.setIcon(null);
-    lblNewLabel_1.setBounds(90, 453, 150, 140); // Ajustado para 150x140
+    lblNewLabel_1.setBounds(65, 350, 150, 140); // Ajustado para 150x140
     frame.getContentPane().add(lblNewLabel_1);
     
     // --- LBLNEWLABEL (FUNDO - PERMANECE IGUAL) ---
@@ -757,7 +770,7 @@ private void initialize() {
     lblNewLabel.setFont(new Font("Impact", Font.PLAIN, 52));
     lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
     lblNewLabel.setIcon(new ImageIcon(telavisgalpao.class.getResource("/imagens/img_visualizar_galpao/img_visualizar_galpao_fundo.png")));
-    lblNewLabel.setBounds(0, -98, 1920, 1277);
+    lblNewLabel.setBounds(10, -74, 1920, 1277);
     frame.getContentPane().add(lblNewLabel);
     GerenciadorJanelas.configurarJanela(frame);
 }
