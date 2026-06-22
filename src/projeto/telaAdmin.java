@@ -46,14 +46,14 @@ public class telaAdmin {
 	public telaAdmin() {
 		initialize();
 	}
-public telaAdmin(String email) {
+	public telaAdmin(String email) {
 		this.emailSessão = email;
+		initialize();
 	}
 
-public void visivel() {
-	telaAdmin window = new telaAdmin();
-	window.frameAdmin.setVisible(true);
-}
+	public void visivel() {
+		frameAdmin.setVisible(true);
+	}
 	/**
 	 * Initialize the contents of the frame.
 	 */

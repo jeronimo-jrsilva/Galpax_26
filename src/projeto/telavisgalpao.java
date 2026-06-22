@@ -86,10 +86,9 @@ public class telavisgalpao {
 		initialize();
 		atualizarTodosOsGalpoes(); 
 	}
-public void visivel() {
-	telavisgalpao window = new telavisgalpao();
-	window.frame.setVisible(true);
-}
+	public void visivel() {
+		frame.setVisible(true);
+	}
 	/**
 	 * Initialize the contents of the frame.
 	 */

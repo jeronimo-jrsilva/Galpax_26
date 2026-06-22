@@ -144,7 +144,7 @@ public class Login {
 		                if (permissao != null) {
 		                    if (permissao.equalsIgnoreCase("admin")) {
 		                    	bd.desconectar();
-		                        new telaAdmin().visivel();
+		                        new telaAdmin(login).visivel();
 		                        telalogin.dispose();
 		                    } else {
 		                        bd.desconectar();

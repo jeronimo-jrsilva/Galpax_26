@@ -208,8 +208,8 @@ public class TelaMensalidade {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 
-				int linha = tblMensalidade.getSelectedRow();
-				int coluna = tblMensalidade.getSelectedColumn();
+				int linha = tblMensalidade.rowAtPoint(e.getPoint());
+				int coluna = tblMensalidade.columnAtPoint(e.getPoint());
 
 				if (linha != -1 && coluna == 5) {
 
