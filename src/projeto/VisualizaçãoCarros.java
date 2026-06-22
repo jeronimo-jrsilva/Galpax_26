@@ -120,7 +120,7 @@ public class VisualizaçãoCarros {
 
 		// Fundo Temático de Veículos
 		JLabel lblFundo = new JLabel("");
-		lblFundo.setIcon(new ImageIcon(VisualizaçãoCarros.class.getResource("/imagens/fundo tela cad carro.png")));
+		lblFundo.setIcon(new ImageIcon(VisualizaçãoCarros.class.getResource("/imagens/fundogalpvis.png")));
 		lblFundo.setBounds(0, 0, 1920, 1080);
 		VisualizaçaoFrame.getContentPane().add(lblFundo);
 

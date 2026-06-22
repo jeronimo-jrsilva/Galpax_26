@@ -38,10 +38,10 @@ public class telaPIX extends JDialog {
 
         // BOTÃO VOLTAR (ISAAC)
         JButton btnVoltar = new JButton("");
-        btnVoltar.setIcon(new ImageIcon(telaPIX.class.getResource("/imagens/img_mensalidade/img_mensalidade_btn_voltar.png")));
+        btnVoltar.setIcon(new ImageIcon(telaPIX.class.getResource("/imagens/img_pagamento_pix/img_pagamento_pix_btn_voltar.png")));
         btnVoltar.setContentAreaFilled(false);
         btnVoltar.setBorderPainted(false);
-        btnVoltar.setBounds(100, 77, 152, 76);
+        btnVoltar.setBounds(46, 48, 241, 110);
         btnVoltar.addActionListener(e -> dispose());
         getContentPane().add(btnVoltar);
 
