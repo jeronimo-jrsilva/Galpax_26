@@ -1,1 +1,4 @@
 senha: Admin@123
+cnpj.matches()
+numSala.matches("^(10[1-9]|11\d|12\d|13[0-2])$")
+emailAdmin.matches()
