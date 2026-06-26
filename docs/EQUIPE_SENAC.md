@@ -15,4 +15,4 @@ Registro oficial da distribuição de responsabilidades entre os integrantes da 
 **Nota de Colaboração:**
 A integração de todos os módulos é centralizada na classe `Bancodedados.java`, permitindo que cada um trabalhe em sua funcionalidade de forma independente.
 
-[🏗️ Ver Arquitetura](ARQUITETURA_E_MOCKS.md) | [🏠 Voltar ao Início](README.md)
+[🏗️ Ver Arquitetura](ARQUITETURA_E_MOCKS.md) | [🏠 Voltar ao Início](../README.md)

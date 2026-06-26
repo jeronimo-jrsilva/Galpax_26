@@ -8,12 +8,12 @@ O sistema foca no relacionamento entre Lojas e suas respectivas Mensalidades.
 
 ## 📜 Script de Instalação (Master)
 
-Utilize o arquivo **`GALPAX_MASTER_INSTALL.sql`** localizado na raiz deste projeto para criar todas as tabelas e popular o sistema com dados de teste.
+Utilize o arquivo **`GALPAX_MASTER_INSTALL.sql`** localizado na pasta **`db/`** deste projeto para criar todas as tabelas e popular o sistema com dados de teste.
 
 ### Como usar:
 1.  Abra seu MySQL Workbench ou terminal.
-2.  Execute o comando: `source GALPAX_MASTER_INSTALL.sql;`
+2.  Execute o comando: `source db/GALPAX_MASTER_INSTALL.sql;`
 3.  Configure seu arquivo `secrets.properties` com as credenciais do seu banco local.
 
 ---
-[🏠 Voltar ao Início](README.md)
+[🏠 Voltar ao Início](../README.md)

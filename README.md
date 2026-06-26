@@ -12,10 +12,11 @@ O Galpax é um sistema robusto para gestão de lojistas, controle de mensalidade
 - **Segurança:** Autenticação por níveis (Admin/Lojista) e gestão de segredos locais.
 
 ## 📂 Documentação para Alunos
-- [🏗️ Arquitetura e Mocks](ARQUITETURA_E_MOCKS.md) - Como o código funciona.
-- [👥 Equipe e Tarefas](EQUIPE_SENAC.md) - Quem é responsável pelo quê.
-- [🗄️ Guia do Banco de Dados](ESQUEMA_BANCO_DADOS.md) - Como configurar o MySQL.
-- [🚀 Guia Git + Eclipse](GUIA_GIT_ECLIPSE.md) - **LEITURA OBRIGATÓRIA PARA HOJE.**
+- [📋 Documento de Requisitos](docs/Requisitos%20Galpax.docx) - O que o sistema deve fazer.
+- [🏗️ Arquitetura e Mocks](docs/ARQUITETURA_E_MOCKS.md) - Como o código funciona.
+- [👥 Equipe e Tarefas](docs/EQUIPE_SENAC.md) - Quem é responsável pelo quê.
+- [🗄️ Guia do Banco de Dados](docs/ESQUEMA_BANCO_DADOS.md) - Como configurar o MySQL.
+- [🚀 Guia Git + Eclipse](docs/GUIA_GIT_ECLIPSE.md) - **LEITURA OBRIGATÓRIA PARA HOJE.**
 
 ## 🛠️ Como Iniciar
 1.  Importe o projeto no Eclipse via Git.

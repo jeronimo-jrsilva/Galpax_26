@@ -20,4 +20,4 @@ O sistema calcula a escala comparando a tela atual com a resolução base (1920x
 **Status da Integração:**
 Módulos financeiros e operacionais estão integrados ao núcleo unificado, herdando automaticamente o gerenciamento de janelas.
 
-[🏠 Voltar ao Início](README.md)
+[🏠 Voltar ao Início](../README.md)
