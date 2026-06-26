@@ -1,28 +1,33 @@
-# 🚗 Galpax_26: Sistema de Gestão de Galpões e Estacionamento
+# 🚗 Galpax: Sistema de Gestão de Galpões e Estacionamento
 
-Bem-vindo ao repositório oficial da unificação do projeto **Galpax_26**. Este software foi desenvolvido pela turma do Senac Centro (Fortaleza-CE) como parte do módulo de Desenvolvimento de Sistemas.
+O **Galpax** é um sistema robusto e integrado de gestão de lojistas, controle de mensalidades e fluxo de estacionamento, projetado especificamente para terminais de autoatendimento (Totens).
 
 ## 🎯 O Projeto
-O Galpax é um sistema robusto para gestão de lojistas, controle de mensalidades e fluxo de estacionamento, projetado para rodar em terminais de autoatendimento (Totems).
+O sistema visa otimizar as operações diárias de galpões e estacionamentos comerciais de médio e grande porte, garantindo agilidade no atendimento e precisão no controle financeiro.
 
 ### 🚀 Principais Funcionalidades
-- **Interface Inteligente:** Escala dinâmica para 16:9 e renderização em alta definição.
-- **Modo Offline:** Sistema de Mocks que permite rodar o software sem banco de dados ativo.
-- **Gestão Financeira:** Controle de mensalidades com filtragem por lojista.
-- **Segurança:** Autenticação por níveis (Admin/Lojista) e gestão de segredos locais.
+- **Interface Otimizada:** Escala dinâmica nativa para proporção 16:9 e renderização em alta definição para totens e terminais.
+- **Gestão Financeira:** Controle centralizado de cobranças e controle de mensalidades por lojista.
+- **Segurança e Controle de Acesso:** Autenticação multinível (Administrador e Lojista) com proteção de credenciais locais.
+- **Integração de Banco de Dados:** Backend preparado para MySQL, integrando todas as tabelas transacionais de lojistas, vagas e cobranças.
 
-## 📂 Documentação para Alunos
-- [📋 Documento de Requisitos](docs/Requisitos%20Galpax.docx) - O que o sistema deve fazer.
-- [🏗️ Arquitetura e Mocks](docs/ARQUITETURA_E_MOCKS.md) - Como o código funciona.
-- [👥 Equipe e Tarefas](docs/EQUIPE_SENAC.md) - Quem é responsável pelo quê.
-- [🗄️ Guia do Banco de Dados](docs/ESQUEMA_BANCO_DADOS.md) - Como configurar o MySQL.
-- [🚀 Guia Git + Eclipse](docs/GUIA_GIT_ECLIPSE.md) - **LEITURA OBRIGATÓRIA PARA HOJE.**
+## 📂 Documentação do Sistema
+- [📋 Documento de Requisitos](docs/Requisitos%20Galpax.docx) - Especificação funcional do sistema.
+- [👥 Estrutura da Equipe](docs/EQUIPE_SENAC.md) - Divisão dos módulos de desenvolvimento.
+- [🗄️ Modelagem de Banco de Dados](docs/ESQUEMA_BANCO_DADOS.md) - Esquema e script de instalação do MySQL.
 
-## 🛠️ Como Iniciar
-1.  Importe o projeto no Eclipse via Git.
-2.  Mude para sua branch específica (`Team > Switch To`).
-3.  Crie um arquivo `secrets.properties` na raiz baseado no `secrets.template.properties`.
+## 🛠️ Como Iniciar o Desenvolvimento
 
----
-**Professor:** Jeronimo
-**Instituição:** Senac Centro - 2026
+### Pré-requisitos
+*   Java JDK 17 ou superior
+*   MySQL Server 8.x
+*   IDE recomendada: Eclipse ou IntelliJ IDEA
+
+### Instalação e Execução
+1.  **Clonar o Repositório:** Clone o projeto localmente em seu workspace.
+2.  **Configurar o Banco de Dados:**
+    *   Execute o script localizado em [db/GALPAX_MASTER_INSTALL.sql](file:///C:/Users/shaol/git/Galpax_26/db/GALPAX_MASTER_INSTALL.sql) no seu servidor MySQL local.
+3.  **Configurar Segredos (Propriedades):**
+    *   Crie um arquivo chamado `secrets.properties` na raiz do projeto, baseado no arquivo [secrets.template.properties](file:///C:/Users/shaol/git/Galpax_26/secrets.template.properties) existente, preenchendo as suas credenciais locais do banco de dados.
+4.  **Executar o Projeto:**
+    *   Importe o projeto na sua IDE Java de preferência e execute a classe principal (Entry Point).
